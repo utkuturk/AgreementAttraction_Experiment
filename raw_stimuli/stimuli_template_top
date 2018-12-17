@@ -1,0 +1,137 @@
+var shuffleSequence = seq("setcounter", "intro", "sepprac",
+                          sepWith("sepprac", seq("prac")), "presepA", "dummysep", "sepexp",
+                          sepWith("sepexp", rshuffle(startsWith("again"), startsWith("filler"))));
+var practiceItemTypes = ["prac"];
+var completionMessage = "Deneye katýldýðýnýz için teþekkürler"
+
+
+var defaults = [
+    "Separator", {
+        normalMessage: "Please wait."
+    },
+    "DashedSentence", {
+        mode: "speeded acceptability", display: "in place",
+        wordTime:300,
+        wordPauseTime:200,
+    },
+    "DashedAcceptabilityJudgment", {
+        hasCorrect: false
+    },
+    "Question", {
+        as: [["f","f: KÖTÜ"],["j","j: ÝYÝ"]],
+        hasCorrect: false,
+        presentAsScale: true,
+        randomOrder: false,
+        showNumbers: true,
+        autoFirstChar: false, 
+        wordTime:300,
+        wordPauseTime:200,
+        instructions: "Click boxes to answer."
+    },
+    "Message", {
+        hideProgressBar: false
+    },
+    "Form", {
+        hideProgressBar: true,
+        continueOnReturn: true,
+        saveReactionTime: true,
+        continueMessage: "Devam etmek için buraya týklayýnýz.",
+        obligatoryCheckboxErrorGenerator: function (field) { return "Bu alaný doldurmanýz gerekmektedir." },
+        obligatoryErrorGenerator: function (field) { return "Bu alaný doldurmanýz gerekmektedir."; },
+        obligatoryRadioErrorGenerator: function (field) { return "Seçeneklerden birini seçiniz."; }
+        
+    }
+];
+
+ // insert breaks
+function modifyRunningOrder(ro) {
+
+ for (var i = 0; i < ro.length; ++i) {
+ if (i % 20 == 25 && i > 20 && i < 200) {
+ ro[i].push(new DynamicElement(
+ "Message",
+ { html: "<p>Kýsa bir ara verelim. Deney 10 saniye içerisinde devam edecektir.</p>", transfer: 10000 },
+ true
+ ));
+ }
+ }
+ return ro;
+ }
+
+
+
+var items = [
+
+   ["setcounter", "__SetCounter__", { }], 
+
+   ["intro", "Form", {consentRequired: true, html: {include: "intro.html" }} ],
+   ["intro", "Form", {consentRequired: true, html: {include: "intro1.html" }} ],
+   ["exit", "Form", {consentRequired: false, html: {include: "exit.html" }} ],
+    
+    ["sepprac", "Separator",  {transfer: "keypress", normalMessage: "– –", ignoreFailure: true} ],
+    
+    ["sepexp", "Separator",  {transfer: "keypress", normalMessage: "– –", ignoreFailure: true} ],
+
+    ["break", "Message", {
+        html: { include: "break.html" },
+        transfer: "keypress"
+    } ],
+
+// Practice
+    
+["prac", "DashedSentence", {s: ["Bu", "kýsým", "deneye", "ve", "sunum", "yöntemine", "alýþmanýz", "için", "bulunmaktadýr."]}, "Question",  {q:"Cümle nasýldý?"}],
+["prac", "DashedSentence", {s: ["Bu", "cümle", "öncekinden", "daha", "uzun", "bir", "cümle.", "          ", "Okumasý", "biraz", "daha", "zor", "olsa_da", "sunum", "þekli", "aslýnda", "ayný."]}, "Question",  {q:"Peki bu cümle nasýldý// Practice
+    
+["prac", "DashedSentence", {s: ["This", "is", "just", "a", "practice", "passage", "to", "get", "you", "used", "to", "the", "method", "of", "presentation."]}, "Question",  {q:"How is that sentence?"}],
+["prac", "DashedSentence", {s: ["This", "is", "another", "practice", "passage.", "         ", "It", "is", "longer", "and", "a", "little", "more", "complicated", "than", "the", "one", "you", "just", "read."]}, "Question",  {q:"How do you feel about that sentence?" }],
+                           
+["prac", Message, {consentRequired: false, transfer: "keypress",
+                     html: ["div",
+                           ["p", "Harika! Þimdi deneyde göreceðiniz türden cümlelere bakalým. Örneðin, birazdan karþýnýza çýkacak cümlelere ÝYÝ demenizi bekliyoruz."],
+                           ["p", "Devam etmek için 'boþluk' tuþuna basýnýz."]
+                           ]}],
+
+["prac", "DashedSentence", {s: ["Teyzemin", "komþusu", "düþünce", "", "to", "reduce", "the", "noice", "coming", "from", "next", "door."]}, "Question",{q: "? ? ?"}],
+["prac", "DashedSentence", {s: ["Sheryl", "is", "a", "mother", "of", "three", "boys.", "         ", "This", "month,", "she","found","out","that","she","is","pregnant","again."]}, "Question", {q: "? ? ?"}],
+
+["prac", Message, {consentRequired: false, transfer: "keypress",
+                    html: ["div",
+                          ["p", "Some sentences, like the one you just read, are acceptable sentences in English."],
+                          ["p", "Try your hand at these next few sentences, which should be judged as BAD."],
+                          ["p", "Press the spacebar to continue."]
+                          ]}],
+
+["prac", "DashedSentence", {s: ["The", "ship", "sank", "to", "collect", "a", "settlement", "from", "the", "insurance","company."]}, "Question", {q: "? ? ?"}],
+["prac", "DashedSentence", {s: ["Dylan", "has", "been", "playing", "the", "guitar", "since", "he", "was", "six", "years", "old.", "         ", "Lucy", "plays", "the", "piano", "too", ]}, "Question", {q:"? ? ?"}],   
+
+["prac", Message, {consentRequired: false, transfer: "keypress",
+                    html: ["div",
+                          ["p", "Got it? Try a few more sentences to make sure that you get the idea!"],
+                          ["p", "Press the spacebar to continue."]
+                          ]}],
+
+["prac", "DashedSentence", {s: ["Lucy", "bought", "this", "book", "as", "a", "gift", "for", "her", "grandpa.", "         ", "Last", "weekend,", "she", "borrowed", "the", "book", "again."]}, "Question", {q: "? ? ?"}],
+["prac", "DashedSentence", {s: ["This", "apartment", "has", "a", "big", "kitchen", "and", "a", "bathroom.", "         ", "That", "apartment", "down", "the", "hallway", "has", "a", "bathroom", "too."]}, "Question", {q: "? ? ?"}],
+["prac", "DashedSentence", {s: ["Some", "daisies", "were", "grown", "to", "make", "the", "yard", "more", "attractive", "to", "buyers."]}, "Question", {q: "? ? ?"}],
+
+    
+["prac", Message, {consentRequired: false, transfer: "keypress",
+                     html: ["div",
+                           ["p", "That's all the practice! When you're ready to begin the experiment, press the spacebar to move ahead."],
+                           ["p", "REMEMBER: Don't overthink your response - just go with your gut feeling or intuition! The experiment will last approximately 60 minutes, and will require your full attention throughout that period. Thank you for your help!"]
+                           ]}],
+
+
+["presepA", Separator, {transfer: 3000, normalMessage: "Get your hands in position, and get ready to begin!" }],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+" }],
+ 
