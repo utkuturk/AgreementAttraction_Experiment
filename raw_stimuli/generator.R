@@ -41,3 +41,7 @@ head(stim_exp)
 stim_exp$ibex_sentence <- with(stim_exp, sprintf('[["%s", %d], "DashedSentence", {s: "%s"}]', condition, item, sentence))
 head(stim_exp)
 View(stim_exp)
+
+file.copy("stimuli_template_top", "stimuli.js")
+cat( paste(stim_exp$ibex_sentence, collapse = ",\n"), file = "stimuli.js", append = T )
+cat( readLines("stimuli_template_bottom"), file = "stimuli.js", append = T)
