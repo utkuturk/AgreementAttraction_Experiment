@@ -19,16 +19,16 @@ filler_ungram_sg %<>% .[1:20,]
 experimental$adjunct %<>% gsub(" ", "_", .)
 
 #PL-SG-Vpl
-experimental$condition_a <- with(experimental, paste(dp_gen_pl, noun_poss, adjunct, mv_pl , sep = " "))
+experimental$condition_a <- with(experimental, paste(dp_gen_pl, noun_poss, adjunct, mv_pl , sep = "\", \""))
 
 #PL-SG-Vsg
-experimental$condition_b <- with(experimental, paste(dp_gen_pl, noun_poss, adjunct, mv_sg , sep = " "))
+experimental$condition_b <- with(experimental, paste(dp_gen_pl, noun_poss, adjunct, mv_sg , sep = "\", \""))
 
 #SG-SG-Vpl
-experimental$condition_c <- with(experimental, paste(dp_gen_sg, noun_poss, adjunct, mv_pl , sep = " "))
+experimental$condition_c <- with(experimental, paste(dp_gen_sg, noun_poss, adjunct, mv_pl , sep = "\", \""))
 
 #SG-SG-Vsg
-experimental$condition_d <- with(experimental, paste(dp_gen_sg, noun_poss, adjunct, mv_sg , sep = " "))
+experimental$condition_d <- with(experimental, paste(dp_gen_sg, noun_poss, adjunct, mv_sg , sep = "\", \""))
 
 experimental$item <- 1:40
 
@@ -41,7 +41,19 @@ head(stim_exp)
 stim_exp$ibex_sentence <- with(stim_exp, sprintf('[["%s", %d], "DashedSentence", {s: "%s"}]', condition, item, sentence))
 head(stim_exp)
 View(stim_exp)
+#fillers
+fillers <- rbind(filler_gram_pl,filler_ungram_sg)
+
+fillers$filler <- with(fillers, paste(gen, poss, converb, obj , dist1, dist2, sep = "\", \""))
+fillers$item <- 101:140
+stim_fill <- fillers %>% dplyr::select(filler, item)
+stim_fill %<>% tidyr::gather(condition, sentence, filler)
+stim_fill %<>% arrange(item, condition)
+stim_fill$ibex_sentence <- with(stim_fill, sprintf('[["%s", %d], "DashedSentence", {s: "%s"}]', condition, item, sentence))
+
 
 file.copy("stimuli_template_top", "stimuli.js")
 cat( paste(stim_exp$ibex_sentence, collapse = ",\n"), file = "stimuli.js", append = T )
+cat( paste(stim_fill$ibex_sentence, collapse = ",\n"), file = "stimuli.js", append = T )
+
 cat( readLines("stimuli_template_bottom"), file = "stimuli.js", append = T)
