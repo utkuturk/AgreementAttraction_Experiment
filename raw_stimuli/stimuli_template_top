@@ -11,7 +11,8 @@ var shuffleSequence = seq("intro",
                           ,
                           "send_results",
                          "debrief"); 
-var practiceItemTypes = ["prac"];
+var practiceItemTypes = ["practice"];
+
 
 // default settings
 var manualSendResults = true;
@@ -124,8 +125,6 @@ var items = [
 
 // Practice
     
-// Practice
-    
 ["prac", "DashedSentence", {s: ["Bu", "kısım", "deneye", "ve", "sunum", "yöntemine", "alışmanız", "için", "bulunmaktadır."]}],
 ["prac", "DashedSentence", {s: ["Bu", "cümle", "öncekinden", "daha", "uzun", "bir", "cümle.", "          ", "Okuması", "biraz", "daha", "zor", "olsa_da", "sunum", "şekli", "aslında", "aynı."]}],
 
@@ -168,3 +167,14 @@ var items = [
 
 ["presepA", Separator, {transfer: 3000, normalMessage: "Telefonunuzu ve diğer dikkat dağıtıcı unsurlardan deney esnasında uzak durmanız bizim için çok daha iyi olacaktır." }],
 ["dummysep", Separator, {transfer: 10, normalMessage: ""}],
+
+["practice", "DashedSentence", {s: "Ev arkadaşının bütün ısrarlarına rağmen hiç ders çalışmadı."},
+"Question",       {q: "Cümleyi anladınız mı?", hasCorrect: 0}], // Y
+["practice", "DashedSentence", {s: "Kız elindeki fincanı tabağına dikkatle yerleştirdi."},
+"Question",       {q: "Kız elindeki çatalı mı tabağa yerleştirmiştir?", hasCorrect: 1}], // N
+["practice", "DashedSentence", {s: "Heykelleri büyük bir dikkatle incelediler ama aralarında bir fark göremediler."},
+"Question",       {q: "Aralarında bir fark bulundu mu?", hasCorrect: 1}], // N 
+["practice", "DashedSentence", {s: "O adam tekrar karşılarına çıkınca yine iş istediğini anladılar."},
+"Question",       {q: "Bir adamdan bahsedildi mi?", hasCorrect: 0}], // Y
+["practice", "DashedSentence", {s: "İçi rahatlayan bahçıvan huzurla sarayı gezmeye çıkmış."},
+"Question",       {q: "İçi rahatlayan bahçıvan çalışmak için mi saraya gitmiştir?", hasCorrect: 1}], // N
