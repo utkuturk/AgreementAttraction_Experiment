@@ -122,14 +122,3 @@ var items = [
 
 ["presepA", Separator, {transfer: 3000, normalMessage: "Telefonunuzu ve diğer dikkat dağıtıcı unsurlardan deney esnasında uzak durmanız bizim için çok daha iyi olacaktır." }],
 ["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
-" }],
- 

@@ -2,12 +2,12 @@ var shuffleSequence = seq("setcounter", "intro", "sepprac",
                           sepWith("sepprac", seq("prac")), "presepA", "dummysep", "sepexp",
                           sepWith("sepexp", rshuffle(startsWith("condition_"), startsWith("filler"))));
 var practiceItemTypes = ["prac"];
-var completionMessage = "Deneye kat?ld???n?z i?in te?ekk?rler"
+var completionMessage = "Deneye katıldığınız için teşekkürler"
 
 
 var defaults = [
     "Separator", {
-        normalMessage: "L?tfen bekleyiniz."
+        normalMessage: "Lütfen bekleyiniz."
     },
     "DashedSentence", {
         mode: "speeded acceptability", display: "in place",
@@ -18,8 +18,8 @@ var defaults = [
         hasCorrect: false
     },
     "Question", {
-        as: [["f","K?T? (F'e bas?n)"],["j","?Y? (J'ye bas?n)"]],
-        q: ["Bu c?mle nas?l bir c?mleydi?"],
+        as: [["f","KÖTÜ (F'e basın)"],["j","İYİ (J'ye basın)"]],
+        q: "Bu cümle nasıl bir cümleydi?"
         hasCorrect: false,
         presentAsScale: true,
         randomOrder: false,
@@ -36,6 +36,11 @@ var defaults = [
         hideProgressBar: false,
         continueOnReturn: true,
         saveReactionTime: true,
+        continueMessage: "Devam etmek için buraya tıklayınız.",
+        obligatoryCheckboxErrorGenerator: function (field) { return "Bu alanı doldurmanız gerekmektedir." },
+        obligatoryErrorGenerator: function (field) { return "Bu alanı doldurmanız gerekmektedir."; },
+        obligatoryRadioErrorGenerator: function (field) { return "Seçeneklerden birini seçiniz."; }
+        
     }
 ];
 
@@ -46,7 +51,7 @@ function modifyRunningOrder(ro) {
  if (i % 20 == 25 && i > 20 && i < 200) {
  ro[i].push(new DynamicElement(
  "Message",
- { html: "<p>K?sa bir ara verelim. Deney 10 saniye i?erisinde devam edecektir.</p>", transfer: 10000 },
+ { html: "<p>Kısa bir ara verelim. Deney 10 saniye içerisinde devam edecektir.</p>", transfer: 10000 },
  true
  ));
  }
@@ -75,52 +80,48 @@ var items = [
 
 // Practice
     
-["prac", "DashedSentence", {s: ["Bu", "k?s?m", "deneye", "ve", "sunum", "y?ntemine", "al??man?z", "i?in", "bulunmaktad?r."]}],
-["prac", "DashedSentence", {s: ["Bu", "c?mle", "?ncekinden", "daha", "uzun", "bir", "c?mle.", "          ", "Okumas?", "biraz", "daha", "zor", "olsa_da", "sunum", "?ekli", "asl?nda", "ayn?."]}],
+["prac", "DashedSentence", {s: ["Bu", "kısım", "deneye", "ve", "sunum", "yöntemine", "alışmanız", "için", "bulunmaktadır."]}],
+["prac", "DashedSentence", {s: ["Bu", "cümle", "öncekinden", "daha", "uzun", "bir", "cümle.", "          ", "Okuması", "biraz", "daha", "zor", "olsa_da", "sunum", "şekli", "aslında", "aynı."]}],
 
 ["prac", Message, {consentRequired: false, transfer: "keypress",
                      html: ["div",
-                           ["p", "Harika! ?imdi deneyde g?rece?iniz t?rden c?mlelere bakal?m. Birazdan g?rece?iniz c?mleler ?Y? diyebilece?imiz c?mlelerden. "],
-                           ["p", "Devam etmek i?in 'bo?luk' tu?una bas?n?z."]
+                           ["p", "Harika! Şimdi deneyde göreceğiniz türden cümlelere bakalım. Birazdan göreceğiniz cümleler İYİ diyebileceğimiz cümlelerden. "],
+                           ["p", "Devam etmek için 'boşluk' tuşuna basınız."]
                            ]}],
 
-["prac", "DashedSentence", {s: ["Teyzemin", "kom?usu", "yerden", "kalk?p", "oturunca", "?n?ndeki", "kedinin", "ba??n?", "ok?ad?."]}],
-["prac", "DashedSentence", {s: ["Utku'nin", "k?z?", "y?r?yene", "kadar", "bir","s?r?","oyuncak","al?nm??t?"]}],
+["prac", "DashedSentence", {s: ["Teyzemin", "komşusu", "yerden", "kalkıp", "oturunca", "önündeki", "kedinin", "başını", "okşadı."]}],
+["prac", "DashedSentence", {s: ["Utku'nun", "kızı", "yürüyene", "kadar", "bir","sürü","oyuncak","alınmıştı."]}],
 
 ["prac", Message, {consentRequired: false, transfer: "keypress",
                     html: ["div",
-                          ["p", "Az ?nce okudu?unuz c?mleler gibi c?mleler T?rk?e'de kabul edilebilir c?mlelerdir."],
-                          ["p", "Bir de K?T? diyebilece?imiz c?mlelerden ?rnekler g?relim."],
-                          ["p", "Devam etmek i?in 'bo?luk' tu?una bas?n?z."]
+                          ["p", "Az önce okuduğunuz cümleler gibi cümleler Türkçe'de kabul edilebilir cümlelerdir."],
+                          ["p", "Bir de KÖTÜ diyebileceğimiz cümlelerden örnekler görelim."],
+                          ["p", "Devam etmek için 'boşluk' tuşuna basınız."]
                           ]}],
 
-["prac", "DashedSentence", {s: ["??rencinin", "asistan?", "gelince", "ders", "?ok", "g?zel", "anlatt?."]}],
-["prac", "DashedSentence", {s: ["Asistan?n", "??rencisi", "dinlenince", "ders", "ara", "verdiler."]}],   
+["prac", "DashedSentence", {s: ["Öğrencinin", "asistanı", "gelince", "ders", "çok", "güzel", "anlattı."]}],
+["prac", "DashedSentence", {s: ["Asistanın", "öğrencisi", "dinlenince", "ders", "ara", "verdiler."]}],   
 
 ["prac", Message, {consentRequired: false, transfer: "keypress",
                     html: ["div",
-                          ["p", "Nas?l gidiyor? Elinin al??mas? i?in biraz daha ?rnek c?mle g?relim."],
-                          ["p", "Devam etmek i?in 'bo?luk' tu?una bas?n?z."]
+                          ["p", "Nasıl gidiyor? Elinin alışması için biraz daha örnek cümle girelim."],
+                          ["p", "Devam etmek için 'boşluk' tuşuna basınız."]
                           ]}],
 
-["prac", "DashedSentence", {s: ["?mam?n", "kedisi", "do?urunca", "mahalle", "sevin?", "olduk?a" , "katland?."]}],
-["prac", "DashedSentence", {s: ["Evin","cephesi", "bitince", "boyalar?","toplay?p","gittiler."]}],
-["prac", "DashedSentence", {s: ["Kimsenin","?ocu?u", "a?lamay?nca","yeni", "yaz?lan", "kitap", "kimseye", "okumad?"]}],
+["prac", "DashedSentence", {s: ["İmamın", "kedisi", "doğurunca", "mahalle", "sevinç", "oldukça" , "katlandı."]}],
+["prac", "DashedSentence", {s: ["Evin","cephesi", "bitince", "boyaları","toplayıp","gittiler."]}],
+["prac", "DashedSentence", {s: ["Kimsenin","çocuğu", "ağlamayınca","yeni", "yazılan", "kitap", "kimseye", "okumadı."]}],
 
     
 ["prac", Message, {consentRequired: false, transfer: "keypress",
                      html: ["div",
-                           ["p", "Elinizin ?s?nd???n? umuyorum. Haz?r oldu?unuz hissetti?inizde 'bo?luk' tu?una basarak ilerleyeiniz."],
-                           ["p", "NOT: Verece?iniz cevaplar ?zerine ?ok d???nmeyin! Tamamlayaca??n?z deneyde 'do?ru' ya da 'yanl??' cevap bulunmamaktad?r. Deney yakla??k X dakika s?recek ve bu s?re zarf?nda deneye odaklanman?z gerekmektedir. Kat?l?m?n?z i?in ?ok te?ekk?rler!"]
+                           ["p", "Elinizin ısındığını umuyorum. Hazır olduğunuzu hissettiğinizde 'boşluk' tuşuna basarak ilerleyiniz."],
+                           ["p", "NOT: Vereceğiniz cevaplar üzerine çok düşünmeyin! Tamamlayacağınız deneyde 'doğru' ya da 'yanlış' cevap bulunmamaktadır. Deney yaklaşık X dakika sürecek ve bu süre zarfında deneye odaklanmanız gerekmektedir. Katılımınız için çok teşekkürler!"]
                            ]}],
 
 
-["presepA", Separator, {transfer: 3000, normalMessage: "Telefonunuzu ve di?er dikkat da??t?c? unsurlardan deney esnas?nda uzak durman?z bizim i?in ?ok daha iyi olacakt?." }],
-["dummysep", Separator, {transfer: 100, normalMessage: ""}],
-
-
-// "conditional items" Stimuli List: sample items
-
+["presepA", Separator, {transfer: 3000, normalMessage: "Telefonunuzu ve diğer dikkat dağıtıcı unsurlardan deney esnasında uzak durmanız bizim için çok daha iyi olacaktır." }],
+["dummysep", Separator, {transfer: 10, normalMessage: ""}],
 [["condition_a", 1], "DashedSentence", {s: "yöneticilerin", "aşçısı", "mutfakta_sürekli", "zıpladılar"}],
 [["condition_b", 1], "DashedSentence", {s: "yöneticilerin", "aşçısı", "mutfakta_sürekli", "zıpladı"}],
 [["condition_c", 1], "DashedSentence", {s: "yöneticinin", "aşçısı", "mutfakta_sürekli", "zıpladılar"}],
@@ -280,12 +281,7 @@ var items = [
 [["condition_a", 40], "DashedSentence", {s: "kadınların", "ninesi", "geçen_seneye_göre", "dinçleştiler"}],
 [["condition_b", 40], "DashedSentence", {s: "kadınların", "ninesi", "geçen_seneye_göre", "dinçleşti"}],
 [["condition_c", 40], "DashedSentence", {s: "kadının", "ninesi", "geçen_seneye_göre", "dinçleştiler"}],
-[["condition_d", 40], "DashedSentence", {s: "kadının", "ninesi", "geçen_seneye_göre", "dinçleşti"}],
-
-// FILLERS
-
-
-[["filler", 101], "DashedSentence", {s: "Adamın", "annesi", "fenalaşınca", "inek", "kurban", "ettiler"}],
+[["condition_d", 40], "DashedSentence", {s: "kadının", "ninesi", "geçen_seneye_göre", "dinçleşti"}][["filler", 101], "DashedSentence", {s: "Adamın", "annesi", "fenalaşınca", "inek", "kurban", "ettiler"}],
 [["filler", 102], "DashedSentence", {s: "Sosyologun", "öğrencisi", "konuşunca", "tutarsızlık", "açığa", "çıkardılar"}],
 [["filler", 103], "DashedSentence", {s: "Doktorun", "hemşiresi", "gelene kadar", "hasta", "taburcu", "ettiler"}],
 [["filler", 104], "DashedSentence", {s: "Kemancının", "sevgilisi", "ölünce", "mezar", "ziyaret", "ettiler"}],

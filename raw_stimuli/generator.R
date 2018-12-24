@@ -52,12 +52,10 @@ stim_fill %<>% arrange(item, condition)
 stim_fill$ibex_sentence <- with(stim_fill, sprintf('[["%s", %d], "DashedSentence", {s: "%s"}]', condition, item, sentence))
 
 stim_exp_string <- paste(stim_exp$ibex_sentence, collapse = ",\n")
-stim_exp_string %<>% utf8::utf8_encode()
-
 filler_string <- paste(stim_fill$ibex_sentence, collapse = ",\n")
-filler_string %<>% utf8::utf8_encode()
 
-file.copy("stimuli_template_top", "stimuli.js")
-cat(stim_exp_string, file = "stimuli.js", append = T )
-cat(filler_string, file = "stimuli.js", append = T )
-cat( readLines("stimuli_template_bottom", encoding = "utf-8"), file = "stimuli.js", append = T)
+file.copy("stimuli_template_top", "stimuli.js", overwrite = T)
+file_out <- "stimuli.js" #file("stimuli.js", encoding = "UTF-8")
+cat(stim_exp_string, file = file_out, append = T )
+cat(filler_string, file = file_out, append = T )
+cat( paste(readLines("stimuli_template_bottom", encoding = "utf-8"), collapse = "\n"), file = file_out, append = T)
