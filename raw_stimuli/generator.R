@@ -16,7 +16,7 @@ experimental %<>% .[1:40,]
 filler_gram_pl %<>% .[1:20,]
 filler_ungram_sg %<>% .[1:20,]
 
-experimental$adjunct %<>% gsub(" ", "_", .)
+#experimental$adjunct %<>% gsub(" ", "_", .)
 
 #PL-SG-Vpl
 experimental$condition_a <- with(experimental, paste(dp_gen_pl, noun_poss, adjunct, mv_pl , sep = "\", \""))

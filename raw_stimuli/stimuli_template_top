@@ -11,8 +11,8 @@ var defaults = [
     },
     "DashedSentence", {
         mode: "speeded acceptability", display: "in place",
-        wordTime:300,
-        wordPauseTime:200,
+        wordTime:350,
+        wordPauseTime:150,
     },
     "DashedAcceptabilityJudgment", {
         hasCorrect: false
