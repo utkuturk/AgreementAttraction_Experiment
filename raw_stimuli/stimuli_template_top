@@ -1,11 +1,20 @@
 var shuffleSequence = seq("intro", 
                           "intro_sep", 
-                          sepWith("within_intro_sep", "practice"), 
+                          //sepWith("within_intro_sep", 
+                                  "practice"
+                          //       )
+                          , 
                           "practice_sep", 
-                          sepWith("sep", rshuffle(startsWith("condition_"), startsWith("filler"))), //
+                          //sepWith("sep", 
+                                  rshuffle(startsWith("condition_"), startsWith("filler"))
+                          //       )
+                          ,
                           "send_results",
                          "debrief"); 
 var practiceItemTypes = ["prac"];
+
+// default settings
+var manualSendResults = true;
 
 var defaults = [
     "Separator", {
@@ -21,7 +30,7 @@ var defaults = [
     },
     "Question", {
         as: [["q","KÖTÜ (Q'ya basın)"],["p","İYİ (P'ye basın)"]],
-        q: "Bu cümle nasıl bir cümleydi?"
+        q: "Bu cümle nasıl bir cümleydi?",
         hasCorrect: false,
         presentAsScale: true,
         randomOrder: false,
@@ -111,8 +120,10 @@ var items = [
 
     ["debrief", "Message", {
         html: { include: "debrief.html" },
-                transfer: 3000  }],
+                transfer: 3000  }]
 
+// Practice
+    
 // Practice
     
 ["prac", "DashedSentence", {s: ["Bu", "kısım", "deneye", "ve", "sunum", "yöntemine", "alışmanız", "için", "bulunmaktadır."]}],

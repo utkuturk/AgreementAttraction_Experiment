@@ -1,6 +1,8 @@
 library(dplyr)
 library(magrittr)
 
+View <- function(x) {}
+
 experimental <- readxl::read_excel("./AgreementAttraction_Experiment.xlsx")
 filler_gram_pl <- readxl::read_excel("./AgreementAttraction_Experiment.xlsx" , sheet = 2)
 filler_ungram_sg <- readxl::read_excel("./AgreementAttraction_Experiment.xlsx" , sheet = 3)
@@ -51,8 +53,8 @@ stim_fill %<>% tidyr::gather(condition, sentence, filler)
 stim_fill %<>% arrange(item, condition)
 stim_fill$ibex_sentence <- with(stim_fill, sprintf('[["%s", %d], "DashedSentence", {s: "%s"}]', condition, item, sentence))
 
-stim_exp_string <- paste(stim_exp$ibex_sentence, collapse = ",\n")
-filler_string <- paste(stim_fill$ibex_sentence, collapse = ",\n")
+stim_exp_string <- paste(stim_exp$ibex_sentence, collapse = ",\n") %>% paste(",\n")
+filler_string <- paste(stim_fill$ibex_sentence, collapse = ",\n") #%>% paste(",\n")
 
 file.copy("stimuli_template_top", "stimuli.js", overwrite = T)
 file_out <- "stimuli.js" #file("stimuli.js", encoding = "UTF-8")
