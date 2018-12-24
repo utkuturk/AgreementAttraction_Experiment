@@ -1,9 +1,11 @@
-var shuffleSequence = seq("setcounter", "intro", "sepprac",
-                          sepWith("sepprac", seq("prac")), "presepA", "dummysep", "sepexp",
-                          sepWith("sepexp", rshuffle(startsWith("condition_"), startsWith("filler"))));
+var shuffleSequence = seq("intro", 
+                          "intro_sep", 
+                          sepWith("within_intro_sep", "practice"), 
+                          "practice_sep", 
+                          sepWith("sep", rshuffle(startsWith("condition_"), startsWith("filler"))), //
+                          "send_results",
+                         "debrief"); 
 var practiceItemTypes = ["prac"];
-var completionMessage = "Deneye katıldığınız için teşekkürler"
-
 
 var defaults = [
     "Separator", {
@@ -18,7 +20,7 @@ var defaults = [
         hasCorrect: false
     },
     "Question", {
-        as: [["f","KÖTÜ (F'e basın)"],["j","İYİ (J'ye basın)"]],
+        as: [["q","KÖTÜ (Q'ya basın)"],["p","İYİ (P'ye basın)"]],
         q: "Bu cümle nasıl bir cümleydi?"
         hasCorrect: false,
         presentAsScale: true,
@@ -62,21 +64,54 @@ function modifyRunningOrder(ro) {
 
 
 var items = [
+    ["send_results", "__SendResults__", { }],
 
-   ["setcounter", "__SetCounter__", { }], 
-
-   ["intro", "Form", {consentRequired: true, html: {include: "intro.html" }} ],
-   ["intro", "Form", {consentRequired: true, html: {include: "intro1.html" }} ],
-   ["exit", "Form", {consentRequired: false, html: {include: "exit.html" }} ],
+    ["sep", "Separator", {
+        normalMessage: "",
+        errorMessage: "",
+        ignoreFailure: false}],
     
-    ["sepprac", "Separator",  {transfer: "keypress", normalMessage: "? ?", ignoreFailure: true} ],
-    
-    ["sepexp", "Separator",  {transfer: "keypress", normalMessage: "? ?", ignoreFailure: true} ],
+    ["intro_sep", "Separator", {
+        transfer: "keypress",
+        normalMessage: "Alıstırma kısmına başlamak için boşluk tuşuna basınız.",
+        errorMessage: "Alıstırma kısmına başlamak için boşluk tuşuna basınız." }],
 
-    ["break", "Message", {
-        html: { include: "break.html" },
-        transfer: "keypress"
+
+    ["within_intro_sep", "Separator", {
+        transfer: "keypress",
+        normalMessage: "Harika. İyi gidiyorsunuz. Bir sonraki cümleye geçmek için boşluk tuşuna basınız.",
+        errorMessage: "Odaklanınız. Bir sonraki soruya geçmek için boşluk tuşuna basınız."}],
+    
+    ["practice_sep", "Separator", {
+        transfer: "keypress",
+        normalMessage: "Deneye başlamak için boşluk tuşuna basınız.",
+        errorMessage: "Odaklanınız. Bir sonraki soruya geçmek için boşluk tuşuna basınız." }],
+
+
+    ["intro", "Form", {
+        html: { include: "intro1.html" },
+        obligatoryCheckboxErrorGenerator: function (field) { return "Devam etmeden önce çalismaya katılmayı kabul etmelisiniz."; }
     } ],
+    
+    ["intro", "Form", {
+        html: { include: "intro2.html" },
+        validators: {
+            age: function (s) { if (s.match(/^\d+$/)) return true; else return "Yaşınızı sayı olarak giriniz."; },
+        }
+    } ],
+
+    ["intro", "Form", {
+        html: { include: "intro3.html" } } ],
+
+    ["intro", "Form", {
+        html: { include: "intro4.html" },
+        transfer: "keypress"
+        //continueMessage: "Alıştırma kısmına başlamak için boşluk tuşuna basınız." 
+    } ],
+
+    ["debrief", "Message", {
+        html: { include: "debrief.html" },
+                transfer: 3000  }],
 
 // Practice
     
