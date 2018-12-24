@@ -32,7 +32,7 @@ experimental$condition_d <- with(experimental, paste(dp_gen_sg, noun_poss, adjun
 
 experimental$item <- 1:40
 
-#spit off experimentals
+# extract sentences
 stim_exp <- experimental %>% dplyr::select(condition_a:condition_d, item)
 stim_exp %<>% tidyr::gather(condition, sentence, condition_a:condition_d)
 stim_exp %<>% arrange(item, condition)
@@ -51,9 +51,13 @@ stim_fill %<>% tidyr::gather(condition, sentence, filler)
 stim_fill %<>% arrange(item, condition)
 stim_fill$ibex_sentence <- with(stim_fill, sprintf('[["%s", %d], "DashedSentence", {s: "%s"}]', condition, item, sentence))
 
+stim_exp_string <- paste(stim_exp$ibex_sentence, collapse = ",\n")
+stim_exp_string %<>% utf8::utf8_encode()
+
+filler_string <- paste(stim_fill$ibex_sentence, collapse = ",\n")
+filler_string %<>% utf8::utf8_encode()
 
 file.copy("stimuli_template_top", "stimuli.js")
-cat( paste(stim_exp$ibex_sentence, collapse = ",\n"), file = "stimuli.js", append = T )
-cat( paste(stim_fill$ibex_sentence, collapse = ",\n"), file = "stimuli.js", append = T )
-
-cat( readLines("stimuli_template_bottom"), file = "stimuli.js", append = T)
+cat(stim_exp_string, file = "stimuli.js", append = T )
+cat(filler_string, file = "stimuli.js", append = T )
+cat( readLines("stimuli_template_bottom", encoding = "utf-8"), file = "stimuli.js", append = T)
