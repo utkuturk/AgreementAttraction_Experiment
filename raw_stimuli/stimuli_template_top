@@ -124,49 +124,7 @@ var items = [
                 transfer: 3000  }]
 
 // Practice
-    
-["prac", "DashedSentence", {s: ["Bu", "kısım", "deneye", "ve", "sunum", "yöntemine", "alışmanız", "için", "bulunmaktadır."]}],
-["prac", "DashedSentence", {s: ["Bu", "cümle", "öncekinden", "daha", "uzun", "bir", "cümle.", "          ", "Okuması", "biraz", "daha", "zor", "olsa_da", "sunum", "şekli", "aslında", "aynı."]}],
 
-["prac", Message, {consentRequired: false, transfer: "keypress",
-                     html: ["div",
-                           ["p", "Harika! Şimdi deneyde göreceğiniz türden cümlelere bakalım. Birazdan göreceğiniz cümleler İYİ diyebileceğimiz cümlelerden. "],
-                           ["p", "Devam etmek için 'boşluk' tuşuna basınız."]
-                           ]}],
-
-["prac", "DashedSentence", {s: ["Teyzemin", "komşusu", "yerden", "kalkıp", "oturunca", "önündeki", "kedinin", "başını", "okşadı."]}],
-["prac", "DashedSentence", {s: ["Utku'nun", "kızı", "yürüyene", "kadar", "bir","sürü","oyuncak","alınmıştı."]}],
-
-["prac", Message, {consentRequired: false, transfer: "keypress",
-                    html: ["div",
-                          ["p", "Az önce okuduğunuz cümleler gibi cümleler Türkçe'de kabul edilebilir cümlelerdir."],
-                          ["p", "Bir de KÖTÜ diyebileceğimiz cümlelerden örnekler görelim."],
-                          ["p", "Devam etmek için 'boşluk' tuşuna basınız."]
-                          ]}],
-
-["prac", "DashedSentence", {s: ["Öğrencinin", "asistanı", "gelince", "ders", "çok", "güzel", "anlattı."]}],
-["prac", "DashedSentence", {s: ["Asistanın", "öğrencisi", "dinlenince", "ders", "ara", "verdiler."]}],   
-
-["prac", Message, {consentRequired: false, transfer: "keypress",
-                    html: ["div",
-                          ["p", "Nasıl gidiyor? Elinin alışması için biraz daha örnek cümle girelim."],
-                          ["p", "Devam etmek için 'boşluk' tuşuna basınız."]
-                          ]}],
-
-["prac", "DashedSentence", {s: ["İmamın", "kedisi", "doğurunca", "mahalle", "sevinç", "oldukça" , "katlandı."]}],
-["prac", "DashedSentence", {s: ["Evin","cephesi", "bitince", "boyaları","toplayıp","gittiler."]}],
-["prac", "DashedSentence", {s: ["Kimsenin","çocuğu", "ağlamayınca","yeni", "yazılan", "kitap", "kimseye", "okumadı."]}],
-
-    
-["prac", Message, {consentRequired: false, transfer: "keypress",
-                     html: ["div",
-                           ["p", "Elinizin ısındığını umuyorum. Hazır olduğunuzu hissettiğinizde 'boşluk' tuşuna basarak ilerleyiniz."],
-                           ["p", "NOT: Vereceğiniz cevaplar üzerine çok düşünmeyin! Tamamlayacağınız deneyde 'doğru' ya da 'yanlış' cevap bulunmamaktadır. Deney yaklaşık X dakika sürecek ve bu süre zarfında deneye odaklanmanız gerekmektedir. Katılımınız için çok teşekkürler!"]
-                           ]}],
-
-
-["presepA", Separator, {transfer: 3000, normalMessage: "Telefonunuzu ve diğer dikkat dağıtıcı unsurlardan deney esnasında uzak durmanız bizim için çok daha iyi olacaktır." }],
-["dummysep", Separator, {transfer: 10, normalMessage: ""}],
 
 ["practice", "DashedSentence", {s: "Ev arkadaşının bütün ısrarlarına rağmen hiç ders çalışmadı."},
 "Question",       {q: "Cümleyi anladınız mı?", hasCorrect: 0}], // Y
