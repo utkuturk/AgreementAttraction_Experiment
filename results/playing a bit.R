@@ -3,6 +3,7 @@
   library(tidyverse)
   library(gdata)
   library(MASS)
+library(magrittr)
 
 # First convert to csv file, using the "_" and "," character as a delimter
 # setwd("C:/Users/utku/Downloads/cormorant_final/results")
@@ -18,7 +19,7 @@
 
 
 # Add column names to dataframe
-colnames(data) = c("Time", "MD5", "ControllerType", "Order", "Element", "Type", "Dunno", "Item", "Question","Answer", "RT")
+colnames(data) = c("Time", "MD5", "ControllerType", "SentenceNoInStimFile", "Element", "Type", "Item", "Sentence", "Question","Answer", "RT")
 
 # Note: Less transparent columns
 # Time: 		When results sent to server
@@ -39,87 +40,102 @@ colnames(data) = c("Time", "MD5", "ControllerType", "Order", "Element", "Type", 
 
 # FORM & PRACTICE ------
 # Make Form Entries Columns and left join them, get for unique MD5
-FormEntries <- drop.levels(subset(data, ControllerType != "DashedAcceptabilityJudgment" )); nrow(data)
-age <- dplyr::select(FormEntries, MD5,Item,Question) %>% 
-  dplyr::filter(Item == "age") %>%
+FormEntries <- subset(data, ControllerType != "DashedAcceptabilityJudgment" ) %>% drop.levels(); nrow(data)
+data %<>% subset(ControllerType == "DashedAcceptabilityJudgment")
+  
+age <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+  dplyr::filter(Sentence == "age") %>%
   dplyr::select(MD5, Age = Question)
 
-gender <- dplyr::select(FormEntries, MD5,Item,Question) %>% 
-  dplyr::filter(Item == "natturk") %>%
-  dplyr::select(MD5, Gender = Question)
+# Note: The radio buttons on the page returned "male" when participants specified that they were native speakers of Turkish, and "female" otherwise,
+# due to a copy-and-paste error.
+natturk <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+  dplyr::filter(Sentence == "natturk") %>%
+  dplyr::select(MD5, Natturk = Question) %>%
+  mutate(Natturk = Natturk == "male")
 
-dex <- dplyr::select(FormEntries, MD5,Item,Question) %>% 
-  dplyr::filter(Item == "dex") %>%
-  dplyr::select(MD5, Dex = Question)
+# Note: The radio buttons on the page returned "male" when participants specified that they were right-handed, and "female", when they were left-handed,
+# due to a copy-and-paste error.
+dex <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+  dplyr::filter(Sentence == "dex") %>%
+  dplyr::select(MD5, Dex = Question) %>%
+  mutate(Dex = ifelse(Dex == "male", "right-handed", "left-handed"))
 
-FormPart <- dplyr::left_join(age,gender, by = "MD5") %>% 
+FormPart <- dplyr::left_join(age, natturk, by = "MD5") %>% 
   dplyr::left_join(., dex , by = "MD5" ) %>% 
   unique()
 
 # How many subjects? Set variable len to match subjects (assumes no MD5 repeats)
 lenForm <- length(levels(factor(FormPart$MD5))); lenForm
 
-# How many items? Set variable num to number of items
-numForm <- length(levels(factor(FormPart$Item))); numForm
-
 # Add subject information and trial information
 #dataPart$Subject <- as.factor(paste("S",rep(1:lenData, each = numData), sep = ""))
 md5form <- levels(factor(FormPart$MD5))
-md5form_subject <- data.frame("MD5" = md5form, "Subject" = sprintf("S[%s]",seq((lenForm))), "TrialAll" = seq(1,lenForm))
+md5form_subject <- data.frame("MD5" = md5form, "Subject" = sprintf("S[%s]",seq((lenForm))))
 
 FormPart <- merge(FormPart,md5form_subject, all = T)
 
 
-# Get Practice Items and Answers 
-Practice <- subset(data, Type == "practice") %>% dplyr::select(.,MD5, Order, Item, Question, Answer, RT)
-Practice$Set <- seq(0,1, by = 1)
-PracticeItems = subset(Practice, Set == 0)
+### Deal with the proper data
+stopifnot( nrow(data) %% 2 == 0 )
+rows_stim <- data[c(T,F),]
+rows_resp <- data[c(F,T),]
 
-PracticeItems <- dplyr::select(PracticeItems, MD5, Order, Item) %>% 
-  tidyr::unite(., MD5_Order, MD5, Order, remove = T)
-Practice = subset(Practice, Set == 1)
-#Practice = drop.levels(subset(Practice, Item != "NULL"))
-Practice <- dplyr::select(Practice, -Item, -Set) %>% 
-  tidyr::unite(., MD5_Order, MD5,Order, remove = T)
-colnames(Practice) <- c("MD5_Order"  , "Answer" , "Answer_is_correct", "RT")
+# keep only the responses
+data <- rows_resp %>% left_join(md5form_subject) %>% dplyr::select(-MD5, -Time, -ControllerType, -Sentence, -Element) %>%
+                      dplyr::rename(ResponseCorrect=Answer, Response=Question)
 
-PracticePart <- dplyr::left_join(Practice, PracticeItems, by = "MD5_Order") %>% 
-  unique() %>% 
-  tidyr::separate(., MD5_Order, c("MD5", "Order"), remove = T)
+# handle late responses
+data %<>% within({ late_response = (Response == "NULL")
+                   Response[late_response] = NA
+                   ResponseCorrect[late_response] = NA
+                 })
 
-PracticePart$Type <- rep("practice", length(PracticePart))
-PracticePart <- PracticePart[,c(1,2,7,6,3,4,5)]
-PracticePart$correctAnswer <- PracticePart$Answer_is_correct
-PracticePart <- PracticePart[,c(1,2,3,4,5,8,6,7)]
+responses <- c(yes="Ä°YÄ° (P'ye basÄ±nÄ±z)", no="KÃ–TÃœ (Q'ya basÄ±nÄ±z)")
+stopifnot( all(data$Response %in% responses | is.na(data$Response) ) )
 
-PracticePart$correctAnswer <- ifelse(PracticePart$Order == 10 | 
-                                       PracticePart$Order == 11 | 
-                                       PracticePart$Order == 13 | 
-                                       PracticePart$Order == 16 | 
-                                       PracticePart$Order == 17 , "ÝYÝ (P'ye basýnýz)", "KÖTÜ (Q'ya basýnýz")
+data$ResponseYes <- ifelse(grepl("P",data$Response) , T, 
+                          ifelse(grepl("Q",data$Response) , F, NA))
 
 
+# add conditions
+data$condition <- 
+with(data, case_when(Type == "filler" & SentenceNoInStimFile >= 200 ~ "a",
+                     Type == "filler" & SentenceNoInStimFile < 200 ~ "b",
+                     Type == "condition_a" ~ "a",
+                     Type == "condition_b" ~ "b",
+                     Type == "condition_c" ~ "c",
+                     Type == "condition_d" ~ "d",
+                     TRUE ~ as.character(NA)))
+data$experiment <- ifelse(data$Type %in% c("condition_a", "condition_b", "condition_c", "condition_d"), "AgrAttr", as.character(data$Type))
+
+data %>% group_by(experiment, condition) %>% 
+        summarise(perc_yes = mean(ResponseYes, na.rm = T),
+                  perc_na = mean(is.na(ResponseYes)))
+
+
+conditions_info <- data.frame(experiment = c("AgrAttr", "AgrAttr", "AgrAttr", "AgrAttr", "filler", "filler"),
+                              condition = c("a","b","c","d", "a","b"),
+                              grammatical = c("ungram", "gram", "ungram", "gram", "ungram", "gram"),
+                              verb_num = c("sg","pl","sg","pl", "sg","pl"),
+                              stringsAsFactors = FALSE) 
+data %<>% left_join(conditions_info)
 
 
 
+data %>% subset(experiment == "filler" & condition == "a") %>% group_by(Item) %>% 
+            dplyr::summarise(perc_yes = mean(ResponseYes, na.rm = T), N = sum(!is.na(ResponseYes))) %>% 
+            arrange(perc_yes)
 
-
-
-# FILLERS ------
-Fillerog <- subset(data, Type == "filler" ) %>% 
-  dplyr::select(., MD5, Order, Dunno, Item, Question, RT)
-Fillerog$Set <- seq(0 , 1 , by = 1)
-FillerItems = subset(Fillerog, Set == 0)
-FillerItems <- dplyr::select(FillerItems, MD5, Order, Dunno, Item)
 
 ##  DivideFillers
 FillerItemsA <- subset(FillerItems, Order >= 200)
-FillerItemsA$correctAnswer <- rep("KÖTÜ (Q'ya basýnýz)", length(FillerItemsA))
+FillerItemsA$correctAnswer <- rep("K?T? (Q'ya bas?n?z)", length(FillerItemsA))
 FillerItemsA$Type <- rep("filler_A", length(FillerItemsA))
 FillerItemsA <- tidyr::unite(FillerItemsA, MD5_Order_Dunno, MD5, Order, Dunno, remove = T)
 
 FillerItemsB <- subset(FillerItems, Order < 200)
-FillerItemsB$correctAnswer <- rep("ÝYÝ (P'ye basýnýz)", length(FillerItemsB))
+FillerItemsB$correctAnswer <- rep("?Y? (P'ye bas?n?z)", length(FillerItemsB))
 FillerItemsB$Type <- rep("filler_B", length(FillerItemsB))
 FillerItemsB <- tidyr::unite(FillerItemsB, MD5_Order_Dunno, MD5, Order, Dunno, remove = T)
 
