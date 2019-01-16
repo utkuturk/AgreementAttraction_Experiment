@@ -1,21 +1,22 @@
 # LIBRARIES & DATA ------
-  library(languageR)
-  library(tidyverse)
-  library(gdata)
-  library(MASS)
+library(languageR)
+library(tidyverse)
+library(gdata)
+library(MASS)
 library(magrittr)
+library(ggplot2)
 
 # First convert to csv file, using the "_" and "," character as a delimter
 # setwd("C:/Users/utku/Downloads/cormorant_final/results")
 # getwd()
 
 # Then load into R, splitting the csv file on the comma ","
-  data <- read.csv('results', 
-                   header = F, 
-                   comment.char = "#", 
-                   encoding = "UTF-8" , 
-                   col.names = paste0("V",seq_len(11)), 
-                   fill = TRUE)
+data <- read.csv('results', 
+                 header = F, 
+                 comment.char = "#", 
+                 encoding = "UTF-8" , 
+                 col.names = paste0("V",seq_len(11)), 
+                 fill = TRUE)
 
 
 # Add column names to dataframe
@@ -26,7 +27,7 @@ colnames(data) = c("Time", "MD5", "ControllerType", "SentenceNoInStimFile", "Ele
 # MD5: 			Encoding of IP address
 # Controller: 	Presentation type
 
-  
+
 # Cleaning up data
 # What information is there:
 # levels(data$Type)
@@ -42,7 +43,7 @@ colnames(data) = c("Time", "MD5", "ControllerType", "SentenceNoInStimFile", "Ele
 # Make Form Entries Columns and left join them, get for unique MD5
 FormEntries <- subset(data, ControllerType != "DashedAcceptabilityJudgment" ) %>% drop.levels(); nrow(data)
 data %<>% subset(ControllerType == "DashedAcceptabilityJudgment")
-  
+
 age <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
   dplyr::filter(Sentence == "age") %>%
   dplyr::select(MD5, Age = Question)
@@ -83,51 +84,109 @@ rows_resp <- data[c(F,T),]
 
 # keep only the responses
 data <- rows_resp %>% left_join(md5form_subject) %>% dplyr::select(-MD5, -Time, -ControllerType, -Sentence, -Element) %>%
-                      dplyr::rename(ResponseCorrect=Answer, Response=Question)
+  dplyr::rename(ResponseCorrect=Answer, Response=Question)
+
+# add trial information
+data %<>% group_by(Subject) %>% mutate(trial_no = seq(Subject))
 
 # handle late responses
 data %<>% within({ late_response = (Response == "NULL")
-                   Response[late_response] = NA
-                   ResponseCorrect[late_response] = NA
-                 })
+Response[late_response] = NA
+ResponseCorrect[late_response] = NA
+})
 
-responses <- c(yes="Ä°YÄ° (P'ye basÄ±nÄ±z)", no="KÃ–TÃœ (Q'ya basÄ±nÄ±z)")
+responses <- c(yes="ÝYÝ (P'ye basýnýz)", no="KÖTÜ (Q'ya basýnýz)")
 stopifnot( all(data$Response %in% responses | is.na(data$Response) ) )
 
 data$ResponseYes <- ifelse(grepl("P",data$Response) , T, 
-                          ifelse(grepl("Q",data$Response) , F, NA))
+                           ifelse(grepl("Q",data$Response) , F, NA))
 
 
 # add conditions
 data$condition <- 
-with(data, case_when(Type == "filler" & SentenceNoInStimFile >= 200 ~ "a",
-                     Type == "filler" & SentenceNoInStimFile < 200 ~ "b",
-                     Type == "condition_a" ~ "a",
-                     Type == "condition_b" ~ "b",
-                     Type == "condition_c" ~ "c",
-                     Type == "condition_d" ~ "d",
-                     TRUE ~ as.character(NA)))
+  with(data, case_when(Type == "filler" & SentenceNoInStimFile >= 200 ~ "a",
+                       Type == "filler" & SentenceNoInStimFile < 200 ~ "b",
+                       Type == "condition_a" ~ "a",
+                       Type == "condition_b" ~ "b",
+                       Type == "condition_c" ~ "c",
+                       Type == "condition_d" ~ "d",
+                       TRUE ~ as.character(NA)))
 data$experiment <- ifelse(data$Type %in% c("condition_a", "condition_b", "condition_c", "condition_d"), "AgrAttr", as.character(data$Type))
 
 data %>% group_by(experiment, condition) %>% 
-        summarise(perc_yes = mean(ResponseYes, na.rm = T),
-                  perc_na = mean(is.na(ResponseYes)))
+  summarise(perc_yes = mean(ResponseYes, na.rm = T),
+            perc_na = mean(is.na(ResponseYes)))
 
 
 conditions_info <- data.frame(experiment = c("AgrAttr", "AgrAttr", "AgrAttr", "AgrAttr", "filler", "filler"),
                               condition = c("a","b","c","d", "a","b"),
                               grammatical = c("ungram", "gram", "ungram", "gram", "ungram", "gram"),
                               verb_num = c("sg","pl","sg","pl", "sg","pl"),
+                              attracted = c(T,T,F,F,F,F),
                               stringsAsFactors = FALSE) 
 data %<>% left_join(conditions_info)
+data %<>% subset(Type != "practice") %>% drop.levels()
+
+dataAv <- data %>% 
+  group_by(experiment, condition, grammatical, verb_num, attracted) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
+  as.data.frame()
+
+#dataAv %>% ggplot(aes(grammatical, p_yes, group = attracted, fill = condition )) + geom_point() + geom_line() + facet_wrap(~experiment, scales = "free_y")
 
 
-
-data %>% subset(experiment == "filler" & condition == "a") %>% group_by(Item) %>% 
-            dplyr::summarise(perc_yes = mean(ResponseYes, na.rm = T), N = sum(!is.na(ResponseYes))) %>% 
-            arrange(perc_yes)
+dataAv %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) #+ facet_wrap(~experiment, scales = "free_y")
 
 
+data$trial_group <- Hmisc::cut2(data$trial_no, g=5)
+
+dataAvSplit <- data %>% 
+  group_by(experiment, condition, grammatical, verb_num, attracted, trial_group) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
+  as.data.frame()
+
+dataAvSplit %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~trial_group)
+
+
+dataAvBySubj <- data %>% 
+  group_by(Subject, experiment, condition, grammatical, verb_num, attracted) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T), N = sum(!is.na(ResponseYes))  )  %>% 
+  as.data.frame()
+head(dataAvBySubj,10)
+
+
+dataAvBySubjWide = dataAvBySubj %>% mutate(expcond = paste(experiment,condition, sep="_")) %>% dplyr::select(-experiment, -condition, -avRT, -N, -grammatical, -verb_num, -attracted) %>% tidyr::spread(expcond, p_yes)
+dataAvBySubjWide %<>% mutate(delta_dc = AgrAttr_d - AgrAttr_c)
+bad_subjects = subset(dataAvBySubjWide, delta_dc <= 0.25 ) %>% .$Subject
+head(dataAvBySubjWide)
+
+dataAvBySubj %>% subset(Subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~Subject)
+
+
+dataAvClean <- data %>% subset(!Subject %in% bad_subjects)%>% 
+  group_by(experiment, condition, grammatical, verb_num, attracted) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
+  as.data.frame()
+
+dataAvClean %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) #+ facet_wrap(~experiment, scales = "free_y")
+
+  #### slope chart -----------
+#between two situations like from attraction to not attraciton
+
+require(scales)
+theme_set(theme_classic())
+
+
+p <- ggplot(data.m) + geom_segment(aes(x=1, xend=2, y="", yend="", col=class), size=.75, show.legend=F) + 
+  geom_vline(xintercept=1, linetype="dashed", size=.1) + 
+  geom_vline(xintercept=2, linetype="dashed", size=.1) +
+  scale_color_manual(labels = c("Up", "Down"), 
+                     values = c("green"="#00ba38", "red"="#f8766d")) +  # color of lines
+  labs(x="", y="percentage of yes answers") +  # Axis labels
+  xlim(.5, 2.5) + ylim(0,(1.1*(max(data.m$attracted, df$`1957`))))  # X and Y axis limits
+# ^from here: http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html
+
+# OLD PART =========================================================
 ##  DivideFillers
 FillerItemsA <- subset(FillerItems, Order >= 200)
 FillerItemsA$correctAnswer <- rep("K?T? (Q'ya bas?n?z)", length(FillerItemsA))
@@ -231,27 +290,27 @@ rm(age,dataItems, dataQ, dex, FillerItems, FillerItemsA, FillerItemsB, FillerIte
 # for fillers
 # by Type
 filler_TypeCheck <- FillerPart %>% group_by(Type) %>% summarize(S_iC = sum(Answer_is_correct), #subject is correct 
-                                            S_iNC = sum(!Answer_is_correct), #subject is not correct
-                                            Proportion = mean(Answer_is_correct),
-                                            nAll = sum(Answer_is_correct) + sum(!Answer_is_correct), #total number of answers
-                                            Length = length(Answer_is_correct) , 
-                                            N_total = S_iC + S_iNC
-                                             )
+                                                                S_iNC = sum(!Answer_is_correct), #subject is not correct
+                                                                Proportion = mean(Answer_is_correct),
+                                                                nAll = sum(Answer_is_correct) + sum(!Answer_is_correct), #total number of answers
+                                                                Length = length(Answer_is_correct) , 
+                                                                N_total = S_iC + S_iNC
+)
 
 ItemCheck <- FillerPart %>% group_by(Type, ItemNo) %>% summarize(S_iC = sum(Answer_is_correct), #subject is correct 
-                                            S_iNC = sum(!Answer_is_correct), #subject is not correct
-                                            Proportion = mean(Answer_is_correct),
-                                            nAll = sum(Answer_is_correct) + sum(!Answer_is_correct), #total number of answers
-                                            Length = length(Answer_is_correct) , 
-                                            N_total = S_iC + S_iNC
+                                                                 S_iNC = sum(!Answer_is_correct), #subject is not correct
+                                                                 Proportion = mean(Answer_is_correct),
+                                                                 nAll = sum(Answer_is_correct) + sum(!Answer_is_correct), #total number of answers
+                                                                 Length = length(Answer_is_correct) , 
+                                                                 N_total = S_iC + S_iNC
 )
 
 subjectCheck <- FillerPart %>% group_by(Subject) %>% summarize(S_iC = sum(Answer_is_correct), #subject is correct 
-                                                           S_iNC = sum(!Answer_is_correct), #subject is not correct
-                                                           Proportion = mean(Answer_is_correct),
-                                                           nAll = sum(Answer_is_correct) + sum(!Answer_is_correct), #total number of answers
-                                                           Length = length(Answer_is_correct) , 
-                                                           N_total = S_iC + S_iNC
+                                                               S_iNC = sum(!Answer_is_correct), #subject is not correct
+                                                               Proportion = mean(Answer_is_correct),
+                                                               nAll = sum(Answer_is_correct) + sum(!Answer_is_correct), #total number of answers
+                                                               Length = length(Answer_is_correct) , 
+                                                               N_total = S_iC + S_iNC
 )
 
 # for data
@@ -262,28 +321,28 @@ dataPart$Correct_p <- ifelse(grepl("P",dataPart$Question) , T, F)
 
 #there is a problm with item numbering check it.
 data_TypeCheck <- dataPart %>% group_by(Type) %>% summarize(S_iC = sum(Correct_p), #subject is correct 
-                                            S_iNC = sum(!Correct_p), #subject is not correct
-                                            Proportion = mean(Correct_p),
-                                            nAll = sum(Correct_p) + sum(!Correct_p), #total number of answers
-                                            Length = length(Correct_p) , 
-                                            N_total = S_iC + S_iNC
+                                                            S_iNC = sum(!Correct_p), #subject is not correct
+                                                            Proportion = mean(Correct_p),
+                                                            nAll = sum(Correct_p) + sum(!Correct_p), #total number of answers
+                                                            Length = length(Correct_p) , 
+                                                            N_total = S_iC + S_iNC
 )
 
 data_ItemCheck <- dataPart %>% group_by(Type, ItemNo) %>% summarize(S_iC = sum(Correct_p), #subject is correct 
-                                                                 S_iNC = sum(!Correct_p), #subject is not correct
-                                                                 Proportion = mean(Correct_p),
-                                                                 nAll = sum(Correct_p) + sum(!Correct_p), #total number of answers
-                                                                 Length = length(Correct_p) , 
-                                                                 N_total = S_iC + S_iNC
-                                                              )
+                                                                    S_iNC = sum(!Correct_p), #subject is not correct
+                                                                    Proportion = mean(Correct_p),
+                                                                    nAll = sum(Correct_p) + sum(!Correct_p), #total number of answers
+                                                                    Length = length(Correct_p) , 
+                                                                    N_total = S_iC + S_iNC
+)
 
 data_subjectCheck <- dataPart %>% group_by(Subject) %>% summarize(S_iC = sum(Correct_p), #subject is correct 
-                                                               S_iNC = sum(!Correct_p), #subject is not correct
-                                                               Proportion = mean(Correct_p),
-                                                               nAll = sum(Correct_p) + sum(!Correct_p), #total number of answers
-                                                               Length = length(Correct_p) , 
-                                                               N_total = S_iC + S_iNC
-                                                                )
+                                                                  S_iNC = sum(!Correct_p), #subject is not correct
+                                                                  Proportion = mean(Correct_p),
+                                                                  nAll = sum(Correct_p) + sum(!Correct_p), #total number of answers
+                                                                  Length = length(Correct_p) , 
+                                                                  N_total = S_iC + S_iNC
+)
 
 
 
