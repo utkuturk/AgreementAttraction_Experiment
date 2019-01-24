@@ -8,14 +8,27 @@ In the Results and Analysis folder, there are raw results from the ibexfarm and 
 
 In the Paper folder, you can find the necessary files of the paper that is still in the making. You can either work on the .tex file or .Rmd file. .Rmd file also includes the necessary code of analysis and graphs.
 
-To be able to use .Rmd file, following softwares needs to be present in your computer: R, Rstudio, LaTeX. 
+To be able to use .Rmd file, following softwares needs to be present in your computer: 
+
+R, 
+
+Rstudio, 
+
+LaTeX. 
 For running the paper, you will need the following list of packages:
+
 rmarkdown
+
 knitr
+
 citr
+
 tidyverse
+
 formatR
+
 knitcitations
+
 *also their dependencies*
 
 The template for the paper is from the R package rmdTemplates.
