@@ -1,0 +1,279 @@
+---
+title: 'Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural Morphemes'
+
+author:  
+
+- name: Utku Turk
+  affilnum: 1
+  email: utku.turk@boun.edu.tr
+  
+- name: Pavel Logacev 
+  affilnum: 1
+  
+affiliation:
+
+- affilnum: 1
+  affil: Bogazici University, South Campus, John Freely Building, Department of Linguistics, 34342, Istanbul, Turkey
+
+  
+output:
+
+  pdf_document:
+    fig_caption: yes
+    fig_width: 7
+    fig_height: 7
+    keep_tex: yes
+    number_sections: yes
+    template: manuscript.latex
+    includes:
+      in_header: header.tex
+
+  html_document: null
+  
+  word_document: null
+
+documentclass: article
+classoption: a4paper
+capsize: normalsize
+fontsize: 11pt
+geometry: margin=1in
+linenumbers: yes
+spacing: singlespacing
+footerdate: yes
+bibliography: 
+  - references.bib
+  - knitcitations.bib
+csl: ecology.csl
+
+---
+
+
+```{r setup, include=FALSE, cache=FALSE, message = FALSE}
+
+library("knitr")
+
+#opts_knit$set(root.dir=normalizePath('../'))
+
+### Chunk options: see http://yihui.name/knitr/options/ ###
+
+## Text results
+opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE, include = TRUE)
+
+## Code decoration
+opts_chunk$set(tidy = TRUE, comment = NA, highlight = TRUE)
+
+## Cache
+opts_chunk$set(cache = 2, cache.path = "output/cache/")
+
+## Plots
+opts_chunk$set(fig.path = "output/figures/")
+
+
+```
+
+```{r outline, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+Introduction
+Recap on what Lago did
+My experiment
+  Reasoning
+  Experiment Details
+    Environments
+    Items
+    Fillers
+    Participants
+    Exclusions
+    Results and Discussions
+  ...
+    
+```
+
+```{r knitcitations, echo=FALSE, cache = FALSE}
+library(knitcitations)
+cleanbib()   
+cite_options(citation_format = "pandoc")
+```
+
+\vspace{2mm}\hrule
+
+In this paper, our objective is to explore the source of agreement attraction effects in Turkish found by @Lago. The interpretation of their finding is complicated by the fact that in their possessive form all head nouns in their stimuli are morphologically ambiguous between possessive and accusative. Due to the mismatch in the frequency of usage of accusative and genitive, which is used as a attractor in this experiment, as a controller, @Lago's findings could potentially be explained with occasional shallow processing. We have replicated @Lago's experiment with unambigious head nouns, and we have found the same agreement attraction effects. However, this may mean that participants may engage in even more shallow processing than we imagined. We postulate that participants solely check for the presence of a *-lAr* morpheme, while largely disregarding the remainder of the sentence. We utilize an experiment design in which we use a relative clause with or without plural agreement on the verb in place of the genitive possessor since both verbal and nominal plural morphemes are the same in Turkish. If participants did, in fact, adopt a superficial processing strategy, we would expect to find a number agreement attraction effect similar in magnitude to @Lago's. However, if number attraction is not an artifact of shallow processing strategies, we should expect to find no number attraction in this experiment.
+
+\vspace{3mm}\hrule
+
+*Keywords*: Turkish, agreement attraction, task effect, shallow processing
+
+\bleft
+
+---
+nocite: | 
+  @woolford
+...
+
+# INTRODUCTION
+
+Attraction errors in production and comprehension of subject-verb agrrement, in which a verb does not agree with the grammatical agreement controller, but with a potential attractors, have been the focal point of many research for quite a long time. In fact, it is still a widely researched are in psycholinguistic studies. Despite the thorough research that has been carried out, studies that have been conducted on agreement attraction in Turkish have been extremely few. In fact, @Lago has been the only study to look into this phenomenon in Turkish. @Lago's study make use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. In a speeded acceptability judgment study, they found a significant effect of number agreement attraction. However, the interpretation of their finding may be a result of a non-subjecthood cues originating from their use of morphologically ambiguous forms of possessive. In their possessive form all head nouns in their stimuli are ambigiuous between possessive and accusative. 
+
+In Turkish, accusative number agreement controllers are extremely rare, while genitive agreement controllers are very frequent. Thus, @Lago's finding could possibly be explained by occasional shallow processing. When all syntactic relations in the sentence were processed fully, the possessive noun should have been identified as the controller. Meanwhile the genitive noun may sometimes have been erroneously identified as the controller during shallow processing, because genitives are more likely to act as agreement controllers than accusatives. A second alternative explanation of @Lago's finding may be the fact that participants may engage in even more shallow processing than outlined above. Participants may have erroneously responded *Yes* on some trials due to (i) the presence of a plural morpheme on a noun (attractor or controller) and (ii) the presence of a plural agreement morpheme on the verb. We speculate that on such trials, participants would have simply tried to check for the presence of such morphemes, while largely disregarding the remainder of the sentence. 
+
+We first replicated @Lago's experiment with unambiuous head nouns. To this end, we have revised the items that were used previously, to avoid morphological ambiguity between possessive and accusative forms. The effect found by @Lago replicates with unambiguous nouns as discused in \S 2. 
+
+\S 3 discussses the alternative account that posits even more shallow processing as mentioned above and offers a pre-registered experiment using RC attractors with possible outcomes and their indications. Since both nominal and verbal plural morphemes in Turkish take on the same form (*-ler* or *-lar* depending on the phonological environment), we can test this possibility with an experiment, in which we use relative clause with or without plural agreement on the verb in the place of the genitive possessors. An agreement attraction effect similar in magnitude to @Lago's would mean that participants use aforementioned strategies. 
+
+\S 4 presents a discussion revolving around possible 
+Lastly, \S 5 offers a brief conclusion and presents topics for future researches.
+
+# REPLICATON OF @Lago
+
+In their study, @Lago investigated the comprehension of subject-verb agreement in Turkish-German bilinguals and Turkish monolinguals. They used speeded acceptability judments for the effects of number attraction in Turkish. Their sentences makes us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They have manipulated the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulated the plurality of the attractor noun. In grammatical conditions, subject and the verb both bears the singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \underline{Grammatical, SG attractor} \label{lago1}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
+singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
+\glt The singer's backup vocalist jumped on the stage non-stop.
+
+\ex \underline{Grammatical, PL attractor} \label{lago2}
+\gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
+singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
+\glt The singer's backup vocalist jumped on the stage non-stop.
+
+\ex \underline{Ungrammatical, PL attractor} \label{lago3}
+\gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
+singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
+\glt The singer's backup vocalist jumped on the stage non-stop.
+
+\ex \underline{Ungrammatical, SG attractor} \label{lago4}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
+singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
+\glt The singer's backup vocalist jumped on the stage non-stop.
+\end{xlist}
+\end{exe}
+
+They have found a significant effect of number attraction in Turkish ranging between 11%--15% across monolinguals. As seen from the results of statistical analysis in Table (\ref{lagomodel}), acceptability judgments showed an immense effect of grammaticality, and there is also interaction between grammaticality and attractor number which indicates an number attraction effect. 
+
+\begin{table}[]
+\centering
+\begin{tabular}{llcccc}
+\hline
+    &                                        & \multicolumn{4}{l}{Monolingual Speakers}                                               \\ \cline{3-6} 
+    &                                        & $\beta$        & SE            & \emph{z} & \emph{p} \\ \hline
+\multicolumn{2}{l}{\textbf{Attraction Task}} &                &               &                           &                           \\
+    & Grammaticality                         & \textbf{-5.51} & \textbf{0.33} & \textbf{-16.69}           & \textbf{.000}             \\
+    & Attractor Number                       & 0.14           & 0.25          & 0.57                      & .571                      \\
+    & Grammaticality x Attractor Number      & \textbf{1.69}  & \textbf{0.53} & \textbf{3.19}             & \textbf{.001}             \\
+    & Attractor Number: Ungram conditions    & \textbf{0.94}  & \textbf{0.26} & \textbf{3.68}             & \textbf{.000}             \\
+    & Attractor Number: Gram conditions      & -0.79          & 0.52          & -1.51                     & .131                      \\ \hline
+\end{tabular}
+\caption{Model results for the judgments of monolingual cited from @Lago.}
+\label{lagomodel}
+\end{table}
+
+According to @Lago's stipulation, Turkish genitive case does not provide a strong cue against subjecthood since it is extremely common to see genitive marked subjects in Turkish embedded clauses, as in example (\ref{gensubj}). Unlike English, genitive case is compatible with the subjecthood in English. Thus, @Lago attributes the robust agreement attraction effects to the case information. 
+
+\begin{exe}
+\ex \label{gensubj}
+\gll k\"{o}y-\"{u} bir haydut-un bas-t{\i}\u{g}-{\i}n-{\i} duy-du-m.\\
+village-\textsc{acc} a bandit-\textsc{gen} raid-\textsc{nmlz}-\textsc{3Sg}-\textsc{acc} hear-\textsc{pst}-\textsc{1Sg}\\
+\glt I heard that a (certain) robber raided the village. (Adapted from Woolford (2009))
+\end{exe}
+
+However, we argue that not only genitive case but also possessive case plays a significant role in delivering the case information. None of the experimental items in @Lago has a head noun which ends with a vowel; thus, all of the possessive markers are morphologically and phonologically ambiguous between the accusative case and the possessive. 
+
+## Modifications
+## Participants
+## Filler Items
+## Results and Discussion
+
+# EXPERIMENT 2: RC ATTRACTOR
+## Motivation
+## Items and Fillers
+## Expectations
+## Possible Outcomes and Discussion
+
+
+
+
+
+
+# DISCUSSION
+
+Discuss.
+
+
+
+# CONCLUSIONS
+
+Intro and repeat.
+
+# ACKNOWLEDGEMENTS
+We used the statistical language `R` `r citep(citation())` for all our analyses. These were implemented in dynamic rmarkdown documents using `knitr` `r citep(citation("knitr"))` and `rmarkdown` `r citep(citation("rmarkdown"))` packages. All graphs have been done with `ggplot` `r citep(citation("ggplot2"))`. Thank the Mine and Kadir for their student from courses. 
+
+
+
+# REFERENCES
+
+```{r write_citations, cache=FALSE, include=FALSE}
+write.bibtex(file="knitcitations.bib")
+```
+
+<div id = "refs"></div>
+
+
+\eleft
+
+\clearpage
+
+
+\listoftables
+
+
+\newpage
+
+```{r Table1, results='asis', echo=FALSE, cache=FALSE}
+kable(head(iris), caption = "A glimpse of the famous *Iris* dataset.")
+```
+
+
+\newpage
+
+```{r Table2, results='asis', echo=FALSE, cache=FALSE}
+kable(mtcars[10:16, ], caption = "Now a subset of mtcars dataset.")
+```
+
+
+\clearpage
+
+\listoffigures
+
+
+\newpage
+
+```{r Fig1, echo=FALSE, fig.cap="Just my first figure with a very fantastic caption.", cache=FALSE}
+x <- rnorm(100)
+y <- jitter(x, 1000)
+plot(x, y)
+```
+
+\newpage
+
+\blandscape
+
+```{r Fig2, echo=FALSE, fig.cap="Second figure in landscape format.", cache=FALSE}
+a <- sort(rnorm(100))
+b <- c(rep("Group Small", 35), rep("Group Big", 65))
+boxplot(a ~ b)
+```
+
+\elandscape
+
+\clearpage
+
+
+
+```{r sessioninfo, echo = FALSE, eval = FALSE}
+# set eval = FALSE if you don't want this info (useful for reproducibility) to appear 
+sessionInfo()
+```
+
+ 
