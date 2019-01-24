@@ -138,7 +138,12 @@ Pavel Logacev
 \noautomath
 \let\eachwordone=\it
 
-\usepackage{qtree}
+\usepackage{qtree}	
+
+
+% for figure and table side by side
+\usepackage{floatrow}
+\newfloatcommand{btabbox}{table}
 
 %%Fix tightlist error: https://stackoverflow.com/questions/40438037/tightlist-error-using-pandoc-with-markdown
 %%Added 2018-03-26 
@@ -303,12 +308,12 @@ singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\tex
 \ex \underline{Grammatical, PL attractor} \label{lago2}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
-\glt The singer's backup vocalist jumped on the stage non-stop.
+\glt The singers' backup vocalist jumped on the stage non-stop.
 
 \ex \underline{Ungrammatical, PL attractor} \label{lago3}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
-\glt The singer's backup vocalist jumped on the stage non-stop.
+\glt The singers' backup vocalist jumped on the stage non-stop.
 
 \ex \underline{Ungrammatical, SG attractor} \label{lago4}
 \gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
@@ -319,12 +324,12 @@ singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\tex
 
 They have found a significant effect of number attraction in Turkish
 ranging between 11\%--15\% across monolinguals. As seen from the results
-of statistical analysis in Table (\ref{lagomodel}), acceptability
-judgments showed an immense effect of grammaticality, and there is also
-interaction between grammaticality and attractor number which indicates
-an number attraction effect.
+of statistical analysis in \textsc{Table} (\ref{lagomodel}),
+acceptability judgments showed an immense effect of grammaticality, and
+there is also interaction between grammaticality and attractor number
+which indicates an number attraction effect.
 
-\begin{table}[]
+\begin{table}[!hbt]
 \centering
 \begin{tabular}{llcccc}
 \hline
@@ -344,7 +349,9 @@ an number attraction effect.
 According to Lago (2018)'s stipulation, Turkish genitive case does not
 provide a strong cue against subjecthood since it is extremely common to
 see genitive marked subjects in Turkish embedded clauses, as in example
-(\ref{gensubj}).
+(\ref{gensubj}). Unlike English, genitive case is compatible with the
+subjecthood in English. Thus, Lago (2018) attributes the robust
+agreement attraction effects to the case information.
 
 \begin{exe}
 \ex \label{gensubj}
@@ -353,26 +360,162 @@ village-\textsc{acc} a bandit-\textsc{gen} raid-\textsc{nmlz}-\textsc{3Sg}-\text
 \glt I heard that a (certain) robber raided the village. (Adapted from Woolford (2009))
 \end{exe}
 
-\hypertarget{motivation}{%
-\subsection{Motivation}\label{motivation}}
+However, our first hypothesis was the possibility of participants
+engaging in a shallow processing, which ends up in a situation where not
+only genitive case but also possessive case plays a significant role in
+delivering the case information. None of the experimental items in Lago
+(2018) has a head noun which ends with a vowel; thus, all of the
+possessive markers are morphologically and phonologically ambiguous
+between the accusative case and the possessive. Unlike genitive case,
+the accusative case in Turkish is extremely rare to see on the head noun
+of the subject, which only occurs in the raising predicates as in
+example (\ref{dsm}).
 
-\hypertarget{modifications}{%
-\subsection{Modifications}\label{modifications}}
+\begin{exe}
+\ex \label{dsm}
+\gll Ben sen-i git-ti-n san-d{\i}-m\\
+I you-\textsc{acc} go-\textsc{pst}-\textsc{2Sg} suppose-\textsc{pst}-\textsc{1Sg}\\
+\glt I thought you were gone.
+\end{exe}
 
-\hypertarget{participants}{%
-\subsection{Participants}\label{participants}}
+In order to test this hypothesis, we have replicated the Lago (2018)
+study with modified items, where the possessive is not ambiguous with
+the accusative case. We have tried to be as faithful as possible to the
+original sentences while trying to make sentences as plauisable as
+possible at the same time. We keep the semantic relation between the
+head nound and the controller the same with A set of sentences are
+exemplified below.
 
-\hypertarget{filler-items}{%
-\subsection{Filler Items}\label{filler-items}}
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \underline{Grammatical, SG attractor} \label{exp1}
+\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+\glt Because of the northeaster, comedian's assistant felt chilly.
+
+\ex \underline{Grammatical, PL attractor} \label{exp2}
+\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+\glt Because of the northeaster, comedians' assistant felt chilly.
+
+\ex \underline{Ungrammatical, PL attractor} \label{exp3}
+\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
+\glt Because of the northeaster, comedians' assistant felt chilly.
+
+\ex \underline{Ungrammatical, SG attractor} \label{exp4}
+\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
+\glt Because of the northeaster, comedian's assistant felt chilly.
+
+\end{xlist}
+\end{exe}
+
+As seen in the examples unlike Lago (2018)'s experimental items, all of
+our items bear the \emph{-sI} possessive marker instead of the ambiguous
+\emph{-I} one. As for the filler items, we could not used or adapt from
+the original experimentsince the fillers of the original study were not
+online. We have used two types filler sentences: a grammatical ones
+where the verb bears plural agreement (\ref{fillera}), and an
+ungrammatical one where verb does not bear plural agreement
+(\ref{fillerb}). We wanted to nullify a possible strategy by the
+participants where they associate the sentence-final morpheme directly
+with the acceptability, and disregard other elements in the sentences
+when answering questions.
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \label{fillera}
+\gll Adam-{\i}n anne-si fena-la\c{s}-{\i}nca inek kurban et-ti-ler.\\
+man-\textsc{gen} mother-\textsc{poss} bad-\textsc{vrb}-\textsc{cvb} cow sacrifice do-\textsc{pst}-\textsc{pl}\\
+\glt When his mother got ill, (they) sacrificed a cow.
+\ex \label{fillerb}
+\gll *Pizzac{\i}-n{\i}n kurye-si t\"{o}kezle-yince sos-lar yer-e sa\c{c}-t{\i}.\\
+pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} floor-\textsc{dat} scatter-\textsc{pst}\\
+\glt Intended: When the pizza boy tripped, sauces scattered around. 
+\end{xlist}
+\end{exe}
+
+All of our data, experimental materials, our experiment design, and as
+well as our fillers can be found at the Center for Open Science
+Framework website (\url{https://osf.io/}).
+
+\hypertarget{participants-and-procedure}{%
+\subsection{Participants and
+Procedure}\label{participants-and-procedure}}
+
+One hundred seven Turkish speakers with mean age of X were recruited
+from the Bogazici University in \{.I\}stanbul. We did not collect
+participants' knowledge of other languages; however, we ensured that
+Turkish is their native language and they predominantly used in their
+daily lives. In the experiments, participants are asked to judge the
+experimental and filler sentences whether or not they sound acceptable
+in Turkish. All of the sentences were presented one word at a time in
+the center area of the screen for 500 ms per word unlike Lago (2018) and
+Wagers et al. (2009), in which researches used 300 ms visual
+presentation per word. Experiment was run on a web-based platform Ibex
+Farm, and all of the documentation can be found in our osf and github
+page.
+
+Before the experiment, they have been instructed to give accurate and
+quick answers with their own intuition, and they were also notified
+about the time limit for answering. At the start of the experiment they
+were given 4 practice items with feedbacks.
+
+What to write about analyze?
 
 \hypertarget{results-and-discussion}{%
 \subsection{Results and Discussion}\label{results-and-discussion}}
 
+In \textsc{Figure} (\ref{fig:replication}), y-axis shows proportion of
+``acceptable'' answers, and x-axis indicates whether or not the
+sentences in that group is grammatical. Moreover, linetypes indicates an
+attractor noun with overt plural morphology. As seen from the figure,
+22\% of the sentences with plural attractors and singular verb were
+accepted by the participants following the findings of Lago (2018). We
+also see a number attraction rate of 10\% which was already shown in
+Lago (2018) with close results.
+
+In \textsc{Table} (\ref{tab:replication}),
+\ldots{}\ldots{}\ldots{}\ldots{}
+
+\begin{figure}[H]
+  \begin{floatrow}
+    \ffigbox{%
+
+\begin{flushright}\includegraphics{output/figures/unnamed-chunk-1-1} \end{flushright}
+    }{\caption{A figure}}
+
+    \btabbox{%
+
+\begin{tabular}{l|r|r|r}
+\hline
+  & mpg & cyl & disp\\
+\hline
+Mazda RX4 & 21.0 & 6 & 160\\
+\hline
+Mazda RX4 Wag & 21.0 & 6 & 160\\
+\hline
+Datsun 710 & 22.8 & 4 & 108\\
+\hline
+Hornet 4 Drive & 21.4 & 6 & 258\\
+\hline
+Hornet Sportabout & 18.7 & 8 & 360\\
+\hline
+Valiant & 18.1 & 6 & 225\\
+\hline
+\end{tabular}
+    }{\caption{A table}}
+  \end{floatrow}
+\end{figure}
+
 \hypertarget{experiment-2-rc-attractor}{%
 \section{EXPERIMENT 2: RC ATTRACTOR}\label{experiment-2-rc-attractor}}
 
-\hypertarget{motivation-1}{%
-\subsection{Motivation}\label{motivation-1}}
+\hypertarget{motivation}{%
+\subsection{Motivation}\label{motivation}}
 
 \hypertarget{items-and-fillers}{%
 \subsection{Items and Fillers}\label{items-and-fillers}}
@@ -420,6 +563,11 @@ effects with Turkish possessors.
 \leavevmode\hypertarget{ref-R_Core_Team_2018}{}%
 R Core Team. 2018. R: A language and environment for statistical
 computing. R Foundation for Statistical Computing, Vienna, Austria.
+
+\leavevmode\hypertarget{ref-Wagers2009}{}%
+Wagers, M. W., E. F. Lau, and C. Phillips. 2009. Agreement attraction in
+comprehension: Representations and processes. Journal of Memory and
+Language 61:206--237.
 
 \leavevmode\hypertarget{ref-Wickham_2016}{}%
 Wickham, H. 2016. Ggplot2: Elegant graphics for data analysis.

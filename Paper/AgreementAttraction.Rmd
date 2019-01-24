@@ -71,26 +71,133 @@ opts_chunk$set(fig.path = "output/figures/")
 
 ```
 
-```{r outline, eval=FALSE, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-Introduction
-Recap on what Lago did
-My experiment
-  Reasoning
-  Experiment Details
-    Environments
-    Items
-    Fillers
-    Participants
-    Exclusions
-    Results and Discussions
-  ...
-    
-```
-
 ```{r knitcitations, echo=FALSE, cache = FALSE}
 library(knitcitations)
 cleanbib()   
 cite_options(citation_format = "pandoc")
+```
+
+```{r init, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(languageR)
+library(tidyverse)
+library(gdata)
+library(MASS)
+library(magrittr)
+library(ggplot2)
+
+data <- read.csv('results', 
+                 header = F, 
+                 comment.char = "#", 
+                 encoding = "UTF-8" , 
+                 col.names = paste0("V",seq_len(11)), 
+                 fill = TRUE)
+
+colnames(data) = c("Time", "MD5", "ControllerType", "SentenceNoInStimFile", "Element", "Type", "Item", "Sentence", "Question","Answer", "RT")
+
+FormEntries <- subset(data, ControllerType != "DashedAcceptabilityJudgment" ) %>% drop.levels(); nrow(data)
+data %<>% subset(ControllerType == "DashedAcceptabilityJudgment")
+age <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+  dplyr::filter(Sentence == "age") %>%
+  dplyr::select(MD5, Age = Question)
+natturk <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+  dplyr::filter(Sentence == "natturk") %>%
+  dplyr::select(MD5, Natturk = Question) %>%
+  mutate(Natturk = Natturk == "male")
+dex <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+  dplyr::filter(Sentence == "dex") %>%
+  dplyr::select(MD5, Dex = Question) %>%
+  mutate(Dex = ifelse(Dex == "male", "right-handed", "left-handed"))
+FormPart <- dplyr::left_join(age, natturk, by = "MD5") %>% 
+  dplyr::left_join(., dex , by = "MD5" ) %>% 
+  unique()
+lenForm <- length(levels(factor(FormPart$MD5))); lenForm
+md5form <- levels(factor(FormPart$MD5))
+md5form_subject <- data.frame("MD5" = md5form, "Subject" = sprintf("S[%s]",seq((lenForm))))
+FormPart <- merge(FormPart,md5form_subject, all = T)
+
+stopifnot( nrow(data) %% 2 == 0 )
+rows_stim <- data[c(T,F),]
+rows_resp <- data[c(F,T),]
+
+data <- rows_resp %>% left_join(md5form_subject) %>% dplyr::select(-MD5, -Time, -ControllerType, -Sentence, -Element) %>%
+  dplyr::rename(ResponseCorrect=Answer, Response=Question)
+data %<>% group_by(Subject) %>% mutate(trial_no = seq(Subject))
+data %<>% within({ late_response = (Response == "NULL")
+Response[late_response] = NA
+ResponseCorrect[late_response] = NA
+})
+
+responses <- c(yes="İYİ (P'ye basınız)", no="KÖTÜ (Q'ya basınız)")
+stopifnot( all(data$Response %in% responses | is.na(data$Response) ) )
+
+data$ResponseYes <- ifelse(grepl("P",data$Response) , T, 
+                           ifelse(grepl("Q",data$Response) , F, NA))
+
+data$condition <- 
+  with(data, case_when(Type == "filler" & SentenceNoInStimFile >= 200 ~ "a",
+                       Type == "filler" & SentenceNoInStimFile < 200 ~ "b",
+                       Type == "condition_a" ~ "a",
+                       Type == "condition_b" ~ "b",
+                       Type == "condition_c" ~ "c",
+                       Type == "condition_d" ~ "d",
+                       TRUE ~ as.character(NA)))
+data$experiment <- ifelse(data$Type %in% c("condition_a", "condition_b", "condition_c", "condition_d"), "AgrAttr", as.character(data$Type))
+
+data %>% group_by(experiment, condition) %>% 
+  summarise(perc_yes = mean(ResponseYes, na.rm = T),
+            perc_na = mean(is.na(ResponseYes)))
+
+
+conditions_info <- data.frame(experiment = c("AgrAttr", "AgrAttr", "AgrAttr", "AgrAttr", "filler", "filler"),
+                              condition = c("a","b","c","d", "a","b"),
+                              grammatical = c("ungram", "gram", "ungram", "gram", "ungram", "gram"),
+                              verb_num = c("sg","pl","sg","pl", "sg","pl"),
+                              attracted = c(T,T,F,F,F,F),
+                              stringsAsFactors = FALSE) 
+data %<>% left_join(conditions_info)
+data %<>% subset(Type != "practice") %>% drop.levels()
+
+dataAv <- data %>% 
+  group_by(experiment, condition, grammatical, verb_num, attracted) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
+  as.data.frame()
+
+dataAv %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) 
+
+data$trial_group <- Hmisc::cut2(data$trial_no, g=5)
+
+dataAvSplit <- data %>% 
+  group_by(experiment, condition, grammatical, verb_num, attracted, trial_group) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
+  as.data.frame()
+
+plot_split <- dataAvSplit %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~trial_group)
+
+
+dataAvBySubj <- data %>% 
+  group_by(Subject, experiment, condition, grammatical, verb_num, attracted) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T), N = sum(!is.na(ResponseYes))  )  %>% 
+  as.data.frame()
+head(dataAvBySubj,10)
+
+
+dataAvBySubjWide = dataAvBySubj %>% mutate(expcond = paste(experiment,condition, sep="_")) %>% dplyr::select(-experiment, -condition, -avRT, -N, -grammatical, -verb_num, -attracted) %>% tidyr::spread(expcond, p_yes)
+dataAvBySubjWide %<>% mutate(delta_dc = AgrAttr_d - AgrAttr_c)
+bad_subjects = subset(dataAvBySubjWide, delta_dc <= 0.25 ) %>% .$Subject
+
+dataAvBySubj %>% subset(Subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~Subject)
+
+
+dataAvClean <- data %>% subset(!Subject %in% bad_subjects)%>% 
+  group_by(experiment, condition, grammatical, verb_num, attracted) %>%
+  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
+  as.data.frame()
+
+dataAvClean <- slice(dataAvClean, 1:4)
+
+plot_average <- dataAvClean %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) #+ facet_wrap(~experiment, scales = "free_y")
+
+
 ```
 
 \vspace{2mm}\hrule
@@ -136,12 +243,12 @@ singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\tex
 \ex \underline{Grammatical, PL attractor} \label{lago2}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
-\glt The singer's backup vocalist jumped on the stage non-stop.
+\glt The singers' backup vocalist jumped on the stage non-stop.
 
 \ex \underline{Ungrammatical, PL attractor} \label{lago3}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
-\glt The singer's backup vocalist jumped on the stage non-stop.
+\glt The singers' backup vocalist jumped on the stage non-stop.
 
 \ex \underline{Ungrammatical, SG attractor} \label{lago4}
 \gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
@@ -150,9 +257,9 @@ singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\tex
 \end{xlist}
 \end{exe}
 
-They have found a significant effect of number attraction in Turkish ranging between 11%--15% across monolinguals. As seen from the results of statistical analysis in Table (\ref{lagomodel}), acceptability judgments showed an immense effect of grammaticality, and there is also interaction between grammaticality and attractor number which indicates an number attraction effect. 
+They have found a significant effect of number attraction in Turkish ranging between 11%--15% across monolinguals. As seen from the results of statistical analysis in \textsc{Table} (\ref{lagomodel}), acceptability judgments showed an immense effect of grammaticality, and there is also interaction between grammaticality and attractor number which indicates an number attraction effect. 
 
-\begin{table}[]
+\begin{table}[!hbt]
 \centering
 \begin{tabular}{llcccc}
 \hline
@@ -178,12 +285,92 @@ village-\textsc{acc} a bandit-\textsc{gen} raid-\textsc{nmlz}-\textsc{3Sg}-\text
 \glt I heard that a (certain) robber raided the village. (Adapted from Woolford (2009))
 \end{exe}
 
-However, we argue that not only genitive case but also possessive case plays a significant role in delivering the case information. None of the experimental items in @Lago has a head noun which ends with a vowel; thus, all of the possessive markers are morphologically and phonologically ambiguous between the accusative case and the possessive. 
+However, our first hypothesis was the possibility of participants engaging in a shallow processing, which ends up in a situation where not only genitive case but also possessive case plays a significant role in delivering the case information. None of the experimental items in @Lago has a head noun which ends with a vowel; thus, all of the possessive markers are morphologically and phonologically ambiguous between the accusative case and the possessive. Unlike genitive case, the accusative case in Turkish is extremely rare to see on the head noun of the subject, which only occurs in the raising predicates as in example (\ref{dsm}).
 
-## Modifications
-## Participants
-## Filler Items
+\begin{exe}
+\ex \label{dsm}
+\gll Ben sen-i git-ti-n san-d{\i}-m\\
+I you-\textsc{acc} go-\textsc{pst}-\textsc{2Sg} suppose-\textsc{pst}-\textsc{1Sg}\\
+\glt I thought you were gone.
+\end{exe}
+
+In order to test this hypothesis, we have replicated the @Lago study with modified items, where the possessive is not ambiguous with the accusative case. We have tried to be as faithful as possible to the original sentences while trying to make sentences as plauisable as possible at the same time. We keep the semantic relation between the head nound and the controller the same with   A set of sentences are exemplified below.
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \underline{Grammatical, SG attractor} \label{exp1}
+\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+\glt Because of the northeaster, comedian's assistant felt chilly.
+
+\ex \underline{Grammatical, PL attractor} \label{exp2}
+\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+\glt Because of the northeaster, comedians' assistant felt chilly.
+
+\ex \underline{Ungrammatical, PL attractor} \label{exp3}
+\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
+\glt Because of the northeaster, comedians' assistant felt chilly.
+
+\ex \underline{Ungrammatical, SG attractor} \label{exp4}
+\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
+\glt Because of the northeaster, comedian's assistant felt chilly.
+
+\end{xlist}
+\end{exe}
+
+As seen in the examples unlike @Lago's experimental items, all of our items bear the *-sI* possessive marker instead of the ambiguous *-I* one. As for the filler items, we could not used or adapt from the original experimentsince the fillers of the original study were not online. We have used two types filler sentences: a grammatical ones where the verb bears plural agreement (\ref{fillera}), and an ungrammatical one where verb does not bear plural agreement (\ref{fillerb}). We wanted to nullify a possible strategy by the participants where they associate the sentence-final morpheme directly with the acceptability, and disregard other elements in the sentences when answering questions. 
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \label{fillera}
+\gll Adam-{\i}n anne-si fena-la\c{s}-{\i}nca inek kurban et-ti-ler.\\
+man-\textsc{gen} mother-\textsc{poss} bad-\textsc{vrb}-\textsc{cvb} cow sacrifice do-\textsc{pst}-\textsc{pl}\\
+\glt When his mother got ill, (they) sacrificed a cow.
+\ex \label{fillerb}
+\gll *Pizzac{\i}-n{\i}n kurye-si t\"{o}kezle-yince sos-lar yer-e sa\c{c}-t{\i}.\\
+pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} floor-\textsc{dat} scatter-\textsc{pst}\\
+\glt Intended: When the pizza boy tripped, sauces scattered around. 
+\end{xlist}
+\end{exe}
+
+
+All of our data, experimental materials, our experiment design, and as well as our fillers can be found at the Center for Open Science Framework website (https://osf.io/).
+
+## Participants and Procedure
+
+One hundred seven Turkish speakers with mean age of X were recruited from the Bogazici University in {\.I}stanbul. We did not collect participants' knowledge of other languages; however, we ensured that Turkish is their native language and they predominantly used in their daily lives. In the experiments, participants are asked to judge the experimental and filler sentences whether or not they sound acceptable in Turkish. All of the sentences were presented one word at a time in the center area of the screen for 500 ms per word unlike @Lago and @Wagers2009, in which researches used 300 ms visual presentation per word. Experiment was run on a web-based platform Ibex Farm, and all of the documentation can be found in our osf and github page. 
+
+Before the experiment, they have been instructed to give accurate and quick answers with their own intuition, and they were also notified about the time limit for answering. At the start of the experiment they were given 4 practice items with feedbacks. 
+
+What to write about analyze?
+
 ## Results and Discussion
+
+In \textsc{Figure} (\ref{fig:replication}), y-axis shows proportion of "acceptable" answers, and x-axis indicates whether or not the sentences in that group is grammatical. Moreover, linetypes indicates an attractor noun with overt plural morphology. As seen from the figure, `r round(100*dataAvClean[1,7])`% of the sentences with plural attractors and singular verb were accepted by the participants following the findings of @Lago. We also see a number attraction rate of `r round(100*(dataAvClean[1,7]-dataAvClean[3,7]))`% which was already shown in @Lago with close results. 
+
+In \textsc{Table} (\ref{tab:replication}), ............
+
+\begin{figure}[H]
+  \begin{floatrow}
+    \ffigbox{%
+```{r, fig.align = "right", echo = F}
+print{}
+```
+    }{\caption{A figure}}
+
+    \btabbox{%
+```{r, fig.align = "right", echo = F}
+knitr::kable(head(mtcars[,1:3]), format = "latex")
+```
+    }{\caption{A table}}
+  \end{floatrow}
+\end{figure}
+
 
 # EXPERIMENT 2: RC ATTRACTOR
 ## Motivation

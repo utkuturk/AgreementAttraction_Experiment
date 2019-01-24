@@ -95,7 +95,7 @@ Response[late_response] = NA
 ResponseCorrect[late_response] = NA
 })
 
-responses <- c(yes="ÝYÝ (P'ye basýnýz)", no="KÖTÜ (Q'ya basýnýz)")
+responses <- c(yes="?Y? (P'ye bas?n?z)", no="K?T? (Q'ya bas?n?z)")
 stopifnot( all(data$Response %in% responses | is.na(data$Response) ) )
 
 data$ResponseYes <- ifelse(grepl("P",data$Response) , T, 
@@ -167,6 +167,7 @@ dataAvClean <- data %>% subset(!Subject %in% bad_subjects)%>%
   group_by(experiment, condition, grammatical, verb_num, attracted) %>%
   summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
   as.data.frame()
+dataAvClean <- slice(dataAvClean, 1:4)
 
 dataAvClean %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) #+ facet_wrap(~experiment, scales = "free_y")
 

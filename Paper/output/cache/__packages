@@ -1,3 +1,17 @@
 base
 knitr
 knitcitations
+languageR
+tidyverse
+ggplot2
+tibble
+tidyr
+readr
+purrr
+dplyr
+stringr
+forcats
+gdata
+MASS
+magrittr
+bindrcpp
