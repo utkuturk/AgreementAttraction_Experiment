@@ -13,7 +13,7 @@ author:
 affiliation:
 
 - affilnum: 1
-  affil: Bogazici University, South Campus, John Freely Building, Department of Linguistics, 34342, Istanbul, Turkey
+  affil: Bogazici University, Department of Linguistics, Istanbul, Turkey
 
   
 output:
@@ -37,7 +37,7 @@ classoption: a4paper
 capsize: normalsize
 fontsize: 11pt
 geometry: margin=1in
-linenumbers: yes
+linenumbers: no
 spacing: singlespacing
 footerdate: yes
 bibliography: 
