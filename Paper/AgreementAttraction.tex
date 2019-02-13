@@ -1,208 +1,105 @@
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%% Original default rstudio/pandoc latex file
-%% upated by @jhollist 09/15/2014
-%% inspired by @cboetting https://github.com/cboettig/template and
-%% @rmflight blog posts:
-%% http://rmflight.github.io/posts/2014/07/analyses_as_packages.html 
-%% http://rmflight.github.io/posts/2014/07/vignetteAnalysis.html).  
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\documentclass[11pt,a4paper]{article}
-\usepackage[T1]{fontenc}
+\documentclass[doc]{apa6}
 \usepackage{lmodern}
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
 \else % if luatex or xelatex
   \ifxetex
     \usepackage{mathspec}
-    \usepackage{xltxtra,xunicode}
   \else
     \usepackage{fontspec}
   \fi
-  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
-  \newcommand{\euro}{€}
+  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
 \fi
+% use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 % use microtype if available
-\IfFileExists{microtype.sty}{\usepackage{microtype}}{}
-\usepackage[margin=1in]{geometry}
-\ifxetex
-  \usepackage[setpagesize=false, % page size defined by xetex
-              unicode=false, % unicode breaks when used with xetex
-              xetex]{hyperref}
-\else
-  \usepackage[unicode=true]{hyperref}
-\fi
-\hypersetup{breaklinks=true,
-            bookmarks=true,
-            pdfauthor={},
+\IfFileExists{microtype.sty}{%
+\usepackage{microtype}
+\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{hyperref}
+\hypersetup{unicode=true,
             pdftitle={Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural Morphemes},
-            colorlinks=true,
-            citecolor=blue,
-            urlcolor=blue,
-            linkcolor=magenta,
-            pdfborder={0 0 0}}
+            pdfauthor={Utku Türk~\& Pavel Logačev},
+            pdfkeywords={keywords},
+            pdfborder={0 0 0},
+            breaklinks=true}
 \urlstyle{same}  % don't use monospace font for urls
+\usepackage{graphicx,grffile}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\IfFileExists{parskip.sty}{%
+\usepackage{parskip}
+}{% else
 \setlength{\parindent}{0pt}
 \setlength{\parskip}{6pt plus 2pt minus 1pt}
+}
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
-\setcounter{secnumdepth}{5}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Changes borrowed from @cboettig, added by @jhollist 
-% A modified page layout 
-\textwidth 6.75in
-\oddsidemargin -0.15in
-\evensidemargin -0.15in
-\textheight 9in
-\topmargin -0.5in
-\usepackage{lineno} % add 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%%Packages and layout changes by @jhollist 09/15/2014
-\usepackage{ragged2e}
-\usepackage[font=normalsize]{caption}
-  \usepackage[singlespacing]{setspace}
-\usepackage{parskip}
-\usepackage{fancyhdr}
-\pagestyle{fancy}
-\fancyhf{}
-\renewcommand{\headrulewidth}{0pt}
-  \rfoot{\today}
-\lfoot{\thepage}
-%%Changed default abstract width and added lines
-\renewenvironment{abstract}{
-  \hfill\begin{minipage}{1\textwidth}
-  \rule{\textwidth}{1pt}\vspace{5pt}
-  \normalsize
-  \begin{justify}
-  \bfseries\abstractname\vspace{5pt}
-  \end{justify}}
-  {\par\noindent\rule{\textwidth}{1pt}\end{minipage}
-}
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\title{Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural
-Morphemes}
-\author{
-Utku Turk
-Pavel Logacev
-}
-\date{}
-% Allowing for landscape pages
-\usepackage{lscape}
-\newcommand{\blandscape}{\begin{landscape}}
-\newcommand{\elandscape}{\end{landscape}}
-
-% Left justification of the text: see https://www.sharelatex.com/learn/Text_alignment
-% \usepackage[document]{ragged2e} % already in the latex template
-\newcommand{\bleft}{\begin{flushleft}}
-\newcommand{\eleft}{\end{flushleft}}
-
-% multicols
-\usepackage{multicol}
-\usepackage{paracol}
-
-% enumerated examples
-\usepackage{enumitem}
-
-% for linguistic examples &  interlinear glosses
-\usepackage{gb4e}
-\exewidth{(10.159)}
-\noautomath
-\let\eachwordone=\it
-
-\usepackage{qtree}	
-
-
-% for figure and table side by side
-\usepackage{floatrow}
-\newfloatcommand{btabbox}{table}
-
-%%Fix tightlist error: https://stackoverflow.com/questions/40438037/tightlist-error-using-pandoc-with-markdown
-%%Added 2018-03-26 
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-%%%  
+\setcounter{secnumdepth}{0}
+% Redefines (sub)paragraphs to behave more like sections
+\ifx\paragraph\undefined\else
+\let\oldparagraph\paragraph
+\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+\let\oldsubparagraph\subparagraph
+\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+
+
+  \title{Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural
+Morphemes}
+    \author{Utku Türk\textsuperscript{1}~\& Pavel Logačev\textsuperscript{1}}
+    \date{}
   
 
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\usepackage{xcolor}
+\usepackage{hhline}
+\usepackage{mathtools}
+\usepackage{gb4e}\noautomath
+
+\authornote{Add complete departmental affiliations for each
+author here. Each new line herein must be indented, like this line.
+Enter author note here.
+
+Correspondence concerning this article should be addressed to Utku Türk,
+Postal address. E-mail:
+\href{mailto:utku.turk@boun.edu.tr}{\nolinkurl{utku.turk@boun.edu.tr}}}
+
+\abstract{
+This paper deals with agreement attraction because it's more important
+than literally anything else. Recently, Lago et al. (2018) demonstrated
+agreement attraction effects in comprension in Turkish, which is
+super-interesting because this finding allows us to make a lot of money.
+However, there is an alternative explanation for their findings: dark
+sorcery. In this paper we tested the predictions of these alternative
+accounts. In Experiment 1, we found that a particular kind of dark
+sorcery was not involved. In Experiment 2, we shall find \ldots{}
+
+
+}
+
 \begin{document}
-%%Edited by @jhollist 09/15/2014
-%%Adds title from YAML
-\begin{singlespace}
-\begin{center}
-\huge Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural
-Morphemes
-\end{center}
-%%Adds Author, correspond email asterisk, and affilnum from YAML
-\begin{center}
-\large
-Utku Turk \textsuperscript{*} \textsuperscript{1} 
-Pavel Logacev \textsuperscript{1} 
-\end{center}
-%%Adds affiliations from YAML
-\begin{justify}
-\footnotesize \emph{ 
-\\*
-\textsuperscript{1}Bogazici University, Department of Linguistics, Istanbul, Turkey\\*
-}
-%%Adds corresponding author email(s) from YAML
-\newcounter{num}
-\setcounter{num}{1}
-\\[0.1cm]
-\footnotesize \emph{ 
-\ifnum\value{num}=1%
-\textsuperscript{*} corresponding author:
-\fi
-\href{mailto:utku.turk@boun.edu.tr}{\nolinkurl{utku.turk@boun.edu.tr}}
-\stepcounter{num}
-}
-\end{justify}
-%%Adds date from YAML
-\normalsize
-
-\end{singlespace}
-
-
-\vspace{2mm}\hrule
-
-In this paper, our objective is to explore the source of agreement
-attraction effects in Turkish discovered by Lago (2018). The
-interpretation of their finding is complicated by the fact that the
-possessive form of all head nouns used in their stimuli are
-morphologically ambiguous between possessive and accusative. In Turkish,
-genitive can be productively used for marking the subject of an embedded
-clause whereas accusative is rarely used for marking the subject. Due to
-this mismatch in the frequency of usage of accusative and genitive,
-which is used as a attractor in this experiment, as a controller, Lago
-(2018)'s findings could potentially be explained with occasional shallow
-processing. We have replicated Lago (2018)'s experiment with unambigious
-head nouns, and we have found similar agreement attraction effects.
-However, this may mean that participants engage in even more shallow
-processing than we imagined. We postulate that participants solely check
-for the presence of a \emph{-lAr} morpheme, while largely disregarding
-the remainder of the sentence. We utilize an experiment design in which
-we use a relative clause with or without plural agreement on the verb in
-place of the genitive possessor since both verbal and nominal plural
-morphemes are the same in Turkish, i.e.~the exponent of both is
-\emph{-lAr}. If participants did, in fact, adopt a superficial
-processing strategy, we would expect to find a number agreement
-attraction effect similar in magnitude to that in Lago (2018). However,
-if number attraction is not an artifact of shallow processing
-strategies, we should expect to find no number attraction effects in
-this experiment.
-
-\vspace{3mm}\hrule
-
-\emph{Keywords}: Turkish, agreement attraction, task effect, shallow
-processing
-
-\bleft
+\maketitle
 
 \section{INTRODUCTION}\label{introduction}
 
@@ -264,44 +161,46 @@ participants use the aforementioned strategies.
 this experiments leaves us. Lastly, \S 5 presents a brief conclusion and
 topics for future research.
 
-\section{REPLICATON OF LAGO ET AL.
-(2018)}\label{replicaton-of-lago-et-al.-2018}
+\section{Experiment 1}\label{experiment-1}
 
-In their study, Lago (2018) investigate the comprehension of
-subject-verb agreement in Turkish-German bilinguals and Turkish
-monolinguals. They use speeded acceptability judgments for the effects
-of number attraction in Turkish. Their sentences make us of
-genitive-possessive constructions in the subject position, where the
-genitive is the attractor and the possessive is the head noun. They
-manipulate the grammaticality of the sentence by changing the plural
-morphology of the verb, and they also manipulate the plurality of the
-attractor noun. In grammatical conditions, the subject and the verb both
-bear singular morphology with no overt morpheme. Moreover, in the
-ungrammatical conditions, the verb bears the overt \emph{-lAr} morpheme
-whereas the subject is still singular as exemplified below.
+In their study, Lago (2018) investigates the comprehension of
+subject-verb agreement Turkish monolinguals. They use speeded
+acceptability judgments for the effects of number attraction in Turkish.
+Their sentences make us of genitive-possessive constructions in the
+subject position, where the genitive is the attractor and the possessive
+is the head noun. They manipulate the grammaticality of the sentence by
+changing the plural morphology of the verb, and they also manipulate the
+plurality of the attractor noun. In grammatical conditions, the subject
+and the verb both bear singular morphology with no overt morpheme.
+Moreover, in the ungrammatical conditions, the verb bears the overt
+\emph{-lAr} morpheme whereas the subject is still singular as
+exemplified below.
 
 \begin{exe}
 \ex
 \begin{xlist}
-\ex \underline{Grammatical, SG attractor} \label{lago1}
-\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
-singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
+
+\ex \textsc{Ungrammatical, SG attractor} \label{lago4}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
+singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
 \glt The singer's backup vocalist jumped on the stage non-stop.
 
-\ex \underline{Grammatical, PL attractor} \label{lago2}
+\ex \textsc{Grammatical, PL attractor} \label{lago2}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
 \glt The singers' backup vocalist jumped on the stage non-stop.
 
-\ex \underline{Ungrammatical, PL attractor} \label{lago3}
+
+\ex \textsc{Ungrammatical, PL attractor} \label{lago3}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
 \glt The singers' backup vocalist jumped on the stage non-stop.
 
-\ex \underline{Ungrammatical, SG attractor} \label{lago4}
-\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
-singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
+\ex \textsc{Grammatical, SG attractor} \label{lago1}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
+singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
 \glt The singer's backup vocalist jumped on the stage non-stop.
+
 \end{xlist}
 \end{exe}
 
@@ -374,28 +273,29 @@ possessor. A set of sentences are exemplified below.
 
 \begin{exe}
 \ex
-\begin{xlist}
-\ex \underline{Grammatical, SG attractor} \label{exp1}
-\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
-comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
-\glt Because of the northeaster, comedian's assistant felt chilly.
+  \begin{xlist}
+  \ex \underline{Ungrammatical, PL attractor} \label{exp3}
+      \gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
+      \glt Because of the northeaster, comedians' assistant felt chilly.
 
-\ex \underline{Grammatical, PL attractor} \label{exp2}
-\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
-comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
-\glt Because of the northeaster, comedians' assistant felt chilly.
+  \ex \underline{Grammatical, PL attractor} \label{exp2}
+      \gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+      \glt Because of the northeaster, comedians' assistant felt chilly.
 
-\ex \underline{Ungrammatical, PL attractor} \label{exp3}
-\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
-comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
-\glt Because of the northeaster, comedians' assistant felt chilly.
+  
+  \ex \underline{Ungrammatical, SG attractor} \label{exp4}
+      \gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
+      \glt Because of the northeaster, comedian's assistant felt chilly.
+  
+  \ex \underline{Grammatical, SG attractor} \label{exp1}
+      \gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+      \glt Because of the northeaster, comedian's assistant felt chilly.
 
-\ex \underline{Ungrammatical, SG attractor} \label{exp4}
-\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
-comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
-\glt Because of the northeaster, comedian's assistant felt chilly.
-
-\end{xlist}
+  \end{xlist}
 \end{exe}
 
 As seen in the examples, unlike Lago (2018)'s experimental items, all of
@@ -439,10 +339,10 @@ Turkish is their native language and that they predominantly use it in
 their daily lives. In the experiments, participants were asked to judge
 the acceptability of experimental and filler sentences in Turkish. All
 of the sentences were presented one word at a time in the center of the
-screen for 500 ms per word unlike Lago (2018) and Wagers et al. (2009),
-in which the duration was 300 ms per word. The experiment was run on a
-web-based platform titled the Ibex Farm, and all of the documentation
-can be found on our osf and github page.
+screen for 500 ms per word unlike Lago (2018) and Wagers, Lau, and
+Phillips (2009), in which the duration was 300 ms per word. The
+experiment was run on a web-based platform titled the Ibex Farm, and all
+of the documentation can be found on our osf and github page.
 
 Before the experiment, participants were instructed to give accurate and
 quick answers based on their own intuitions, and they were also notified
@@ -457,28 +357,39 @@ In \textsc{Figure} (1), the y-axis shows the percentage of
 ``acceptable'' answers, and the x-axis indicates whether or not the
 sentences in that group are grammatical. Moreover, the linet ypes
 indicate an attractor noun with overt plural morphology. As seen in the
-figure, 22\% of the sentences with plural attractors and a singular verb
+figure, 1\% of the sentences with plural attractors and a singular verb
 were accepted by the participants, in line with the findings of Lago
-(2018). We also see a number attraction rate of 10\% which was also
+(2018). We also see a number attraction rate of 2\% which was also
 observed in Lago (2018) with close results.
 
 In \textsc{Table} (\ref{tab:replication}),
 \ldots{}\ldots{}\ldots{}\ldots{}
 
-And yes, I plan to beautify the figures.
+\subsection{Responses}\label{responses}
 
-\begin{figure}[H]
-  \begin{floatrow}
-    \ffigbox{%
-
-\begin{flushright}\includegraphics{output/figures/unnamed-chunk-1-1} \end{flushright}
-    }{\caption{A figure}}
-
-    \btabbox{%
-
-    }{\caption{A table}}
-  \end{floatrow}
+\begin{figure}
+\centering
+\includegraphics{AgreementAttraction_files/figure-latex/exp1AvgResponse-1.pdf}
+\caption{\label{fig:exp1AvgResponse}Estimates and 95\% credible intervals
+for the analysis of the probability of a `yes' response.}
 \end{figure}
+
+\begin{figure}
+\centering
+\includegraphics{AgreementAttraction_files/figure-latex/exp1AvgResponseLagoEtAl-1.pdf}
+\caption{\label{fig:exp1AvgResponseLagoEtAl}Estimates and 95\% credible
+intervals for the analysis of the probability of a `yes' response.}
+\end{figure}
+
+\subsection{Response Times}\label{response-times}
+
+\begin{figure}
+\centering
+\includegraphics{AgreementAttraction_files/figure-latex/exp1AvgRTs-1.pdf}
+\caption{}
+\end{figure}
+
+\clearpage
 
 \section{EXPERIMENT 2: RC ATTRACTOR}\label{experiment-2-rc-attractor}
 
@@ -519,16 +430,16 @@ events, and restrictions. )
 
 \begin{exe}
 \ex
-\begin{xlist}
-\ex \label{rcexample}
-\gll On-lar-{\i}n ev-e gel-me-den g\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
-they-\textsc{pl}-\textsc{gen} home-\textsc{dat} come-\textsc{neg}-\textsc{abl} see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
-\glt The kid that they saw right before coming to home was feeling chilly. 
-\ex \label{rcexample2}
-\gll G\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
-see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
-\glt The kid that they saw home was feeling chilly.
-\end{xlist}
+  \begin{xlist}
+    \ex \label{rcexample}
+    \gll On-lar-{\i}n ev-e gel-me-den g\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
+    they-\textsc{pl}-\textsc{gen} home-\textsc{dat} come-\textsc{neg}-\textsc{abl} see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
+    \glt The kid that they saw right before coming to home was feeling chilly. 
+    \ex \label{rcexample2}
+    \gll G\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
+    see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
+    \glt The kid that they saw home was feeling chilly.
+  \end{xlist}
 \end{exe}
 
 As for the experimental sentences, we plan to use sentences that are
@@ -549,24 +460,24 @@ demonstrated with item (\ref{reg1}), (\ref{reg2}), (\ref{reg3}), and
 
 \begin{exe}
 \ex
-\begin{xlist}
-\ex \underline{Grammatical, SG attractor} \label{reg1}
-\gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
-beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\ 
-\glt The kid that he/she beats was laying in the kitchen unconscious.
-\ex \underline{Grammatical, PL attractor} \label{reg2}
-\gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
-beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\
-\glt The kid that they beat was laying in the kitchen unconscious.
-\ex \underline{Ungrammatical, PL attractor} \label{reg3}
-\gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
-beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
-\glt Intended: The kid that they beat were laying in the kitchen unconscious.
-\ex \underline{Ungrammatical, SG attractor} \label{reg4}
-\gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
-beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
-\glt Intended: The kid that he/she beats were laying in the kitchen unconscious.
-\end{xlist}
+  \begin{xlist}
+  \ex \underline{Grammatical, SG attractor} \label{reg1}
+      \gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
+  beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\ 
+      \glt The kid that he/she beats was laying in the kitchen unconscious.
+  \ex \underline{Grammatical, PL attractor} \label{reg2}
+      \gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
+  beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\
+      \glt The kid that they beat was laying in the kitchen unconscious.
+  \ex \underline{Ungrammatical, PL attractor} \label{reg3}
+      \gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
+  beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
+      \glt Intended: The kid that they beat were laying in the kitchen unconscious.
+  \ex \underline{Ungrammatical, SG attractor} \label{reg4}
+      \gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
+  beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
+      \glt Intended: The kid that he/she beats were laying in the kitchen unconscious.
+  \end{xlist}
 \end{exe}
 
 As for the fillers, we need two different set of fillers in order to
@@ -638,83 +549,58 @@ Discuss.
 
 \section{CONCLUSIONS}\label{conclusions}
 
-In this paper, we have entertained the idea of task effect in the
-so-called Turkish number attraction phenomenon. We argue that the
-findings of the Lago (2018) study is not clear and there are too many
-variables to account for in the experiment, one of them being the
-ambiguous morphology that the head noun bears. In the first experiment,
-we have replicated the attraction task of Lago (2018). We have found the
-similar effects of agreement with a bigger pool of participants. Then,
-for entertaining the other possibility in which we argue that
-participants do not fully reconstruct the sentence; however, they make
-us of the direct cue of overt morpheme \emph{-lAr}, we offer an
-experiment where we use object relative clauses as an attractor.
+\subsection{\texorpdfstring{In this paper, we have entertained the idea
+of task effect in the so-called Turkish number attraction phenomenon. We
+argue that the findings of the Lago (2018) study is not clear and there
+are too many variables to account for in the experiment, one of them
+being the ambiguous morphology that the head noun bears. In the first
+experiment, we have replicated the attraction task of Lago (2018). We
+have found the similar effects of agreement with a bigger pool of
+participants. Then, for entertaining the other possibility in which we
+argue that participants do not fully reconstruct the sentence; however,
+they make us of the direct cue of overt morpheme \emph{-lAr}, we offer
+an experiment where we use object relative clauses as an
+attractor.}{In this paper, we have entertained the idea of task effect in the so-called Turkish number attraction phenomenon. We argue that the findings of the Lago (2018) study is not clear and there are too many variables to account for in the experiment, one of them being the ambiguous morphology that the head noun bears. In the first experiment, we have replicated the attraction task of Lago (2018). We have found the similar effects of agreement with a bigger pool of participants. Then, for entertaining the other possibility in which we argue that participants do not fully reconstruct the sentence; however, they make us of the direct cue of overt morpheme -lAr, we offer an experiment where we use object relative clauses as an attractor.}}\label{in-this-paper-we-have-entertained-the-idea-of-task-effect-in-the-so-called-turkish-number-attraction-phenomenon.-we-argue-that-the-findings-of-the-lago-study-is-not-clear-and-there-are-too-many-variables-to-account-for-in-the-experiment-one-of-them-being-the-ambiguous-morphology-that-the-head-noun-bears.-in-the-first-experiment-we-have-replicated-the-attraction-task-of-lago.-we-have-found-the-similar-effects-of-agreement-with-a-bigger-pool-of-participants.-then-for-entertaining-the-other-possibility-in-which-we-argue-that-participants-do-not-fully-reconstruct-the-sentence-however-they-make-us-of-the-direct-cue-of-overt-morpheme--lar-we-offer-an-experiment-where-we-use-object-relative-clauses-as-an-attractor.}
 
 \section{ACKNOWLEDGEMENTS}\label{acknowledgements}
 
-We used the statistical language \texttt{R} (R Core Team 2018) for all
+We used the statistical language \texttt{R} (R Core Team, 2018) for all
 our analyses. These were implemented in dynamic rmarkdown documents
-using \texttt{knitr} (Xie 2014, 2015, 2018) and \texttt{rmarkdown}
-(Allaire et al. 2018, Xie et al. 2018) packages. All graphs have been
-done with \texttt{ggplot} (Wickham 2016). We also would like to thank
-Mine Nakipo\u{g}lu and Kadir Gökgöz for giving us the oppurtunity to
-conduct experiments and having participants from their classes.
+using \texttt{knitr} (Xie, 2018) and \texttt{rmarkdown} (Xie, Allaire,
+\& Grolemund, 2018) packages. All graphs have been done with
+\texttt{ggplot} (Wickham, 2016).
 
-\section{REFERENCES}\label{references}
+\section*{REFERENCES}\label{references}
+\addcontentsline{toc}{section}{REFERENCES}
 
 \hypertarget{refs}{}
-\hypertarget{ref-Allaire_2018}{}
-Allaire, J., Y. Xie, J. McPherson, J. Luraschi, K. Ushey, A. Atkins, H.
-Wickham, J. Cheng, W. Chang, and R. Iannone. 2018. Rmarkdown: Dynamic
-documents for r.
-
 \hypertarget{ref-Lago}{}
-Lago, S. 2018. Straight from the horse's mouth: agreement attraction
-effects with Turkish possessors.
+Lago, S. (2018). Straight from the horse's mouth: agreement attraction
+effects with Turkish possessors. doi:\href{https://doi.org/none}{none}
 
 \hypertarget{ref-R_Core_Team_2018}{}
-R Core Team. 2018. R: A language and environment for statistical
-computing. R Foundation for Statistical Computing, Vienna, Austria.
+R Core Team. (2018). \emph{R: A language and environment for statistical
+computing}. Vienna, Austria: R Foundation for Statistical Computing.
+Retrieved from \url{https://www.R-project.org/}
 
 \hypertarget{ref-Wagers2009}{}
-Wagers, M. W., E. F. Lau, and C. Phillips. 2009. Agreement attraction in
-comprehension: Representations and processes. Journal of Memory and
-Language 61:206--237.
+Wagers, M. W., Lau, E. F., \& Phillips, C. (2009). Agreement attraction
+in comprehension: Representations and processes. \emph{Journal of Memory
+and Language}, \emph{61}(2), 206--237.
+doi:\href{https://doi.org/10.1016/j.jml.2009.04.002}{10.1016/j.jml.2009.04.002}
 
 \hypertarget{ref-Wickham_2016}{}
-Wickham, H. 2016. Ggplot2: Elegant graphics for data analysis.
-Springer-Verlag New York.
-
-\hypertarget{ref-woolford}{}
-Woolford, E. 2009. Differential subject marking at argument structure,
-syntax, and pf. Pages 17--40 \emph{in} Differential subject marking.
-Springer.
-
-\hypertarget{ref-Xie_2014}{}
-Xie, Y. 2014. Knitr: A comprehensive tool for reproducible research in
-R. \emph{in} V. Stodden, F. Leisch, and R. D. Peng, editors.
-Implementing reproducible computational research. Chapman; Hall/CRC.
-
-\hypertarget{ref-Xie_2015}{}
-Xie, Y. 2015. Dynamic documents with R and knitr. 2nd editions. Chapman;
-Hall/CRC, Boca Raton, Florida.
+Wickham, H. (2016). \emph{Ggplot2: Elegant graphics for data analysis}.
+Springer-Verlag New York. Retrieved from \url{http://ggplot2.org}
 
 \hypertarget{ref-Xie_2018}{}
-Xie, Y. 2018. Knitr: A general-purpose package for dynamic report
-generation in r.
+Xie, Y. (2018). \emph{Knitr: A general-purpose package for dynamic
+report generation in r}. Retrieved from \url{https://yihui.name/knitr/}
 
 \hypertarget{ref-Xie_2018a}{}
-Xie, Y., J. Allaire, and G. Grolemund. 2018. R markdown: The definitive
-guide. Chapman; Hall/CRC, Boca Raton, Florida.
+Xie, Y., Allaire, J., \& Grolemund, G. (2018). \emph{R markdown: The
+definitive guide}. Boca Raton, Florida: Chapman; Hall/CRC. Retrieved
+from \url{https://bookdown.org/yihui/rmarkdown}
 
-\eleft
-
-\clearpage
-
-\listoftables
-
-\listoffigures
-
-\clearpage
 
 \end{document}

@@ -1,83 +1,68 @@
 ---
 title: 'Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural Morphemes'
 
-author:  
+author: 
+  - name          : "Utku Türk"
+    affiliation   : "1"
+    corresponding : yes    # Define only one corresponding author
+    address       : "Postal address"
+    email         : "utku.turk@boun.edu.tr"
+  - name          :  "Pavel Logačev"
+    affiliation   : "1"
+affiliation       :
+  - id            : "1"
+    institution   : "Boğaziçi University University, Istanbul, Turkey"
 
-- name: Utku Turk
-  affilnum: 1
-  email: utku.turk@boun.edu.tr
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+  Enter author note here.
+shorttitle: Why Utku is the best
+abstract: |
+  This paper deals with agreement attraction because it's more important than literally anything else.
+  Recently, Lago et al. (2018) demonstrated agreement attraction effects in comprension in Turkish, which is super-interesting because this finding allows us to make a lot of money. However, there is an alternative explanation for their findings: dark sorcery. In this paper we tested the predictions of these alternative accounts. In Experiment 1, we found that a particular kind of dark sorcery was not involved. In Experiment 2, we shall find ...
   
-- name: Pavel Logacev 
-  affilnum: 1
-  
-affiliation:
 
-- affilnum: 1
-  affil: Bogazici University, Department of Linguistics, Istanbul, Turkey
-
-  
-output:
-
-  pdf_document:
-    fig_caption: yes
-    fig_width: 7
-    fig_height: 7
-    keep_tex: yes
-    number_sections: yes
-    template: manuscript.latex
+keywords          : "keywords"
+wordcount         : "X"
+bibliography      : ["myreferences.bib", "references.bib"]
+floatsintext      : no
+figurelist        : no
+tablelist         : no
+footnotelist      : no
+linenumbers       : no
+mask              : no
+draft             : no
+documentclass     : "apa6"
+classoption       : "doc"
+output            : 
+  papaja::apa6_pdf:
     includes:
-      in_header: header.tex
-
-  html_document: null
-  
-  word_document: null
-
-documentclass: article
-classoption: a4paper
-capsize: normalsize
-fontsize: 11pt
-geometry: margin=1in
-linenumbers: no
-spacing: singlespacing
-footerdate: yes
-bibliography: 
-  - references.bib
-  - knitcitations.bib
-csl: ecology.csl
-
+        in_header: header.tex
+editor_options: 
+  chunk_output_type: console
 ---
 
 
-```{r setup, include=FALSE, cache=FALSE, message = FALSE}
 
-library("knitr")
+<!--  - knitcitations.bib
 
-#opts_knit$set(root.dir=normalizePath('../'))
-
-### Chunk options: see http://yihui.name/knitr/options/ ###
-
-## Text results
-opts_chunk$set(echo = TRUE, warning = TRUE, message = TRUE, include = TRUE)
-
-## Code decoration
-opts_chunk$set(tidy = TRUE, comment = NA, highlight = TRUE)
-
-## Cache
-opts_chunk$set(cache = 2, cache.path = "output/cache/")
-
-## Plots
-opts_chunk$set(fig.path = "output/figures/")
+-->
 
 
-```
-
-```{r knitcitations, echo=FALSE, cache = FALSE}
+```{r setup, eval =T, include = FALSE, message=FALSE, warning=FALSE}
+library("papaja")
 library(knitcitations)
-cleanbib()   
-cite_options(citation_format = "pandoc")
-```
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+theme_set(theme_bw())
 
-```{r init, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+library(car, warn.conflicts = FALSE)
+library(MASS)
+library(brms)
+library(xtable)
+library(ggpubr)
+
 library(languageR)
 library(tidyverse)
 library(gdata)
@@ -85,121 +70,25 @@ library(MASS)
 library(magrittr)
 library(ggplot2)
 
-data <- read.csv('results', 
-                 header = F, 
-                 comment.char = "#", 
-                 encoding = "UTF-8" , 
-                 col.names = paste0("V",seq_len(11)), 
-                 fill = TRUE)
-
-colnames(data) = c("Time", "MD5", "ControllerType", "SentenceNoInStimFile", "Element", "Type", "Item", "Sentence", "Question","Answer", "RT")
-
-FormEntries <- subset(data, ControllerType != "DashedAcceptabilityJudgment" ) %>% drop.levels(); nrow(data)
-data %<>% subset(ControllerType == "DashedAcceptabilityJudgment")
-age <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
-  dplyr::filter(Sentence == "age") %>%
-  dplyr::select(MD5, Age = Question)
-natturk <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
-  dplyr::filter(Sentence == "natturk") %>%
-  dplyr::select(MD5, Natturk = Question) %>%
-  mutate(Natturk = Natturk == "male")
-dex <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
-  dplyr::filter(Sentence == "dex") %>%
-  dplyr::select(MD5, Dex = Question) %>%
-  mutate(Dex = ifelse(Dex == "male", "right-handed", "left-handed"))
-FormPart <- dplyr::left_join(age, natturk, by = "MD5") %>% 
-  dplyr::left_join(., dex , by = "MD5" ) %>% 
-  unique()
-lenForm <- length(levels(factor(FormPart$MD5))); lenForm
-md5form <- levels(factor(FormPart$MD5))
-md5form_subject <- data.frame("MD5" = md5form, "Subject" = sprintf("S[%s]",seq((lenForm))))
-FormPart <- merge(FormPart,md5form_subject, all = T)
-
-stopifnot( nrow(data) %% 2 == 0 )
-rows_stim <- data[c(T,F),]
-rows_resp <- data[c(F,T),]
-
-data <- rows_resp %>% left_join(md5form_subject) %>% dplyr::select(-MD5, -Time, -ControllerType, -Sentence, -Element) %>%
-  dplyr::rename(ResponseCorrect=Answer, Response=Question)
-data %<>% group_by(Subject) %>% mutate(trial_no = seq(Subject))
-data %<>% within({ late_response = (Response == "NULL")
-Response[late_response] = NA
-ResponseCorrect[late_response] = NA
-})
-
-responses <- c(yes="İYİ (P'ye basınız)", no="KÖTÜ (Q'ya basınız)")
-stopifnot( all(data$Response %in% responses | is.na(data$Response) ) )
-
-data$ResponseYes <- ifelse(grepl("P",data$Response) , T, 
-                           ifelse(grepl("Q",data$Response) , F, NA))
-
-data$condition <- 
-  with(data, case_when(Type == "filler" & SentenceNoInStimFile >= 200 ~ "a",
-                       Type == "filler" & SentenceNoInStimFile < 200 ~ "b",
-                       Type == "condition_a" ~ "a",
-                       Type == "condition_b" ~ "b",
-                       Type == "condition_c" ~ "c",
-                       Type == "condition_d" ~ "d",
-                       TRUE ~ as.character(NA)))
-data$experiment <- ifelse(data$Type %in% c("condition_a", "condition_b", "condition_c", "condition_d"), "AgrAttr", as.character(data$Type))
-
-data %>% group_by(experiment, condition) %>% 
-  summarise(perc_yes = mean(ResponseYes, na.rm = T),
-            perc_na = mean(is.na(ResponseYes)))
-
-
-conditions_info <- data.frame(experiment = c("AgrAttr", "AgrAttr", "AgrAttr", "AgrAttr", "filler", "filler"),
-                              condition = c("a","b","c","d", "a","b"),
-                              grammatical = c("ungram", "gram", "ungram", "gram", "ungram", "gram"),
-                              verb_num = c("sg","pl","sg","pl", "sg","pl"),
-                              attracted = c(T,T,F,F,F,F),
-                              stringsAsFactors = FALSE) 
-data %<>% left_join(conditions_info)
-data %<>% subset(Type != "practice") %>% drop.levels()
-
-dataAv <- data %>% 
-  group_by(experiment, condition, grammatical, verb_num, attracted) %>%
-  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
-  as.data.frame()
-
-dataAv %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) 
-
-data$trial_group <- Hmisc::cut2(data$trial_no, g=5)
-
-dataAvSplit <- data %>% 
-  group_by(experiment, condition, grammatical, verb_num, attracted, trial_group) %>%
-  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
-  as.data.frame()
-
-plot_split <- dataAvSplit %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~trial_group)
-
-
-dataAvBySubj <- data %>% 
-  group_by(Subject, experiment, condition, grammatical, verb_num, attracted) %>%
-  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T), N = sum(!is.na(ResponseYes))  )  %>% 
-  as.data.frame()
-head(dataAvBySubj,10)
-
-
-dataAvBySubjWide = dataAvBySubj %>% mutate(expcond = paste(experiment,condition, sep="_")) %>% dplyr::select(-experiment, -condition, -avRT, -N, -grammatical, -verb_num, -attracted) %>% tidyr::spread(expcond, p_yes)
-dataAvBySubjWide %<>% mutate(delta_dc = AgrAttr_d - AgrAttr_c)
-bad_subjects = subset(dataAvBySubjWide, delta_dc <= 0.25 ) %>% .$Subject
-
-dataAvBySubj %>% subset(Subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~Subject)
-
-
-dataAvClean <- data %>% subset(!Subject %in% bad_subjects)%>% 
-  group_by(experiment, condition, grammatical, verb_num, attracted) %>%
-  summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 
-  as.data.frame()
-
-dataAvClean <- slice(dataAvClean, 1:4)
-
-plot_average <- dataAvClean %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) #+ facet_wrap(~experiment, scales = "free_y")
-
+source("../scripts/misc.R")
 
 ```
 
+```{r analysis-preferences, eval =T, message=FALSE, warning=FALSE}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(encoding = 'UTF-8',
+                      cache.extra = knitr::rand_seed,
+                      echo = FALSE,
+                      results = 'hide')
+options("citation_format" = "pandoc")
+
+```
+
+
+
+
+<!--
 \vspace{2mm}\hrule
 
 In this paper, our objective is to explore the source of agreement attraction effects in Turkish discovered by @Lago. The interpretation of their finding is complicated by the fact that the possessive form of all head nouns used in their stimuli are morphologically ambiguous between possessive and accusative. In Turkish, genitive can be productively used for marking the subject of an embedded clause whereas accusative is rarely used for marking the subject. Due to this mismatch in the frequency of usage of accusative and genitive, which is used as a attractor in this experiment, as a controller, @Lago's findings could potentially be explained with occasional shallow processing. We have replicated @Lago's experiment with unambigious head nouns, and we have found similar agreement attraction effects. However, this may mean that participants engage in even more shallow processing than we imagined. We postulate that participants solely check for the presence of a *-lAr* morpheme, while largely disregarding the remainder of the sentence. We utilize an experiment design in which we use a relative clause with or without plural agreement on the verb in place of the genitive possessor since both verbal and nominal plural morphemes are the same in Turkish, i.e. the exponent of both is *-lAr*. If participants did, in fact, adopt a superficial processing strategy, we would expect to find a number agreement attraction effect similar in magnitude to that in @Lago. However, if number attraction is not an artifact of shallow processing strategies, we should expect to find no number attraction effects in this experiment.
@@ -208,12 +97,13 @@ In this paper, our objective is to explore the source of agreement attraction ef
 
 *Keywords*: Turkish, agreement attraction, task effect, shallow processing
 
-\bleft
 
 ---
 nocite: | 
   @woolford
 ...
+
+-->
 
 # INTRODUCTION
 
@@ -228,33 +118,85 @@ We first replicated @Lago's experiment with unambiguous head nouns. To this end,
 \S 4 offers a discussion of the issue of number attraction and where this experiments leaves us. Lastly, \S 5 presents a brief conclusion and topics for future research.
 
 
-# REPLICATON OF LAGO ET AL. (2018)
+# Experiment 1
 
-In their study, @Lago investigate the comprehension of subject-verb agreement in Turkish-German bilinguals and Turkish monolinguals. They use speeded acceptability judgments for the effects of number attraction in Turkish. Their sentences make us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They manipulate the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulate the plurality of the attractor noun. In grammatical conditions, the subject and the verb both bear singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions, the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
+
+```{r loadDataExp1, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+fname_data <- "../workspace_exp1/exp_data.rds"
+data <- readRDS(file = fname_data)
+
+# compute by-subject percentages of 'yes' responses, and average RTs 
+avg_by_subj <- data %>%
+                group_by(subject, experiment, condition, 
+                         grammatical, verb_num, attractor_num) %>%
+                summarize(avRT = mean(RT), 
+                          p_yes = mean(ResponseYes, na.rm = T), 
+                          N = sum(!is.na(ResponseYes))  )
+
+# reformat by-subject averages to a wide format
+avg_by_subj_wide <- avg_by_subj %>% 
+                      mutate(expcond = paste(experiment, condition, sep="_")) %>% 
+                      ungroup() %>%
+                      dplyr::select(-experiment, -condition, -avRT, -N,
+                                    -grammatical, -verb_num, -attractor_num) %>%
+                      tidyr::spread(expcond, p_yes) %>% 
+                      mutate(delta_dc = AgrAttr_d - AgrAttr_c)
+
+```
+
+```{r loadDataLago, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+# Load Lago et al.'s monolingual data
+fname_lagoetal <- "../Data/Lago_et_al/Lago_data.csv"
+df_lagoetal <- read.csv(fname_lagoetal, encoding = "UTF-8", as.is = T)
+df_lagoetal %<>% subset(Group == "monolingual")
+df_lagoetal %<>% dplyr::select(-Accuracy, -L1:-Group, -List:-SelfRateGerman)
+
+# Note: All rows with Experiment == "offline" also seem to be for 
+#       the UNP task ('Grammatical' is NA). I wonder if these were
+#       the same subjects, or if the subject labels were simply the same
+#       for the two experiments.
+with(df_lagoetal, stopifnot( is.na(Grammatical) == (Experiment == "offline") ))
+
+df_lagoetal_unp <- df_lagoetal %>% 
+                    subset(is.na(Grammatical)) %>%
+                    dplyr::select(-Grammatical:-Label)
+df_lagoetal_attr <- df_lagoetal %>% 
+                  subset(!is.na(Grammatical)) %>%
+                  dplyr::select(-Distance:-NewCond)
+
+```
+
+
+In their study, @Lago investigates the comprehension of subject-verb agreement  Turkish monolinguals. They use speeded acceptability judgments for the effects of number attraction in Turkish. Their sentences make us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They manipulate the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulate the plurality of the attractor noun. In grammatical conditions, the subject and the verb both bear singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions, the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
 
 
 \begin{exe}
 \ex
 \begin{xlist}
-\ex \underline{Grammatical, SG attractor} \label{lago1}
-\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
-singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
+
+\ex \textsc{Ungrammatical, SG attractor} \label{lago4}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
+singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
 \glt The singer's backup vocalist jumped on the stage non-stop.
 
-\ex \underline{Grammatical, PL attractor} \label{lago2}
+\ex \textsc{Grammatical, PL attractor} \label{lago2}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
 \glt The singers' backup vocalist jumped on the stage non-stop.
 
-\ex \underline{Ungrammatical, PL attractor} \label{lago3}
+
+\ex \textsc{Ungrammatical, PL attractor} \label{lago3}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
 \glt The singers' backup vocalist jumped on the stage non-stop.
 
-\ex \underline{Ungrammatical, SG attractor} \label{lago4}
-\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
-singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
+\ex \textsc{Grammatical, SG attractor} \label{lago1}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
+singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
 \glt The singer's backup vocalist jumped on the stage non-stop.
+
 \end{xlist}
 \end{exe}
 
@@ -299,28 +241,29 @@ In order to test this hypothesis, we have replicated the experiment of @Lago wit
 
 \begin{exe}
 \ex
-\begin{xlist}
-\ex \underline{Grammatical, SG attractor} \label{exp1}
-\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
-comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
-\glt Because of the northeaster, comedian's assistant felt chilly.
+  \begin{xlist}
+  \ex \underline{Ungrammatical, PL attractor} \label{exp3}
+      \gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
+      \glt Because of the northeaster, comedians' assistant felt chilly.
 
-\ex \underline{Grammatical, PL attractor} \label{exp2}
-\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
-comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
-\glt Because of the northeaster, comedians' assistant felt chilly.
+  \ex \underline{Grammatical, PL attractor} \label{exp2}
+      \gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+      \glt Because of the northeaster, comedians' assistant felt chilly.
 
-\ex \underline{Ungrammatical, PL attractor} \label{exp3}
-\gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
-comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
-\glt Because of the northeaster, comedians' assistant felt chilly.
+  
+  \ex \underline{Ungrammatical, SG attractor} \label{exp4}
+      \gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
+  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
+      \glt Because of the northeaster, comedian's assistant felt chilly.
+  
+  \ex \underline{Grammatical, SG attractor} \label{exp1}
+      \gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
+  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+      \glt Because of the northeaster, comedian's assistant felt chilly.
 
-\ex \underline{Ungrammatical, SG attractor} \label{exp4}
-\gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
-comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
-\glt Because of the northeaster, comedian's assistant felt chilly.
-
-\end{xlist}
+  \end{xlist}
 \end{exe}
 
 As seen in the examples, unlike @Lago's experimental items, all of our items bear the *-sI* possessive marker instead of the ambiguous *-I* marker. As for the filler items, we could not use or modify the original experiment items since the fillers of the original study were not online. We have used two types filler sentences: grammatical sentences in which the verb bears plural agreement (\ref{fillera}), and ungrammatical sentences in which the verb does not bear plural agreement (\ref{fillerb}). We wanted to nullify a possible strategy by the participants where they associate the sentence-final morpheme directly with the acceptability of the sentence. And we also wanted to eliminate the possibility of participants disregarding other elements in the sentences while answering the questions we ask right after the sentence. 
@@ -352,27 +295,153 @@ What to write about analyze?
 
 ## Results and Discussion
 
-In \textsc{Figure} (1), the y-axis shows the percentage of "acceptable" answers, and the x-axis indicates whether or not the sentences in that group are grammatical. Moreover, the linet ypes indicate an attractor noun with overt plural morphology. As seen in the figure, `r round(100*dataAvClean[1,7])`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @Lago. We also see a number attraction rate of `r round(100*(dataAvClean[1,7]-dataAvClean[3,7]))`% which was also observed in @Lago with close results. 
+```{r identifyBadSubjects, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+# identify participants 
+bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
+
+#dataAvBySubj %>% subset(subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~subject)
+
+data_clean <- data %>% subset(!subject %in% bad_subjects)
+
+```
+
+In \textsc{Figure} (1), the y-axis shows the percentage of "acceptable" answers, and the x-axis indicates whether or not the sentences in that group are grammatical. Moreover, the linet ypes indicate an attractor noun with overt plural morphology. As seen in the figure, `r 1`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @Lago. We also see a number attraction rate of `r 2`% which was also observed in @Lago with close results. 
 
 In \textsc{Table} (\ref{tab:replication}), ............
 
-And yes, I plan to beautify the figures.
-\begin{figure}[H]
-  \begin{floatrow}
-    \ffigbox{%
-```{r, fig.width = 4 , fig.height = 4 , fig.align = "right", echo = F}
-print(plot_average)
+
+```{r mergeData, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+df_merge_exp1 <- data_clean %>% ungroup() %>% 
+                      dplyr::select(source=experiment, grammatical, attractor_num, # condition,
+                                    subject, item=Item,
+                                    ResponseYes, RT)
+df_merge_exp1$experiment <- "Experiment 1"
+df_merge_exp1$grammatical <- with(df_merge_exp1, ifelse(grammatical == "gram", 
+                                                        "grammatical",
+                                                        "ungrammatical"))
+df_merge_exp1$attractor_num <- with(df_merge_exp1, ifelse(attractor_num == "pl", 
+                                                          "plural", 
+                                                          "singular"))
+df_merge_exp1$item %<>% as.integer()
+df_merge_exp1$subject %<>% as.character()
+
+
+df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") )
+df_merge_lago <- df_lagoetal_attr %>% ungroup() %>% 
+                      dplyr::select(grammatical=Grammatical, attractor_num=Attractor, #condition=Condition, 
+                                    subject=Participant, item=Item,
+                                    ResponseYes, RT)
+df_merge_lago$experiment <- "Lago et al. (2018)" 
+df_merge_lago$source <- NA
+df_merge_lago$item %<>% add(1000)
+
+
+df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
+df_merged$subject %<>% as.factor()
+df_merged$item %<>% as.factor()
 ```
-    }{\caption{A figure}}
 
-    \btabbox{%
-```{r, fig.align = "right", echo = F}
+
+```{r computeAverages, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+avg_clean <- df_merged %>%
+                group_by(experiment, source, grammatical, attractor_num) %>%
+                summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+```
+
+## Responses
+
+```{r exp1AvgResponse, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
+
+avg_exp <- avg_clean %>% subset(is.na(source) | source != "filler")
+avg_fillers <- avg_clean %>% subset(source == "filler")
+
+p_avg_resp <- ggplot(avg_exp, 
+                     aes(grammatical, p_yes, #linetype = attractor_num, 
+                         color = attractor_num, group = attractor_num)) + 
+                geom_point() + geom_line() + 
+                facet_wrap(~experiment)
+
+p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + geom_point(data = avg_fillers)
+
+print(p_avg_resp)
 
 ```
-    }{\caption{A table}}
-  \end{floatrow}
-\end{figure}
 
+```{r exp1ModelResponse, eval = F}
+
+# # TODO: the following subjects have too much data: 11, 28, 36, 42, 55, 65, 73, 84, 92, 
+# #
+# x <- df_merged %>% subset(experiment == "Experiment 1") %>% group_by(subject) %>% dplyr::summarize(F = sum(is.na(attractor_num)),
+#                                                           N = length(is.na(attractor_num)) )
+# x %>% as.data.frame()
+# 
+# x$N %>% sum()
+# x$F %>% sum()
+
+#summary(as.factor(df_merged$attractor_num))
+
+df_merged %<>% within(., {
+  cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
+  cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
+  cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
+  cEndsInVowel <- ifelse(experiment == "Experiment 1", .5, -.5)
+})
+df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
+
+# ## test model parameterization using a simple GLM first
+# m <- glm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural,
+#          data = df_merged_nofillers,
+#          family = binomial("probit"))
+# summary(m)
+
+n_chains <- 4
+n_cores <- 4
+n_iter <- 5000
+
+fname_exp1_responses <- "../workspace_exp1/model_responses"
+
+library(brms)
+
+m_responses <- brm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers,
+                   family = bernoulli("probit"),
+                   file = fname_exp1_responses, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+```
+
+```{r exp1ResponseModelPlot, eval = F, fig.height= 1.5, message=FALSE, warning=FALSE, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
+
+contrast_names <- c("cUngrammatical" = "Ungrammaticality",
+                    "cAttractorMatch" = "Attactor Match",
+                    "cUngrammatical:cAttractorMatch" = "Ungrammaticality * Attractor Match")
+
+p_m_response <- create_model_coefs_plot(m_responses, map_names = contrast_names)
+p_m_response <- p_m_response + xlab("Estimate (log-odds)")
+print(p_m_response)
+
+```
+
+
+
+## Response Times
+
+
+```{r exp1AvgRTs, fig.height=2.5, fig.width = 6 }
+
+p_avg_rt <- ggplot(avg_clean, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
+
+print(p_avg_rt)
+
+```
+
+
+\clearpage
 
 # EXPERIMENT 2: RC ATTRACTOR
 
@@ -386,40 +455,40 @@ Like genitive-possessive structures, attractors do not intervene between the gra
 
 \begin{exe}
 \ex
-\begin{xlist}
-\ex \label{rcexample}
-\gll On-lar-{\i}n ev-e gel-me-den g\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
-they-\textsc{pl}-\textsc{gen} home-\textsc{dat} come-\textsc{neg}-\textsc{abl} see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
-\glt The kid that they saw right before coming to home was feeling chilly. 
-\ex \label{rcexample2}
-\gll G\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
-see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
-\glt The kid that they saw home was feeling chilly.
-\end{xlist}
+  \begin{xlist}
+    \ex \label{rcexample}
+    \gll On-lar-{\i}n ev-e gel-me-den g\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
+    they-\textsc{pl}-\textsc{gen} home-\textsc{dat} come-\textsc{neg}-\textsc{abl} see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
+    \glt The kid that they saw right before coming to home was feeling chilly. 
+    \ex \label{rcexample2}
+    \gll G\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
+    see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
+    \glt The kid that they saw home was feeling chilly.
+  \end{xlist}
 \end{exe}
 
 As for the experimental sentences, we plan to use sentences that are similar to the ones used in @Lago. Instead of a genitive controller, we utilize an RC, which we manipulate for its values for bearing the plural morpheme. The head noun of the subject is always singular, and it is followed by a 2/3 word adverbial. Moreover, the matrix verb of the sentences is also manipulated in terms of plurality, deeming the sentence grammatical or ungrammatical. Lastly, the relative clause has to be an object relative clause, since Turkish subject relative clauses never bear a plural morpheme on the embedded verb. As in the @Lago's study and our replication, we will have a four condition, where we manipulate the plurality of the attractor (*plural/singular*) and the grammaticality of the sentece by using overt plural morphology (*grammatical/ungrammatical*), which are demonstrated with item (\ref{reg1}), (\ref{reg2}), (\ref{reg3}), and (\ref{reg4})
 
 \begin{exe}
 \ex
-\begin{xlist}
-\ex \underline{Grammatical, SG attractor} \label{reg1}
-\gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
-beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\ 
-\glt The kid that he/she beats was laying in the kitchen unconscious.
-\ex \underline{Grammatical, PL attractor} \label{reg2}
-\gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
-beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\
-\glt The kid that they beat was laying in the kitchen unconscious.
-\ex \underline{Ungrammatical, PL attractor} \label{reg3}
-\gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
-beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
-\glt Intended: The kid that they beat were laying in the kitchen unconscious.
-\ex \underline{Ungrammatical, SG attractor} \label{reg4}
-\gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
-beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
-\glt Intended: The kid that he/she beats were laying in the kitchen unconscious.
-\end{xlist}
+  \begin{xlist}
+  \ex \underline{Grammatical, SG attractor} \label{reg1}
+      \gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
+  beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\ 
+      \glt The kid that he/she beats was laying in the kitchen unconscious.
+  \ex \underline{Grammatical, PL attractor} \label{reg2}
+      \gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
+  beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\
+      \glt The kid that they beat was laying in the kitchen unconscious.
+  \ex \underline{Ungrammatical, PL attractor} \label{reg3}
+      \gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
+  beat-\textsc{nmlz}-\textsc{pl}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
+      \glt Intended: The kid that they beat were laying in the kitchen unconscious.
+  \ex \underline{Ungrammatical, SG attractor} \label{reg4}
+      \gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-lar-d{\i}.\\
+  beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pl}-\textsc{pst}\\
+      \glt Intended: The kid that he/she beats were laying in the kitchen unconscious.
+  \end{xlist}
 \end{exe}
 
 As for the fillers, we need two different set of fillers in order to counterbalance the ever-present grammaticality of singular and plural verbs. For grammatical fillers with a plural verb (example (\ref{fillerreg1})) we propose a structure in which the head noun is followed by a converb. With this modification, the controller of the experimental sentences becomes a controller for a subclause, and the main verb is saturated with another subject introduced right after the subclause.
@@ -465,37 +534,15 @@ Discuss.
 # CONCLUSIONS
 
 In this paper, we have entertained the idea of task effect in the so-called Turkish number attraction phenomenon. We argue that the findings of the @Lago study is not clear and there are too many variables to account for in the experiment, one of them being the ambiguous morphology that the head noun bears. In the first experiment, we have replicated the attraction task of @Lago. We have found the similar effects of agreement with a bigger pool of participants. Then, for entertaining the other possibility in which we argue that participants do not fully reconstruct the sentence; however, they make us of the direct cue of overt morpheme *-lAr*, we offer an experiment where we use object relative clauses as an attractor. 
+-
 
 # ACKNOWLEDGEMENTS
-We used the statistical language `R` `r citep(citation())` for all our analyses. These were implemented in dynamic rmarkdown documents using `knitr` `r citep(citation("knitr"))` and `rmarkdown` `r citep(citation("rmarkdown"))` packages. All graphs have been done with `ggplot` `r citep(citation("ggplot2"))`. We also would like to thank Mine Nakipo\u{g}lu and Kadir Gökgöz for giving us the oppurtunity to conduct experiments and having participants from their classes. 
+We used the statistical language `R` `r citep(citation())` for all our analyses. These were implemented in dynamic rmarkdown documents using `knitr` `r citep(citation("knitr")[1])` and `rmarkdown` `r citep(citation("rmarkdown")[2])` packages. All graphs have been done with `ggplot` `r citep(citation("ggplot2"))`.
 
 
 
 # REFERENCES
 
-```{r write_citations, cache=FALSE, include=FALSE}
-write.bibtex(file="knitcitations.bib")
+```{r write_citations, eval =T, cache=FALSE, include=FALSE}
+write.bibtex(file="references.bib")
 ```
-
-<div id = "refs"></div>
-
-
-\eleft
-
-\clearpage
-
-
-\listoftables
-
-\listoffigures
-
-\clearpage
-
-
-
-```{r sessioninfo, echo = FALSE, eval = FALSE}
-# set eval = FALSE if you don't want this info (useful for reproducibility) to appear 
-sessionInfo()
-```
-
- 
