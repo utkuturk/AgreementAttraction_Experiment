@@ -14,39 +14,48 @@ data <- read.csv(fname_data,
                  encoding = "UTF-8" , 
                  col.names = paste0("V",seq_len(11)), 
                  fill = TRUE)
-colnames(data) = c("Time", "MD5", "ControllerType", "SentenceNoInStimFile", "Element", "Type", "Item", "Sentence", "Question","Answer", "RT")
+colnames(data) = c("Timestamp", "MD5", "ControllerType", "SentenceNoInStimFile", "Element", "Type", "Item", "Sentence", "Question","Answer", "RT")
+data %<>% dplyr::select(-MD5)
 
-FormEntries <- subset(data, ControllerType != "DashedAcceptabilityJudgment" ) %>% drop.levels(); nrow(data)
+FormEntries <- subset(data, ControllerType != "DashedAcceptabilityJudgment" ) %>% 
+                      drop.levels(); 
+nrow(data)
 data %<>% subset(ControllerType == "DashedAcceptabilityJudgment")
-age <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+age <- dplyr::select(FormEntries, Timestamp,Sentence,Question) %>% 
           dplyr::filter(Sentence == "age") %>%
-          dplyr::select(MD5, Age = Question)
-natturk <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+          dplyr::select(Timestamp, Age = Question)
+natturk <- dplyr::select(FormEntries, Timestamp,Sentence,Question) %>% 
           dplyr::filter(Sentence == "natturk") %>%
-          dplyr::select(MD5, Natturk = Question) %>%
+          dplyr::select(Timestamp, Natturk = Question) %>%
           mutate(Natturk = Natturk == "male")
-dex <- dplyr::select(FormEntries, MD5,Sentence,Question) %>% 
+dex <- dplyr::select(FormEntries, Timestamp,Sentence,Question) %>% 
           dplyr::filter(Sentence == "dex") %>%
-          dplyr::select(MD5, Dex = Question) %>%
+          dplyr::select(Timestamp, Dex = Question) %>%
           mutate(Dex = ifelse(Dex == "male", "right-handed", "left-handed"))
-FormPart <- dplyr::left_join(age, natturk, by = "MD5") %>% 
-        dplyr::left_join(., dex , by = "MD5" ) %>% 
-        unique()
-lenForm <- length(levels(factor(FormPart$MD5))); lenForm
-md5form <- levels(factor(FormPart$MD5))
-md5form_subject <- data.frame("MD5" = md5form, "subject" = sprintf("S[%s]",seq((lenForm))))
-FormPart <- merge(FormPart,md5form_subject, all = T)
+FormPart <- dplyr::left_join(age, natturk, by = "Timestamp") %>% 
+            dplyr::left_join(., dex , by = "Timestamp" ) %>% 
+            unique()
+lenForm <- length(levels(factor(FormPart$Timestamp)))
+#md5form <- levels(factor(FormPart$MD5))
+timestampForm <- levels(factor(FormPart$Timestamp))
+timeform_subject <- data.frame("Timestamp" = timestampForm, "subject" = sprintf("S[%s]",seq(lenForm)))
+FormPart <- merge(FormPart,timeform_subject, all = T)
+
+data$Timestamp %<>% as.character()
+timeform_subject$Timestamp %<>% as.character()
 
 stopifnot( nrow(data) %% 2 == 0 )
 rows_stim <- data[c(T,F),]
 rows_resp <- data[c(F,T),]
 
-data <- rows_resp %>% left_join(md5form_subject) %>% dplyr::select(-MD5, -Time, -ControllerType, -Sentence, -Element) %>%
+data <- rows_resp %>% left_join(timeform_subject, by = "Timestamp") %>% 
+          dplyr::select(-Timestamp, -ControllerType, -Sentence, -Element) %>%
           dplyr::rename(ResponseCorrect=Answer, Response=Question) %>%
           dplyr::select(-ResponseCorrect)
 data %<>% group_by(subject) %>% mutate(trial_no = seq(subject))
-data %<>% within({ late_response = (Response == "NULL")
-    Response[late_response] = NA
+data %<>% within({ 
+  late_response = (Response == "NULL")
+  Response[late_response] = NA
 })
 
 responses <- c(yes="İYİ (P'ye basınız)", no="KÖTÜ (Q'ya basınız)")

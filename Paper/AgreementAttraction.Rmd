@@ -107,7 +107,52 @@ nocite: |
 
 # INTRODUCTION
 
-Attraction errors in the production and comprehension of subject-verb agreement, in which a verb does not agree with the grammatical agreement controller, but with a potential attractor, have been the main topic of research in many studies for quite a long time. In fact, it is still a widely researched area in psycholinguistic studies. Despite the comprehensive research that has been carried out, studies that have been conducted on agreement attraction in Turkish have been very limited. In fact, @Lago is currently the only study that explores this phenomenon in Turkish. @Lago  makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. In a speeded acceptability judgment study, @Lago found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambigiuous between possessive and accusative. 
+Attraction attraction in the processing of subject-verb agreement have been an illuminating with regard to \ldots. 
+
+<!--
+Introduction:
+ - Review of the key attraction findings: 
+        * English. 
+      * German: @ReifegersteEtAl:2016
+      * Definitely Russian (Sliosar on gender). [@SlioussarMalko:2016]
+      * Arabic: @TuckerEtAl:2015
+      * Spanish: @LagoEtAl:2015
+      * Turkish: @LagoEtAl:2018
+      * Hammerly 2018 [@HammerlyEtAl:2018]
+      * @LinzenLeonard:2018
+      * @SmithFranck:2018
+      * @ParkerPhillips:2017
+      * @VasishthEtAl:2017
+      * @ReifegersteEtAl:2016
+      * @KwonSturt:2016
+      * @RisticMolinaroMancini:2016
+      * @SlevcMartin:2016
+      * @PatsonHusband:2015
+      * @Enochson:2015
+      * @FranckColonnaRizzi:2015
+      * @WagersEtAl:2009
+      * Slovak: @BadeckerKuminiak:2007
+      * @BockEtAl:2001
+      * @FiederEtAl:2014
+      * @Staub:2009
+      * @TannerNicolBrehm:2014
+      * @XiangEtAl:2013
+      * @NicenboimEtAl:2018
+      
+      @TannerBulkes:2015
+      @Staub:2010
+      @DankEtAl:2014
+      @PearlmutterGarnseyBock:1999
+      @FooteBock:2012
+      @DillonEtAl:2013
+      
+
+  - Accounts of 
+-->
+
+errors in the production and comprehension of subject-verb agreement, 
+
+in which a verb does not agree with the grammatical agreement controller, but with a potential attractor, have been the main topic of research in many studies for quite a long time. In fact, it is still a widely researched area in psycholinguistic studies. Despite the comprehensive research that has been carried out, studies that have been conducted on agreement attraction in Turkish have been very limited. In fact, @Lago is currently the only study that explores this phenomenon in Turkish. @Lago  makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. In a speeded acceptability judgment study, @Lago found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambigiuous between possessive and accusative. 
 
 In Turkish, accusative number agreement controllers are extremely rare, while genitive agreement controllers are very frequent. Thus, @Lago's finding could potentially be explained with occasional shallow processing. When all syntactic relations in the sentence were processed fully, the possessive noun may have been identified as the controller. Meanwhile, the genitive noun may sometimes have been erroneously identified as the controller during shallow processing because genitives are more likely to act as agreement controllers than accusatives (SOURCE). A second alternative explanation for @Lago's findings may be the fact that participants may engage in even more shallow processing than outlined above. Participants may have erroneously responded *Yes* on some trials for two main reasons: (i) the presence of a plural morpheme on a noun (attractor or controller), and (ii) the presence of a plural agreement morpheme on the verb. We speculate that in such trials, participants would have simply tried to check for the presence of such morphemes, while largely disregarding the remainder of the sentence. 
 
@@ -165,7 +210,6 @@ df_lagoetal_unp <- df_lagoetal %>%
 df_lagoetal_attr <- df_lagoetal %>% 
                   subset(!is.na(Grammatical)) %>%
                   dplyr::select(-Distance:-NewCond)
-
 ```
 
 
@@ -310,33 +354,68 @@ In \textsc{Figure} (1), the y-axis shows the percentage of "acceptable" answers,
 
 In \textsc{Table} (\ref{tab:replication}), ............
 
+```{r loadFrequencies, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+word_freq <- readxl::read_excel("../Data/freq.xlsx", sheet = 1)
+word_freq$freq_percentage %<>% as.numeric()
+word_freq %<>% dplyr::select(-freq_standardized, -freq_percentage, -word)
+word_freq %<>% tidyr::spread(place, freq_count)
+
+word_freq %<>% dplyr::group_by(exp) %>% 
+               dplyr::mutate( cat_n1 = ifelse(n1 > median(n1), "high", "low"),
+                              cat_n2 = ifelse(n2 > median(n2), "high", "low"),
+                              freqlog_n1 = scale(log(n1)),
+                              freqlog_n2 = scale(log(n2)),
+                              freqlog_n1n2 = log(n1) - log(n2)
+                            ) %>% 
+                ungroup()
+word_freq$cat_n1 %<>% as.factor()
+word_freq$cat_n2 %<>% as.factor()
+
+word_freq_exp1 <- word_freq %>% 
+                    subset(exp == "up") %>% 
+                    dplyr::select(-exp)
+word_freq_lago <- word_freq %>% 
+                    subset(exp == "lago") %>% 
+                    dplyr::select(-exp)
+
+```
+
 
 ```{r mergeData, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
 df_merge_exp1 <- data_clean %>% ungroup() %>% 
-                      dplyr::select(source=experiment, grammatical, attractor_num, # condition,
+                      dplyr::select(source=experiment, 
+                                    grammatical, attractor_num,
+                                    # condition,
                                     subject, item=Item,
                                     ResponseYes, RT)
 df_merge_exp1$experiment <- "Experiment 1"
-df_merge_exp1$grammatical <- with(df_merge_exp1, ifelse(grammatical == "gram", 
-                                                        "grammatical",
-                                                        "ungrammatical"))
-df_merge_exp1$attractor_num <- with(df_merge_exp1, ifelse(attractor_num == "pl", 
-                                                          "plural", 
-                                                          "singular"))
+df_merge_exp1$grammatical <- with(df_merge_exp1, 
+                                  ifelse(grammatical == "gram", 
+                                          "grammatical",
+                                          "ungrammatical"))
+df_merge_exp1$attractor_num <- with(df_merge_exp1, 
+                                    ifelse(attractor_num == "pl",
+                                           "plural", 
+                                           "singular"))
 df_merge_exp1$item %<>% as.integer()
 df_merge_exp1$subject %<>% as.character()
+df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
 
 
 df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") )
 df_merge_lago <- df_lagoetal_attr %>% ungroup() %>% 
-                      dplyr::select(grammatical=Grammatical, attractor_num=Attractor, #condition=Condition, 
-                                    subject=Participant, item=Item,
+                      dplyr::select(grammatical=Grammatical,
+                                    attractor_num=Attractor,
+                                    #condition=Condition, 
+                                    subject=Participant, 
+                                    item=Item,
                                     ResponseYes, RT)
+df_merge_lago %<>% left_join(word_freq_lago, by = "item")
 df_merge_lago$experiment <- "Lago et al. (2018)" 
 df_merge_lago$source <- NA
 df_merge_lago$item %<>% add(1000)
-
 
 df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
 df_merged$subject %<>% as.factor()
@@ -346,10 +425,59 @@ df_merged$item %<>% as.factor()
 
 ```{r computeAverages, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
-avg_clean <- df_merged %>%
-                group_by(experiment, source, grammatical, attractor_num) %>%
-                summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+avg_clean <- 
+  df_merged %>%
+     group_by(experiment, source, grammatical, attractor_num) %>%
+     summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+
+# ##
+# avg_clean1 <- df_merged %>%
+#                 group_by(experiment, source, grammatical, attractor_num, cat_n1) %>%
+#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+# 
+# p_avg_resp1 <- ggplot(avg_clean1 %>% subset(is.na(source) | source != "filler"), 
+#                      aes(grammatical, p_yes, #linetype = attractor_num, 
+#                          color = attractor_num, linetype = cat_n1, 
+#                          group = paste(attractor_num,cat_n1) )) + 
+#                 geom_point() + geom_line() + 
+#                 facet_wrap(cat_n1~experiment)
+# p_avg_resp1
+# 
+# ##
+# ##
+# 
+# avg_clean2 <- df_merged %>%
+#                 group_by(experiment, source, grammatical, attractor_num, cat_n2) %>%
+#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+# 
+# p_avg_resp2 <- ggplot(avg_clean2 %>% subset(is.na(source) | source != "filler"), 
+#                      aes(grammatical, p_yes, #linetype = attractor_num, 
+#                          color = attractor_num, linetype = cat_n2, 
+#                          group = paste(attractor_num,cat_n2) )) + 
+#                 geom_point() + geom_line() + 
+#                 facet_wrap(cat_n2~experiment)
+# p_avg_resp2
+# 
+# ##
+# ##
+# 
+# avg_clean3 <- df_merged %>%
+#                 group_by(experiment, source, grammatical, attractor_num, cat_n1n2) %>%
+#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+# 
+# p_avg_resp3 <- ggplot(avg_clean3 %>% subset(is.na(source) | source != "filler"), 
+#                      aes(grammatical, p_yes, #linetype = attractor_num, 
+#                          color = attractor_num, linetype = cat_n1n2, 
+#                          group = paste(attractor_num,cat_n1n2) )) + 
+#                 geom_point() + geom_line() + 
+#                 facet_wrap(~experiment)
+# p_avg_resp3
+# 
+# ##
+
+
 ```
+
 
 ## Responses
 
@@ -370,7 +498,7 @@ print(p_avg_resp)
 
 ```
 
-```{r exp1ModelResponse, eval = F}
+```{r exp1ModelResponse, eval = T}
 
 # # TODO: the following subjects have too much data: 11, 28, 36, 42, 55, 65, 73, 84, 92, 
 # #
@@ -388,11 +516,15 @@ df_merged %<>% within(., {
   cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
   cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
   cEndsInVowel <- ifelse(experiment == "Experiment 1", .5, -.5)
+  cFreqlog_n1n2 <- scale(freqlog_n1n2)
+  cFreqlog_n1 <- scale(freqlog_n1)
+  cFreqlog_n2 <- scale(freqlog_n2)
 })
 df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
 
 # ## test model parameterization using a simple GLM first
-# m <- glm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural,
+# m <- glm(ResponseYes ~ (cFreqlog_n1 + cFreqlog_n2) *
+#            cEndsInVowel * cUngrammatical * cAttractorPlural,
 #          data = df_merged_nofillers,
 #          family = binomial("probit"))
 # summary(m)
@@ -405,21 +537,50 @@ fname_exp1_responses <- "../workspace_exp1/model_responses"
 
 library(brms)
 
-m_responses <- brm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural + 
-                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+#with(df_merged_nofillers, cor(cFreqlog_n1, cFreqlog_n2))
+#with(df_merged_nofillers, cor(cFreqlog_n1, cFreqlog_n1n2))
+#with(df_merged_nofillers, cor(cFreqlog_n2, cFreqlog_n1n2))
+#
+# m <- glm(ResponseYes ~ (cFreqlog_n1n2) * #+ cFreqlog_n1n2
+#                         cEndsInVowel * cUngrammatical * cAttractorPlural,
+#                    data = df_merged_nofillers,
+#                    family = "binomial")
+# summary(m)
+
+# + cFreqlog_n1n2
+m_responses <- brm(ResponseYes ~ (cFreqlog_n1 + cFreqlog_n2) *
+                                  cEndsInVowel * cUngrammatical * cAttractorPlural + 
+                                 ((cFreqlog_n1 + cFreqlog_n2) * cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
+                   init = "0",
                    family = bernoulli("probit"),
                    file = fname_exp1_responses, 
                    chains = n_chains, cores = n_cores, iter = n_iter)
 
+# + 
+m_responses2 <- brm(ResponseYes ~ (cFreqlog_n1n2) *
+                                  cEndsInVowel * cUngrammatical * cAttractorPlural + 
+                                 ((cFreqlog_n1n2) * cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers,
+                   init = "0",
+                   family = bernoulli("probit"),
+                   file = paste0(fname_exp1_responses, "2"), 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
 ```
 
-```{r exp1ResponseModelPlot, eval = F, fig.height= 1.5, message=FALSE, warning=FALSE, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
+```{r exp1ResponseModelPlot, eval = T, fig.height= 2, message=FALSE, warning=FALSE, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
 
 contrast_names <- c("cUngrammatical" = "Ungrammaticality",
-                    "cAttractorMatch" = "Attactor Match",
-                    "cUngrammatical:cAttractorMatch" = "Ungrammaticality * Attractor Match")
+                    "cAttractorPlural" = "Plural Attactor",
+                    "cEndsInVowel"="Vowel-ending",
+                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attactor",
+                    "cEndsInVowel:cUngrammatical"="Vowel-ending * Ungrammaticality",
+                    "cEndsInVowel:cAttractorPlural"="Vowel-ending * Plural Attactor",
+                    "cEndsInVowel:cUngrammatical:cAttractorPlural"="Vowel-ending * Ungrammaticality * Plural Attactor"
+                    )
 
 p_m_response <- create_model_coefs_plot(m_responses, map_names = contrast_names)
 p_m_response <- p_m_response + xlab("Estimate (log-odds)")
