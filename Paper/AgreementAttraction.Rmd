@@ -95,18 +95,18 @@ Introduction:
       * @LinzenLeonard:2018
       * @SmithFranck:2018
       * @ParkerPhillips:2017
-      * @VasishthEtAl:2017
+      * @VasishthEtAl:2017 **
       * @ReifegersteEtAl:2016
       * @KwonSturt:2016
       * @RisticMolinaroMancini:2016
       * @SlevcMartin:2016
       * @PatsonHusband:2015
-      * @Enochson:2015
+      * @Enochson:2015 **
       * @FranckColonnaRizzi:2015
       * @WagersEtAl:2009
       * Slovak: @BadeckerKuminiak:2007
       * @BockEtAl:2001
-      * @FiederEtAl:2014
+      * @FiederEtAl:2014 **
       * @Staub:2009
       * @TannerNicolBrehm:2014
       * @XiangEtAl:2013
@@ -114,7 +114,7 @@ Introduction:
       
       @TannerBulkes:2015
       @Staub:2010
-      @DankEtAl:2014
+      @DankEtAl:2014 **
       @PearlmutterGarnseyBock:1999
       @FooteBock:2012
       @DillonEtAl:2013
