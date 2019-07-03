@@ -1,30 +1,30 @@
 ---
-title: 'Agreement Attraction in Turkish: Effects of Nominal and Verbal Plural Morphemes'
-
+title             : "Agreement Attraction in Turkish: Who let the -lAr out?"
+shorttitle        : "Agreement Attraction in Turkish"
 author: 
   - name          : "Utku Türk"
-    affiliation   : "1"
+    affiliation   : ""
     corresponding : yes    # Define only one corresponding author
-    address       : "Postal address"
+    address       : ""
     email         : "utku.turk@boun.edu.tr"
-  - name          :  "Pavel Logačev"
-    affiliation   : "1"
-affiliation       :
-  - id            : "1"
-    institution   : "Boğaziçi University University, Istanbul, Turkey"
 
-authornote: |
-  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-  Enter author note here.
-shorttitle: Why Utku is the best
+affiliation:
+  - id            : ""
+    institution   : "Boğaziçi University"
+
+#authornote: |
+#  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+#
+#   Enter author note here.
+
 abstract: |
-  This paper deals with agreement attraction because it's more important than literally anything else.
-  Recently, Lago et al. (2018) demonstrated agreement attraction effects in comprension in Turkish, which is super-interesting because this finding allows us to make a lot of money. However, there is an alternative explanation for their findings: dark sorcery. In this paper we tested the predictions of these alternative accounts. In Experiment 1, we found that a particular kind of dark sorcery was not involved. In Experiment 2, we shall find ...
-  
 
-keywords          : "keywords"
-wordcount         : "X"
-bibliography      : ["myreferences.bib", "references.bib"]
+  
+# keywords          : "keywords"
+# wordcount         : "X"
+
+bibliography      : ["myreferences.bib","r-references.bib"]
+
 floatsintext      : no
 figurelist        : no
 tablelist         : no
@@ -32,82 +32,55 @@ footnotelist      : no
 linenumbers       : no
 mask              : no
 draft             : no
+header-includes   :
+  - \usepackage[utf8]{inputenc}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{xcolor}
+  - \usepackage{hhline}
+  - \usepackage{mathtools}
+  - \linespread{1}
+  - \usepackage{gb4e}
+  - \noautomath #trying to see why shorttitle does not appear in the other paper. when done like this it appears.
+  - \usepackage{setspace}
+  - \makeatletter
+  - \apptocmd{\@exe}{\singlespacing}{}{}
+  - \makeatother
+  - \usepackage{sectsty}
+  - \allsectionsfont{\large}
+  - \usepackage{color}
+  - \usepackage{hyperref}
+  - \hypersetup{colorlinks = true, linkcolor = blue, citecolor = blue, urlcolor = blue} 
+  - \usepackage[english]{babel}
+  - \addto\extrasenglish{\renewcommand{\itemautorefname}{Item}}
+  - \renewcommand*{\nameyeardelim}{\addcomma\space}
+  - \usepackage{tikz}
+  - \usepackage{tikz-qtree}
+#  - \usepackage[mcolblock]{leipzig}
+#  - \makeglossaries
+  - \let\eachwordone=\textit
+#  - \renewcommand{\eachwordone}{\footnotesize\textit}
+#  - \let\eachwordtwo=\footnotesize
+  - \usepackage{geometry}
+  - \geometry{margin=2cm}
+  - \usepackage{libertine}
+  - \usepackage{libertinust1math}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{fancyhdr}
+  - \pagestyle{fancy}
+  - \fancyhf{}
+  - \rhead{Türk}
+  - \lhead{Agreement Attraction in Turkish}
+  - \rfoot{\thepage}
+  
 documentclass     : "apa6"
 classoption       : "doc"
-output            : 
+output:
   papaja::apa6_pdf:
-    includes:
-        in_header: header.tex
-editor_options: 
-  chunk_output_type: console
+    number_sections: true
+    citation_package: biblatex
+keep_tex: TRUE
+biblatexoptions: [maxbibnames=999]
 ---
-
-
-
-<!--  - knitcitations.bib
-
--->
-
-
-```{r setup, eval =T, include = FALSE, message=FALSE, warning=FALSE}
-library("papaja")
-library(knitcitations)
-library(tidyverse)
-library(magrittr)
-library(ggplot2)
-theme_set(theme_bw())
-
-library(car, warn.conflicts = FALSE)
-library(MASS)
-library(brms)
-library(xtable)
-library(ggpubr)
-
-library(languageR)
-library(tidyverse)
-library(gdata)
-library(MASS)
-library(magrittr)
-library(ggplot2)
-
-source("../scripts/misc.R")
-
-```
-
-```{r analysis-preferences, eval =T, message=FALSE, warning=FALSE}
-# Seed for random number generation
-set.seed(42)
-knitr::opts_chunk$set(encoding = 'UTF-8',
-                      cache.extra = knitr::rand_seed,
-                      echo = FALSE,
-                      results = 'hide')
-options("citation_format" = "pandoc")
-
-```
-
-
-
-
-<!--
-\vspace{2mm}\hrule
-
-In this paper, our objective is to explore the source of agreement attraction effects in Turkish discovered by @Lago. The interpretation of their finding is complicated by the fact that the possessive form of all head nouns used in their stimuli are morphologically ambiguous between possessive and accusative. In Turkish, genitive can be productively used for marking the subject of an embedded clause whereas accusative is rarely used for marking the subject. Due to this mismatch in the frequency of usage of accusative and genitive, which is used as a attractor in this experiment, as a controller, @Lago's findings could potentially be explained with occasional shallow processing. We have replicated @Lago's experiment with unambigious head nouns, and we have found similar agreement attraction effects. However, this may mean that participants engage in even more shallow processing than we imagined. We postulate that participants solely check for the presence of a *-lAr* morpheme, while largely disregarding the remainder of the sentence. We utilize an experiment design in which we use a relative clause with or without plural agreement on the verb in place of the genitive possessor since both verbal and nominal plural morphemes are the same in Turkish, i.e. the exponent of both is *-lAr*. If participants did, in fact, adopt a superficial processing strategy, we would expect to find a number agreement attraction effect similar in magnitude to that in @Lago. However, if number attraction is not an artifact of shallow processing strategies, we should expect to find no number attraction effects in this experiment.
-
-\vspace{3mm}\hrule
-
-*Keywords*: Turkish, agreement attraction, task effect, shallow processing
-
-
----
-nocite: | 
-  @woolford
-...
-
--->
-
-# INTRODUCTION
-
-Attraction attraction in the processing of subject-verb agreement have been an illuminating with regard to \ldots. 
 
 <!--
 Introduction:
@@ -147,24 +120,274 @@ Introduction:
       @DillonEtAl:2013
       
 
-  - Accounts of 
--->
+Attraction attraction in the processing of subject-verb agreement have been an illuminating with regard to \ldots. 
+
+
 
 errors in the production and comprehension of subject-verb agreement, 
 
-in which a verb does not agree with the grammatical agreement controller, but with a potential attractor, have been the main topic of research in many studies for quite a long time. In fact, it is still a widely researched area in psycholinguistic studies. Despite the comprehensive research that has been carried out, studies that have been conducted on agreement attraction in Turkish have been very limited. In fact, @Lago is currently the only study that explores this phenomenon in Turkish. @Lago  makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. In a speeded acceptability judgment study, @Lago found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambigiuous between possessive and accusative. 
+in which a verb does not agree with the grammatical agreement controller, but with a potential attractor, have been the main topic of research in many studies for quite a long time. In fact, it is still a widely researched area in psycholinguistic studies. Despite the comprehensive research that has been carried out, studies that have been conducted on agreement attraction in Turkish have been very limited. In fact, @Lago is currently the only study that explores this phenomenon in Turkish. @Lago  makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. In a speeded acceptability judgment study, @Lago found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambigiuous between possessive and accusative.
+-->
 
-In Turkish, accusative number agreement controllers are extremely rare, while genitive agreement controllers are very frequent. Thus, @Lago's finding could potentially be explained with occasional shallow processing. When all syntactic relations in the sentence were processed fully, the possessive noun may have been identified as the controller. Meanwhile, the genitive noun may sometimes have been erroneously identified as the controller during shallow processing because genitives are more likely to act as agreement controllers than accusatives (SOURCE). A second alternative explanation for @Lago's findings may be the fact that participants may engage in even more shallow processing than outlined above. Participants may have erroneously responded *Yes* on some trials for two main reasons: (i) the presence of a plural morpheme on a noun (attractor or controller), and (ii) the presence of a plural agreement morpheme on the verb. We speculate that in such trials, participants would have simply tried to check for the presence of such morphemes, while largely disregarding the remainder of the sentence. 
+```{r setup, eval =T, include = FALSE, message=FALSE, warning=FALSE}
+library("papaja")
+library(knitcitations)
+library(tidyverse)
+library(magrittr)
+library(ggplot2)
+theme_set(theme_bw())
 
-We first replicated @Lago's experiment with unambiguous head nouns. To this end, we revised the items that were used previously in order to avoid morphological ambiguity between possessive and accusative forms. The effect found in @Lago was also observed when unambiguous nouns were used, as will be discussed in \S 2. 
+library(car, warn.conflicts = FALSE)
+library(MASS)
+library(brms)
+library(xtable)
+library(ggpubr)
 
-\S 3 discusses the alternative account that posits even more shallow processing as mentioned above and presents a pre-registered experiment using RC attractors with potential outcomes and their indications. Since both nominal and verbal plural morphemes in Turkish are expressed with the same form (*-ler* or *-lar* depending on the phonological environment), we can test this possibility with an experiment in which a relative clause with or without plural agreement on the verb in place of the genitive possessors is used. An agreement attraction effect similar in magnitude to that observed in @Lago would indicate that participants use the aforementioned strategies. 
+library(languageR)
+library(tidyverse)
+library(gdata)
+library(MASS)
+library(magrittr)
+library(ggplot2)
 
-\S 4 offers a discussion of the issue of number attraction and where this experiments leaves us. Lastly, \S 5 presents a brief conclusion and topics for future research.
+source("../scripts/misc.R")
+
+```
+
+```{r analysis-preferences, eval =T, message=FALSE, warning=FALSE}
+# Seed for random number generation
+set.seed(42)
+knitr::opts_chunk$set(encoding = 'UTF-8',
+                      cache.extra = knitr::rand_seed,
+                      echo = FALSE,
+                      results = 'hide')
+options("citation_format" = "pandoc")
+
+```
+
+\section*{Introduction}
+
+It has been observed that speakers generally fail to accurately comprehend agreement between elements in a sentence. One such comprehension error that is made has been deemed agreement attraction. Speakers may erroneously find a sentence in which the "attractor" agrees with the verb instead of the "head" of the subject. Data from typologically different languages and explanations from different frameworks show that I am far from understanding by what the attraction is modulated. Some theories refer this phenomenon as a faulty representation of the number on the head of the subject phase whereas other theories argue that the attraction is due to an error in the access to the number of the subject. In this paper, I report two experiments exploring another possible explanation for agreement attraction: an extreme shallow processing. The first experiment is a replication of @Lago2018 where I changed the head of the subject in order to differentiate between the accusative case *-I*. In the second experiment, I have used a relative clause which only consists of a plural marked verb as a distractor.  my results show that while people do indeed care more than just "matching" the forms of plural verbal. either comprehenders have some sort of restriction to not use cues from verbs upon accessing the number of the plural morpheme or there is a syntactic reason for the number feature of the plural morpheme to not "percolate." 
 
 
-# Experiment 1
 
+# Literature
+
+## Theories of attraction
+
+Agreement attractions are defined as instances of incorrect agreements of an element with a distractor that is not its grammatical controller. As in \autoref{E1}, the target of the agreement is the verb *are*, the attracting distractor is *bottles*, and the feature erroneously assessed is the number feature of the grammatical controller *label*.  
+
+\begin{exe}
+\ex[*]{The label on the bottles \textit{are} wrong.\footnotemark}
+\label{E1}
+\end{exe}
+
+\footnotetext{The convention of using $\ast$ is to show the ungrammaticality of the sentencee.}
+
+This type of attraction, called number attraction in subject-verb agreement, first theorized by @Quirk1972 and attested experimentally by @Bock1991 in language production. One of the theoretical attempts to explain such phenomenon was Marking and Morphing Theories [@Bock2001; @Eberhard2005 among others]. The reason it is called *Marking* and *Morphing* is because there are two possible explanations within the framework with regards to where and when the attraction occurs. The first possibility is the speaker can erroneously create a semantic representation of the head with the wrong number feature in the marking process in the marking process. Another possibility is that the attraction may arise from an interfering number feature of the attractor with the number feature of the highest noun phrase node in the morphing process. During this process, the speaker forms a final number value of the subject phrase, which is determined by each morpheme within the same phrase and their number information with a particular weight. In the morphing process, these other morphemes with number information may contaminate the final number value with the percolation mechanism, which depends on the depth of the syntactic embedding. As the prediction goes, the more embedded an attractor is, the less attraction they trigger as shown in @Bock1992 in which authors show that attractors within a relative clause trigger less agreement attraction in the production. 
+
+However, other studies have shown that other preverbal elements, such as objects, object relative clauses, object clefts, and object questions, may trigger agreement attraction [@Kimball1971; @Hartsuiker2001; @Franck2006; @Franck2015 among others]. In sentences like \autoref{E2}, the pronominal object *hen* triggers and agreement attraction without being a part of the subject. 
+
+\begin{exe}
+\ex[*]{
+\gll Theo denkt dat de knecht hen roep.\\
+Theo thinks that the servant them call.\textsc{Pl}.\\
+\trans  `Theo thinks that the servant \textit{call} them'}
+\label{E2}
+\end{exe}
+
+Since the Marking and Morphing theories put the source of the agreement attraction on the probe, i.e. subject phrase, they cannot explain agreement attraction effects that are triggered by a distractor outside of the syntactic scope of the subject. Regardless, these effects may be explained in a framework where the source of the agreement attraction is placed on the trigger, i.e. verb. @Badecker2007 suggests that a process where the subject is retrieved from the memory plays a role in agreement attraction effects as well [see as well @Wagers2009]. Building on the work in cue-based retrieval mechanism [@Gordon2001; @Lewis2005; @Lewis2006 among others], they argued that when speakers reach the verb, they try to retrieve the subject using certain features (cues) that essentially marks the *subjecthood*. Thus, any element that matches (or partially matches) with the cues in use may cause agreement attraction regardless of their position or syntactic relation to the subject. Going back to \autoref{E2}, it is expected, then, for an object which shares features like being preverbal, being a noun phrase, ability to bear agreement with a subject to trigger agreement attraction.
+
+Another challenge for the Marking and Morphing model was the grammaticality asymmetry. Due to the spreading activation formula utilized in the Marking and Morphing model [see @Dell1986], this model overgeneralizes the attraction effects to both ungrammatical and grammatical sentences and predicts both \autoref{E1} and \autoref{E3} to be present empirically, which is not the case [@Wagers2009]. 
+
+\begin{exe}
+\ex[*]{The labels on the bottle \textit{is} wrong.}
+\label{E3}
+\end{exe}
+
+On the other hand, cue-based retrieval models successfully predict the grammaticality asymmetry as shown by @Dillon2013 in an ACT-R simulation as well as numerous studies in self-paced reading, eye-tracking, and ERP studies [@Wagers2009; @Tucker2010; @Tanner2014; @Lago2015 among others]. This success was due to their replacement of source of the attraction. According to cue-based retrieval models, the probe, verb, present certain cues to retrieve an NP with matching features in agreement. When features of the grammatical controller of the verb do not *fully* match with the cues, no single NP will be satisfying the *agreement*. Thus, another NP in the clause can match with cues presented by the VP, such as its case, syntactic position, grammatical number. Thus, if there is no *retrieval cue* in the first place, i.e. the verb is not marked plural, there will be no need for partial match. 
+
+
+
+## Turkish relative clauses and plural marking
+
+Before discussing the experiments, I will touch upon the mechanisms that I utilize in the experiments: optional plural agreement, relative clause structure, and syncretism between possessive and accusative. 
+
+Turkish plural agreement is quite similar with regards to the subject-verb number agreement in the first and second plural person. However, Turkish plural agreement is optional in third person plurals as shown in \autoref{TB1} and \autoref{TB2}. The other important characteristicc of Turkish plural agreement is the fact that the nominal and verbal plural marking is done by the same morpheme *-lAr*\footnote{The convention of using an uppercase A is to show that the morpheme can surface as either \textit{-ler} or \textit{-lar} according to the previous vowel due to the vowel harmony reasons.}. 
+
+
+\begin{exe}
+\ex \label{TB1} Dün çocuk-\textsc{Lar} okul-a git-ti-\textsc{Ler} mi?
+\ex 
+\gll Dün çocuk-LAR okul-a git-ti mi?\\
+yesterday child-\textsc{Pl} school-\textsc{Dat} go-\textsc{Pst}(-\textsc{Pl}) Q\\
+\trans ``Did the children go to school yesterday?''
+\label{TB2}
+\end{exe}
+
+As for Turkish relative clauses, they always precede the external head noun [@Goksel2004; @Taylan2015] and they use either *-An* or *-dIk* nomilizers to show the referentiality of the subject within the relative clause as shown in \autoref{TB3} and \autoref{TB4} [@Haig1997]. Moreover, due to pro-drop and null object properties of the Turkish [see @Ozturk2005], relative clauses can consist of only the verb itself in Turkish as in \autoref{TB5}.
+
+\begin{exe}
+\ex \label{TB3}
+\gll Kazı-lar-ın yap-ıl-dığ-ı alan ... \\
+excavation-\textsc{Pl}-\textsc{Gen} do-\textsc{Pass}-\textsc{Nmlz}-\textsc{Poss} area ... \\
+\glt ``The place where the excavations are done ...''
+\ex \label{TB4}
+\gll Kazı-lar yap-ıl-an alan ... \\
+excavation-\textsc{Pl} do-\textsc{Pass}-\textsc{Nmlz} area ... \\
+\glt ``A place where some excavations are done ...''
+\ex \label{TB5}
+\gll Gör-düğ-ü kuş çok güzel-di.\\
+see-\textsc{Nmlz}-\textsc{Poss} bird very pretty-\textsc{Pst}\\
+\glt ``The bird that he/she saw was very pretty.''
+\end{exe}
+
+Final characteristics that interest us in this paper is the morphological syncretism between the accusative case and possessive suffix in Turkish. When the possessive case is attached to a nominal stem that ends with a consonant, it is pronounced as \textit{-I}, which is exactly how the accusative case is also pronounced in the same environment in Turkish. However, the ambiguity is immediately resolved when they follow a nominal stem that ends with a vowel. In the latter environment, the accusative case surfaces as *-yI* whereas the possessive surfaces as *-sI(n)*\footnote{The final \textit{n} only surfaces when any other morphemes follow the possessive suffix. Otherwise, it surfaces as \textit{-sI}} as shown in \autoref{TB6}-\autoref{TB9}.
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \label{TB6}
+\gll Kuş-\textbf{u} beğen-di-m.\\
+bird-\textsc{Acc} like-\textsc{Pst}-\textsc{1Sg}\\
+\glt ``I liked the bird.''
+\ex \label{TB7}
+\gll Emin'in kuş-\textbf{u} güzel-miş.\\
+Emin-\textsc{Gen} bird-\textsc{Poss} pretty-\textsc{Evd}\\
+\glt ``Emin's bird was pretty.''
+\ex \label{TB8}
+\gll Kedi-\textbf{yi} beğen-di-m.\\
+cat-\textsc{Acc} like-\textsc{Pst}-\textsc{1Sg}\\
+\glt ``I liked the cat.''
+\ex \label{TB9}
+\gll Emin'in kedi-\textbf{si} güzel-miş.\\
+Emin-\textsc{Gen} cat-\textsc{Poss} pretty-\textsc{Evd}\\
+\glt ``Emin's cat was pretty.''
+\end{xlist}
+\end{exe}
+
+
+
+# The Current Study
+
+In this study, I examine the question of whether agreement attraction is due to the shallow parsing that mainly depends on the memory of plural morpheme *-lAr* and matching the verbal plural morpheme with the nominal plural morpheme. 
+
+First of all, I investigate the effects of ambiguous suffix with Experiment 1, which is a replication of @Lago2018. @Lago2018 makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor as in \autoref{Lagoitem}. In a speeded acceptability judgment study, @Lago2018 found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambiguous between possessive and accusative. 
+
+\begin{exe}
+\ex \label{Lagoitem}
+\gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
+singer-\textsc{Gen} vocalist-\textsc{Poss} stage-\textsc{Loc} non-stop jump-\textsc{Pst}-\textsc{3Pl}\\
+\glt The singer's backup vocalist jumped on the stage non-stop.
+\end{exe}
+
+In Turkish, accusative number agreement controllers are extremely rare, while genitive agreement controllers are very frequent. Thus, @Lago2018's finding could potentially be explained with occasional shallow processing. When all syntactic relations in the sentence were processed fully, the possessive noun may have been identified as the controller. Meanwhile, the genitive noun may sometimes have been erroneously identified as the controller during shallow processing because genitives are more likely to act as agreement controllers than accusatives. In order to check this effect, I have replicated @Lago2018 in Experiment 1. I have used different head nouns which ends with a vowel to differentiate between the accusative case and the possessive suffix, i.e. *taksici* (taxi driver) instead of *vokalist* in \autoref{Lagoitem}.
+
+With regards to percolation theories, this replication should yield no difference from @Lago2018. The syntactic depth has not changed, the number information of the head and distractor have not changed. Slight differences may be expected since I have changed some items which can be found in Appendix 1, and this situation can create erroneous number information to be used in the marking process. 
+
+As for cue-based retrieval models, I should expect a lower agreement attraction effect in this replication. This prediction stems from the fact that the possibility of erroneous representation of features of the head noun is now lower due to  my efforts to differentiate between the accusative case and the possessive marking. @Lago2018 argues that due to the subjecthood information provided by the genitive case, there is an effect of agreement attraction. I eliminate the possibility of possible non-subjecthood clues given by the form that is shared by the accusative case and the possessive suffix. 
+
+Within the shallow processing model, I would also expect a no change in the status of agreement attraction. In  my account of shallow processing, I argue that when the comprehenders reach the verb and saw plural morpheme, they engage in a matching mechanism where they try to match the verbal plural morpheme with a previous nominal plural morpheme. An agreement attraction, then, is not a result of a partial matching or a representational error of number feature; instead, it is the result of a state of memory in which comprehenders misremember either the existence of the nominal plural morpheme or the place of the nominal plural morpheme as stated in the MPT model of the agreement attraction within shallow processor within \autoref{model1}, \autoref{model2}, \autoref{model3}\footnote{Author here wishes he knew more latex to do the MPT tree more neat.}.
+
+\begin{figure}[htb!]
+\centering
+\begin{tikzpicture}[
+    sibling distance        = 0.5em,
+    level distance          = 5em,
+    edge from parent/.style = {draw, -latex},
+    every node/.style       = {font=\scriptsize},
+    sloped
+  ]
+\Tree [.{\ }
+        \edge node[auto=left]{f}; [.\node[draw,rounded corners=.8ex]{generic failure};
+                                     \node[draw]{Ungrammatical};]
+        \edge node[auto=left]{1-f};
+        [.\node[draw,rounded corners=.8ex]{no failure};
+          \edge[dashed]; [.\node[]{Plural Verbs}; 
+                           \edge[dashed]; \node[]{With Distractor};
+                           \edge[dashed]; \node[]{Without Distractor};
+                         ] 
+          \edge[dashed]; [.\node[]{Singular Verbs}; 
+                          \edge[dashed]; [.\node[draw,rounded corners=.8ex]{No checking};
+                                           \node[draw]{Grammatical};]
+                         ] 
+        ] 
+      ]
+\end{tikzpicture}
+\caption{Proposed multinomial processing tree of how people judge sentences in a agreement attraction task}
+\label{model1}
+\end{figure}
+
+\begin{figure}[htb!]
+\centering
+\begin{tikzpicture}[
+    sibling distance        = 0.5em,
+    level distance          = 5em,
+    edge from parent/.style = {draw, -latex},
+    every node/.style       = {font=\scriptsize},
+    sloped
+  ]
+\Tree [.\node[]{Without Distractor}; 
+                                          \edge node[auto=left]{m$_2$}; [.\node[draw,rounded corners=.8ex]{No Memory of -lAr};
+                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
+                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
+                                          \edge node[auto=left]{1-m$_2$}; [.\node[draw,rounded corners=.8ex]{Memory of -lAr}; 
+                                          \edge node[auto=left]{1-p$_2$}; [.\node[draw,rounded corners=.8ex]{No Place of -lAr};
+                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
+                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
+                                          \edge node[auto=left]{p$_2$}; [.\node[draw,rounded corners=.8ex]{Misrepresented place of -lAr};
+                                                                        \node[draw]{Ungrammatical};]]]
+                                                                        
+                                                                    
+                                                                    
+\end{tikzpicture}
+\caption{The Continuation of the proposed MPT with regards to the items which do not have an attractors with overt plural morphology but do have a plural marked verbs.}
+\label{model2}
+\end{figure}
+\begin{figure}[htb!]
+\centering
+\begin{tikzpicture}[
+    sibling distance        = 0.5em,
+    level distance          = 5em,
+    edge from parent/.style = {draw, -latex},
+    every node/.style       = {font=\scriptsize},
+    sloped
+  ]
+\Tree [.\node[]{With Distractor}; 
+                                          \edge node[auto=left]{m$_1$}; [.\node[draw,rounded corners=.8ex]{No Memory of -lAr};
+                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
+                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
+                                          \edge node[auto=left]{1-m$_1$}; [.\node[draw,rounded corners=.8ex]{Memory of -lAr}; 
+                                          \edge node[auto=left]{1-p$_1$}; [.\node[draw,rounded corners=.8ex]{No Place of -lAr};
+                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
+                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
+                                          \edge node[auto=left]{p$_1$}; [.\node[draw,rounded corners=.8ex]{Memory of place of -lAr};
+                                                                        \node[draw]{Grammatical};]]]
+                                                   
+\end{tikzpicture}
+\caption{The Continuation of the proposed MPT with regards to the items who have attractors with overt plural morphology and  plural marked verbs.}
+\label{model3}
+\end{figure}
+
+In  my second experiment, I investigate the predictions made from  my model using a verbal plural morpheme within a distractor relative clause. As mentioned earlier, the verbal plural morpheme in Turkish is exactly the same as the nominal plural with regards to its stress, its behavior, and its form: *-lAr*. Since Turkish relative clauses are essentially nominals due to the nominalization process, they behave exactly like other nominals within the sentence [@Goksel2004; @Taylan2015]. They can be marked with cases, plural agreement and they can have postpositions that any nominal also can. This syntactic formation enables us to question how shallow people process, how much syntactic information is relevant, or how perfectly people encode the features of the elements of the sentence. In  my experiment 2, I have used items in which the referential head noun of the subject is modified with a single-word relative clause as in \autoref{ouritem1}. 
+
+\begin{exe}
+  \ex \label{ouritem1}
+      \gll D\"{o}v-d\"{u}k-(\textbf{ler})-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-(\textbf{lar})-d{\i}.\\
+  beat-\textsc{Nmlz}-(\textsc{Pl})-\textsc{Poss} kid kitchen-\textsc{Loc} unconscious state-\textsc{Loc} lie-\textsc{Prog}-(\textsc{Pl})-\textsc{Pst}\\
+      \glt Intended: The kid that they beat were laying in the kitchen unconscious.
+\end{exe}
+
+
+Within the framework of percolation theories, I expect a harsh decline in the agreement attraction effects\footnote{Discussion with regards to how and where relative clauses adjoined is omitted due to the scope of the paper. However, it should be clear that a late insertion analysis where the relative clauses are actually above the head noun would yield different results. In this paper, I assume that modifiers like relative clauses are within the noun phrase, which deems them \textit{syntactically} deeper placed in the hierarchical three than the possessee.}. The reason for this expected decline is the fact that relative clauses being relative *deeper* in the hierarchical structure than the possessee of genitive-possessive structure.
+
+As for cue-based retrieval models, I would expect an agreement attraction quite similar to the one that I originally have in @Lago2018. The reason for this expected agreement attraction is the fact that apart from having a verbal root, the relative clauses and nominals behave exactly the same in terms of *nounness*. Like nominals, nominalized structures first marked with plural and then with the case or possessive suffix.  From this perspective, it seems like there should be no difference. However, one may argue that the features related to the verbal and nominal can be encoded differently. Thus, there will no partial match at any time given due to the fact that verbal plural morpheme at the main verb does specify cues for a specific type of plural marking. One other question that may arise from this structure is that whether or not the parts of already-formed dependencies can feed the following dependency resolution. In other words, the verbal plural morpheme *-lar* on *dövdükleri* in \autoref{ouritem1} is already a trigger of a cue retrieval process. And, when it is merged with the nominal head *çocuk*, there is a formed semantic meaning that is  "a group of people has beaten a kid."  However, this *suggestion* assumes that relative clauses are formed at the very moment. Moreover, I also need to assume that after forming a relative clause they are unreachable, meaning that they do not contribute to the processing of the sentence, anymore. 
+
+Lastly, in  my extremely shallow processing model, I would expect a significant effect of agreement attraction. Due to one of the writers' inability to *run the numbers* and *form the mpt trees in time*, this part---unfortunately---does not go beyond than a verbal argumentation. The reason I expect a significant effect of the agreement attraction is due to the fact that upon the agreement process is driven by the faulty memory of the place of the plural morpheme and uneducated guessing. Since the parsing is shallow, comprehenders do not engage in perfect attribution of the features, thus having a somewhat blurry representation behind. I expect this behavior to be omnipresent in other agreement attraction phenomenon that has been shown, as well as in @Lago2018 and in  my replication of it. Therefore, there is no reason to have anything to be different in experiment 2.
+
+
+
+## Experiment 1
 
 ```{r loadDataExp1, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
@@ -213,7 +436,7 @@ df_lagoetal_attr <- df_lagoetal %>%
 ```
 
 
-In their study, @Lago investigates the comprehension of subject-verb agreement  Turkish monolinguals. They use speeded acceptability judgments for the effects of number attraction in Turkish. Their sentences make us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They manipulate the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulate the plurality of the attractor noun. In grammatical conditions, the subject and the verb both bear singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions, the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
+In their study, @Lago2018 investigates the comprehension of subject-verb agreement  Turkish monolinguals. They use speeded acceptability judgments for the effects of number attraction in Turkish. Their sentences make us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They manipulate the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulate the plurality of the attractor noun. In grammatical conditions, the subject and the verb both bear singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions, the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
 
 
 \begin{exe}
@@ -244,26 +467,7 @@ singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\tex
 \end{xlist}
 \end{exe}
 
-They found a significant effect of number attraction in Turkish ranging between 11\%--15\% across monolinguals. As seen in the results of the statistical analysis in \textsc{Table} (\ref{lagomodel}), the acceptability judgments showed an immense effect of grammaticality, and there is also interaction between grammaticality and attractor number, which indicates the presence of a number attraction effect. 
-
-\begin{table}[!hbt]
-\centering
-\begin{tabular}{llcccc}
-\hline
-    &                                        & \multicolumn{4}{l}{Monolingual Speakers}                                               \\ \cline{3-6} 
-    &                                        & $\beta$        & SE            & \emph{z} & \emph{p} \\ \hline
-\multicolumn{2}{l}{\textbf{Attraction Task}} &                &               &                           &                           \\
-    & Grammaticality                         & \textbf{-5.51} & \textbf{0.33} & \textbf{-16.69}           & \textbf{.000}             \\
-    & Attractor Number                       & 0.14           & 0.25          & 0.57                      & .571                      \\
-    & Grammaticality x Attractor Number      & \textbf{1.69}  & \textbf{0.53} & \textbf{3.19}             & \textbf{.001}             \\
-    & Attractor Number: Ungram conditions    & \textbf{0.94}  & \textbf{0.26} & \textbf{3.68}             & \textbf{.000}             \\
-    & Attractor Number: Gram conditions      & -0.79          & 0.52          & -1.51                     & .131                      \\ \hline
-\end{tabular}
-\caption{Model results for the judgments of monolingual cited from @Lago.}
-\label{lagomodel}
-\end{table}
-
-@Lago stipulate that the Turkish genitive case does not provide a strong cue against subjecthood since Turkish frequently makes use of genitive marked subjects in embedded clauses, as in example (\ref{gensubj}). This is in contrast with English, in which the genitive case is compatible with subjecthood. Thus, @Lago argue that this robust agreement attraction effect has been linked to the case information carried by accusative and genitive. 
+They found a significant effect of number attraction in Turkish ranging between 11\%--15\% across monolinguals. @Lago2018 stipulate that the Turkish genitive case does not provide a strong cue against subjecthood since Turkish frequently makes use of genitive marked subjects in embedded clauses, as in \autoref{gensubj}. This is in contrast with English, in which the genitive case is compatible with subjecthood. Thus, @Lago2018 argue that this robust agreement attraction effect has been linked to the case information carried by accusative and genitive. 
 
 \begin{exe}
 \ex \label{gensubj}
@@ -272,7 +476,7 @@ village-\textsc{acc} a bandit-\textsc{gen} raid-\textsc{nmlz}-\textsc{3Sg}-\text
 \glt I heard that a (certain) robber raided the village. (Adapted from Woolford (2009))
 \end{exe}
 
-However, our initial hypothesis postulates that participants engage in shallow processing, which results in a situation in which not only the genitive case but also the possessive case plays a significant role in delivering the case information. None of the experimental items in @Lago have a head noun which ends with a vowel; thus, all of the possessive markers are morphologically and phonologically ambiguous between the accusative case and the possessive. Unlike genitive case, it is extremely rare for the accusative case to appear on the head noun of the subject, which only occurs in raising predicates as in example (\ref{dsm}).
+However,  my initial hypothesis postulates that participants engage in shallow processing, which results in a situation in which not only the genitive case but also the possessive case plays a significant role in delivering the case information. None of the experimental items in @Lago2018 have a head noun which ends with a vowel; thus, all of the possessive markers are morphologically and phonologically ambiguous between the accusative case and the possessive. Unlike the genitive case, it is extremely rare for the accusative case to appear on the head noun of the subject, which only occurs in raising predicates as in \autoref{dsm}.
 
 \begin{exe}
 \ex \label{dsm}
@@ -281,7 +485,7 @@ I you-\textsc{acc} go-\textsc{pst}-\textsc{2Sg} suppose-\textsc{pst}-\textsc{1Sg
 \glt I thought you were gone.
 \end{exe}
 
-In order to test this hypothesis, we have replicated the experiment of @Lago with modified items, in which the possessive is not ambiguous with the accusative case. We tried to be as faithful as possible to the original sentences while also trying to make the sentences as plausable as possible. We keep the semantic relation between the head noun and the controller the same with what has been described in @Lago's study, which is either a relation regarding profession or a service that is given by the head noun for the possessor. A set of sentences are exemplified below.
+In order to test this hypothesis, I have replicated the experiment of @Lago2018 with modified items, in which the possessive is not ambiguous with the accusative case. I tried to be as faithful as possible to the original sentences while also trying to make the sentences as plausible as possible. I keep the semantic relation between the head noun and the controller the same with what has been described in @Lago2018, which is either a relation regarding profession or a service that is given by the head noun for the possessor. A set of sentences are exemplified below.
 
 \begin{exe}
 \ex
@@ -310,7 +514,7 @@ In order to test this hypothesis, we have replicated the experiment of @Lago wit
   \end{xlist}
 \end{exe}
 
-As seen in the examples, unlike @Lago's experimental items, all of our items bear the *-sI* possessive marker instead of the ambiguous *-I* marker. As for the filler items, we could not use or modify the original experiment items since the fillers of the original study were not online. We have used two types filler sentences: grammatical sentences in which the verb bears plural agreement (\ref{fillera}), and ungrammatical sentences in which the verb does not bear plural agreement (\ref{fillerb}). We wanted to nullify a possible strategy by the participants where they associate the sentence-final morpheme directly with the acceptability of the sentence. And we also wanted to eliminate the possibility of participants disregarding other elements in the sentences while answering the questions we ask right after the sentence. 
+As seen in the examples, unlike @Lago2018's experimental items, all of  my items bear the *-sI* possessive marker instead of the ambiguous *-I* marker. As for the filler items, I could not use or modify the original experiment items since the fillers of the original study were not online. I have used two types of filler sentences: grammatical sentences in which the verb bears plural agreement (\autoref{fillera}), and ungrammatical sentences in which the verb does not bear plural agreement (\autoref{fillerb}). I wanted to nullify a possible strategy by the participants where they associate the sentence-final morpheme directly with the acceptability of the sentence. And I also wanted to eliminate the possibility of participants disregarding other elements in the sentences while answering the questions I ask right after the sentence. 
 
 \begin{exe}
 \ex
@@ -327,17 +531,20 @@ pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} 
 \end{exe}
 
 
-All of our data, experimental materials, our experiment design, and our fillers can be found on the website of the Center for Open Science Framework (https://osf.io/).
+### Participants and Procedure
 
-## Participants and Procedure
+One hundred and seven Turkish speakers were recruited from Bogazici University in İstanbul. I did not collect participants' knowledge of other languages; however, I verified that Turkish is their native language and that they predominantly use it in their daily lives. In the experiments, participants were asked to judge the acceptability of experimental and filler sentences in Turkish. All of the sentences were presented one word at a time in the center of the screen for 500 ms per word unlike @Lago2018 and @Wagers2009, in which the duration was 300 ms per word. The experiment was run on a web-based platform titled the Ibex Farm, and all of the documentation can be found on  my Github page:\url{https://github.com/utkuturk/AgreementAttraction_Experiment}. 
 
-One hundred and seven Turkish speakers with a mean age of X were recruited from Bogazici University in İstanbul. We did not collect participants' knowledge of other languages; however, we verified that Turkish is their native language and that they predominantly use it in their daily lives. In the experiments, participants were asked to judge the acceptability of experimental and filler sentences in Turkish. All of the sentences were presented one word at a time in the center of the screen for 500 ms per word unlike @Lago and @Wagers2009, in which the duration was 300 ms per word. The experiment was run on a web-based platform titled the Ibex Farm, and all of the documentation can be found on our osf and github page. 
+Before the experiment, participants were instructed to give accurate and quick answers based on their own intuitions, and they were also notified about the time limit for answering. At the start of the experiment, they were given 4 practice items with feedback. Each trial after the practice items started with a blank screen, followed by a flash of single words in the middle of the screen. After the sentence, they were asked a grammaticality judgment questions (Was the sentence you read was natural to you?) where they need to press P for *no* and press Q for *yes*. In the experiment, every participant saw 40 experimental item that is Latin-squared and 40 fillers.
 
-Before the experiment, participants were instructed to give accurate and quick answers based on their own intuitions, and they were also notified about the time limit for answering. At the start of the experiment, they were given 4 practice items with feedback. 
 
-What to write about analyze?
 
-## Results and Discussion
+### Analysis
+
+Every experimental item from both experiments (Experiment 1 and @Lago2018) is included in the analysis. Participants that could not exceed the threshold of 0.25 difference in *yes* answer between the condition (c) and (d), namely Ungrammatical, SG attractor and Grammatical, SG attractor, were excluded. I performed an analysis by fitting linear mixed-effect models to  my data, controlling for vowel ending, plural attractor, grammaticality and their interactions. Models for responses were fit using Bernoulli distribution with probit link function and 95\% confidence intervals. Models for response times were fit using Lognormal distribution. 
+
+
+### Results 
 
 ```{r identifyBadSubjects, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
@@ -350,9 +557,8 @@ data_clean <- data %>% subset(!subject %in% bad_subjects)
 
 ```
 
-In \textsc{Figure} (1), the y-axis shows the percentage of "acceptable" answers, and the x-axis indicates whether or not the sentences in that group are grammatical. Moreover, the linet ypes indicate an attractor noun with overt plural morphology. As seen in the figure, `r 1`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @Lago. We also see a number attraction rate of `r 2`% which was also observed in @Lago with close results. 
 
-In \textsc{Table} (\ref{tab:replication}), ............
+
 
 ```{r loadFrequencies, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
@@ -478,9 +684,6 @@ avg_clean <-
 
 ```
 
-
-## Responses
-
 ```{r exp1AvgResponse, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
 
 avg_exp <- avg_clean %>% subset(is.na(source) | source != "filler")
@@ -498,7 +701,15 @@ print(p_avg_resp)
 
 ```
 
-```{r exp1ModelResponse, eval = T}
+
+In Figure \@ref(fig:exp1AvgResponse), the y-axis shows the percentage of "acceptable" answers, and the x-axis indicates whether or not the sentences in that group are grammatical. As seen in the figure, `r round(as.numeric(avg_exp[3,6]), digits = 2)`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @Lago2018. I also see a number attraction rate of `r round(as.numeric(avg_exp[3,6]), digits = 2)-round(as.numeric(avg_exp[4,6]), digits = 2)`% which was also observed in @Lago2018 with close results. 
+
+
+In Figure \@ref(fig:exp1ResponseModelPlot), I clearly see the effects of ungrammaticality and the interaction between the ungrammaticality and plural attractor. I see that the vowel ending is not significant even though it has a negative effect. Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical. 
+
+
+
+```{r exp1ModelResponse, include=FALSE}
 
 # # TODO: the following subjects have too much data: 11, 28, 36, 42, 55, 65, 73, 84, 92, 
 # #
@@ -529,8 +740,8 @@ df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
 #          family = binomial("probit"))
 # summary(m)
 
-n_chains <- 4
-n_cores <- 4
+n_chains <- 6
+n_cores <- 6
 n_iter <- 5000
 
 fname_exp1_responses <- "../workspace_exp1/model_responses"
@@ -558,42 +769,51 @@ m_responses <- brm(ResponseYes ~ (cFreqlog_n1 + cFreqlog_n2) *
                    file = fname_exp1_responses, 
                    chains = n_chains, cores = n_cores, iter = n_iter)
 
-# + 
-m_responses2 <- brm(ResponseYes ~ (cFreqlog_n1n2) *
-                                  cEndsInVowel * cUngrammatical * cAttractorPlural + 
-                                 ((cFreqlog_n1n2) * cUngrammatical * cAttractorPlural + 1| subject) +
+
+fname_exp3_responses <- "../workspace_exp1/model_responses_rt"
+
+m_rts <- brm(RT ~ cEndsInVowel * cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
-                   init = "0",
-                   family = bernoulli("probit"),
-                   file = paste0(fname_exp1_responses, "2"), 
+                   family = lognormal(),
+                   file = fname_exp3_responses, 
                    chains = n_chains, cores = n_cores, iter = n_iter)
+
 
 ```
 
-```{r exp1ResponseModelPlot, eval = T, fig.height= 2, message=FALSE, warning=FALSE, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
+
+```{r exp1ResponseModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Accuracy."}
 
 contrast_names <- c("cUngrammatical" = "Ungrammaticality",
                     "cAttractorPlural" = "Plural Attactor",
-                    "cEndsInVowel"="Vowel-ending",
-                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attactor",
-                    "cEndsInVowel:cUngrammatical"="Vowel-ending * Ungrammaticality",
-                    "cEndsInVowel:cAttractorPlural"="Vowel-ending * Plural Attactor",
-                    "cEndsInVowel:cUngrammatical:cAttractorPlural"="Vowel-ending * Ungrammaticality * Plural Attactor"
-                    )
+                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
+                    "cEndsInVowel" = "Vowel Ending",
+                    "cEndsInVowel:cUngrammatical" = "Ungrammaticality * Vowel Ending",
+                    "cEndsInVowel:cAttractorPlural" = "Vowel Ending * Plural Attractor",
+                    "cEndsInVowel:cUngrammatical:cAttractorPlural" = "Vowel Ending * Ungrammaticality * Plural Attractor")
 
-p_m_response <- create_model_coefs_plot(m_responses, map_names = contrast_names)
+p_m_response <- stanplot(m_responses, pars = "^b_c" , type="areas")
 p_m_response <- p_m_response + xlab("Estimate (log-odds)")
 print(p_m_response)
+
 
 ```
 
 
+```{r exp1ResponseTimeModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Reading Times."}
 
-## Response Times
+p_m_rt <- stanplot(m_rts, pars = "^b_c" , type="areas")
+p_m_rt <- p_m_rt + xlab("Estimate (log-odds)")
+print(p_m_rt)
 
 
-```{r exp1AvgRTs, fig.height=2.5, fig.width = 6 }
+```
+
+In Figure \@ref(fig:exp1AvgRTs), I see that average response times are significantly higher than the those of @Lago2018. I also see it in \@ref(exp1ResponseTimeModelPlot), since **b_cEndsinVowel** indicates whether or not it is Experiment 1 or Experiment from @Lago2018, i.e. distractors in items in @Lago2018 ends with a consonant, while ours ends in a vowel. Again, these results show the effect of disambiguation of the possessive suffix from the accusative case has surfaced as the difficulty in response and memory retrieval time.
+
+```{r exp1AvgRTs, fig.height=2.5, fig.width = 6, fig.cap="Average response times for  my replication and Lago et. al. (2018)"}
 
 p_avg_rt <- ggplot(avg_clean, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
 
@@ -601,41 +821,111 @@ print(p_avg_rt)
 
 ```
 
+### Discussion 
 
-\clearpage
+Experiment 1 found number attraction effects, like also attested in @Lago2018, and also found a significant effect of form ambiguity of possessive and an interaction of plural attractor with ungrammaticality in response times. Illusionary agreement of the verb with the plural attractor was more than the singular attractor. In addition to what has been discussed by @Avetisyan2019. this results also show that not only the case itself but also the form of the case can affect the response times.
 
-# EXPERIMENT 2: RC ATTRACTOR
+In the previous sections, I have predicted that with an assumed mechanism where people do take the clues from the form of the plural morpheme itself and have a strategy based on matching the plural morphemes, I would expect no change with regards to the agreement attraction effects. I also should not expect increasing response times when an irrelevant morpheme for the mechanism I assume. 
 
-Even though our first hypothesis regarding shallow processing did not hold, we still need to entertain the second possibility we have discussed in this paper. Participants may indeed engage in an even shallower process of sentence comprehension, in which they merely match the use of *-lAr*. Moreover, we still need to discuss how much it is an effect of case information rather than only a number attraction. We have seen that the anti-subjecthood cues of the accusative are not significant since in both cases where the possessive is ambiguous with the accusative and the possessive is clearly marked, we have observed extremely close results in the speeded acceptability judgments. 
+However, I see that response times have changed drastically when the suffixes are dismabiguated. It is clear from the Figure \@ref(fig:exp1AvgRTs), when people are prompted to judge the sentence, they have difficulty in resolving and back-tracking the dependencies of the sentence even though nothing relevant to the plural morpheme and its host word has changed. 
 
-In order to check both the sole effect of number agreement and the possibility of a task effect, we propose an experiment design in which a head noun is a bare NP, is not marked with any other morpheme and preceded by a relative clause construction. This relative clause consists of only a verbal component, which bears an overt plural marker. Since Turkish verbal and nominal plural morphemes are identical, we plan to check the participants' strategy with regards to whether or not it is a cue that helps in the reconstruction of the ungrammatical sentence or whether it is merely a task effect in which participants disregard the rest of the sentence and focus the existence of the morpheme *-lAr*.  
+The results follow from what a cue-based model would predict: slightly lower agreement attraction and increased response time. Due to the disambiguation between the accusative case and the possessive suffix, I speculated that the features related to the *non-subjecthood* of the head of the subject would not surface falsely in  my replication. With more clearly formed genitive-possessive structures, participants do not have an easy time to partially match the cues with the phrases. This situation stems from the idea proposed by @Lago2018 with regards to the effects of the cases on numeral agreement attraction. She argues that the frequency of the case being used in the subject position affects the agreement attraction effects in a positive manner. Since the accusative case is rarely used in Turkish, I have argued that it may give *wrong* clues an enable the distractors to even distract more. Yet, with clearly marked possessive suffix, I see that these enabling nature of the genitive possessive structure is eliminated, which is also shown in @Avetisyan2019.
 
-## Materials
 
-Like genitive-possessive structures, attractors do not intervene between the grammatical agreement controller and the verb in relative clause constructions. Turkish relative clauses always precede the head noun, except for in special cases in which they are marked with unique prosody. Item (\ref{rcexample}) is an example of a RC structure, and item (\ref{rcexample2}) shows the possibility of using only the verbal component of the relative clause since it is grammatical to drop arguments in Turkish. ( add a footnote here giving the details of such events, and restrictions. )
+However, these results can also be a result of badly formed filler sentences which are shown with a purple line. Participants may be biased towards saying no since most of the experimental items being ungrammatical. However, this can also be statistical *miss* since I may accidentally have a group such as this one. However, the visible effect of vowel ending and response time suggest that people do indeed care more than only the retrieval of plural morpheme *-lar* and its place. 
+
+These results go against what I have predicted for the Marking and Morphing model as well. Due to the no extreme semantic change in the experimental (*Marking*) and no change in the structural relations among the genitive-possessive constructions (*Morphing*), there should be no difference in agreement attraction. 
+
+However, the existence of an extremely close degree of agreement attraction effects and non-significant nature of the effect of the vowel ending indicates that I cannot readily discard other explanations. Another reason for not jumping to the conclusion with percolation models can be related to the number of participants @Lago2018 have included in their study [see @Vasishth2018]. 
+
+
+
+
+
+## Experiment 2
+
+```{r loadDataExp2, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+fname_data2 <- "../workspace_exp2/exp_data.rds"
+data2 <- readRDS(file = fname_data2)
+
+# compute by-subject percentages of 'yes' responses, and average RTs 
+avg_by_subj2 <- data2 %>%
+                group_by(subject, experiment, condition, 
+                         grammatical, verb_num, attractor_num) %>%
+                summarize(avRT = mean(RT), 
+                          p_yes = mean(ResponseYes, na.rm = T), 
+                          N = sum(!is.na(ResponseYes))  )
+
+# reformat by-subject averages to a wide format
+avg_by_subj_wide2 <- avg_by_subj2 %>% 
+                      mutate(expcond = paste(experiment, condition, sep="_")) %>% 
+                      ungroup() %>%
+                      dplyr::select(-experiment, -condition, -avRT, -N,
+                                    -grammatical, -verb_num, -attractor_num) %>%
+                      tidyr::spread(expcond, p_yes) %>% 
+                      mutate(delta_dc = AgrAttr_d - AgrAttr_c)
+
+```
+
+```{r identifyBadSubjects2, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+# identify participants 
+bad_subjects2 <- subset(avg_by_subj_wide2, delta_dc <= 0.25 ) %>% .$subject
+
+#dataAvBySubj %>% subset(subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~subject)
+
+data_clean2 <- data2 %>% subset(!subject %in% bad_subjects)
+
+```
+
+
+
+```{r mergeData2, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+df_merge_exp2 <- data_clean2 %>% ungroup() %>% 
+                      dplyr::select(source=experiment, grammatical, attractor_num, # condition,
+                                    subject, item=Item,
+                                    ResponseYes, RT)
+df_merge_exp2$experiment <- "Experiment 2"
+df_merge_exp2$grammatical <- with(df_merge_exp2, ifelse(grammatical == "gram", 
+                                                        "grammatical",
+                                                        "ungrammatical"))
+df_merge_exp2$attractor_num <- with(df_merge_exp2, ifelse(attractor_num == "pl", 
+                                                          "plural", 
+                                                          "singular"))
+df_merge_exp2$item %<>% as.integer()
+df_merge_exp2$subject %<>% as.character()
+
+
+
+df_merged2 <- dplyr::bind_rows(df_merge_exp1, df_merge_exp2)
+df_merged2$subject %<>% as.factor()
+df_merged2$item %<>% as.factor()
+```
+
+
+
+```{r computeAverages2, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+
+avg_clean2 <- df_merged2 %>%
+                group_by(experiment, source, grammatical, attractor_num) %>%
+                summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+```
+
+
+Having discussed the replication study of @Lago2018, I have shown that results favor the cue-based models, especially with the effect of disambiguated possessive suffix on response times. However, due to the extremely similar effects on agreement attraction, I can still entertain shallow processing mechanism as explained in \autoref{model1}, \autoref{model2}, and \autoref{model3}. Since I argue that the agreement attraction is a product of memory state in which comprehenders do not have an exact memory of the place of the plural morpheme mainly, I conducted an experiment where the distractor with the plural morpheme in on the relative clause. 
+
+The study consists of a speeded acceptability judgment experiment in the web-based platform Ibex Farm. In the experiment, I test whether or not speakers utilize even more shallow parser than what is stipulated by @Lago2018 and  my replication of @Lago2018 Experiment 2. This was investigated using syntactic structures similar to @Lago2018 materials, in which I have opted out the Genitive Construction (GC) for Relative Clause construction (RCC) as a distractor. In Turkish, like GC, the relative clause in RCC precedes the head noun, and length-wise Turkish relative clauses can consist of only one word and the rest can be dropped. Turkish allows us to use RCCs as distractors in the same place because Turkish plural morpheme in the verbal domain and nominal domain are the same: *-lAr*. Both of them react similarly in the same phonological environments, and they also exhibit the same stress patterns. 
+
+In the experimental items, the distractor RC and the matrix verb had f my configurations in which the number morpheme on the RCC (*plural* vs. *singular* marked RC verb) and matrix verb (*grammatical* vs. *ungrammatical*) as in \autoref{prereg1}.
 
 \begin{exe}
-\ex
-  \begin{xlist}
-    \ex \label{rcexample}
-    \gll On-lar-{\i}n ev-e gel-me-den g\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
-    they-\textsc{pl}-\textsc{gen} home-\textsc{dat} come-\textsc{neg}-\textsc{abl} see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
-    \glt The kid that they saw right before coming to home was feeling chilly. 
-    \ex \label{rcexample2}
-    \gll G\"{o}r-d\"{u}k-ler-i \c{c}ocuk so\u{g}uk-ta \"{u}\c{s}\"{u}-m\"{u}\c{s}-t\"{u}.\\
-    see-\textsc{nlmz}-\textsc{pl}-\textsc{poss} kid cold--\textsc{loc} feel.chilly-\textsc{perf}-\textsc{pst}\\
-    \glt The kid that they saw home was feeling chilly.
-  \end{xlist}
-\end{exe}
-
-As for the experimental sentences, we plan to use sentences that are similar to the ones used in @Lago. Instead of a genitive controller, we utilize an RC, which we manipulate for its values for bearing the plural morpheme. The head noun of the subject is always singular, and it is followed by a 2/3 word adverbial. Moreover, the matrix verb of the sentences is also manipulated in terms of plurality, deeming the sentence grammatical or ungrammatical. Lastly, the relative clause has to be an object relative clause, since Turkish subject relative clauses never bear a plural morpheme on the embedded verb. As in the @Lago's study and our replication, we will have a four condition, where we manipulate the plurality of the attractor (*plural/singular*) and the grammaticality of the sentece by using overt plural morphology (*grammatical/ungrammatical*), which are demonstrated with item (\ref{reg1}), (\ref{reg2}), (\ref{reg3}), and (\ref{reg4})
-
-\begin{exe}
-\ex
+\ex \label{prereg1}
   \begin{xlist}
   \ex \underline{Grammatical, SG attractor} \label{reg1}
-      \gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
-  beat-\textsc{nmlz}-\textsc{poss} kid kitchen-\textsc{loc} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\ 
+      \gll D\"{o}v-d\"{u}\u{g}-\"{u} \c{c}ocuk okul-a yorgun arg?n gel-di.\\
+  beat-\textsc{nmlz}-\textsc{poss} kid school-\textsc{dat} unconscious state-\textsc{loc} lie-\textsc{prog}-\textsc{pst}\\ 
       \glt The kid that he/she beats was laying in the kitchen unconscious.
   \ex \underline{Grammatical, PL attractor} \label{reg2}
       \gll D\"{o}v-d\"{u}k-ler-i \c{c}ocuk mutfak-ta bayg{\i}n hal-de yat-{\i}yor-du.\\
@@ -652,58 +942,162 @@ As for the experimental sentences, we plan to use sentences that are similar to 
   \end{xlist}
 \end{exe}
 
-As for the fillers, we need two different set of fillers in order to counterbalance the ever-present grammaticality of singular and plural verbs. For grammatical fillers with a plural verb (example (\ref{fillerreg1})) we propose a structure in which the head noun is followed by a converb. With this modification, the controller of the experimental sentences becomes a controller for a subclause, and the main verb is saturated with another subject introduced right after the subclause.
-
-For ungrammatical fillers with a singular verb (example (\ref{fillerreg2})), we have used strictly transitive verbs without an overt object. By utilizing the same structure with the other type of fillers, we ensure that participants will not come up with a strategy in which they always check the second word for dependency resolution. The controller of the fillers and the controller of the experimental items differ in the linear order they are shown in the experiment.
-
-Question: Can we do subject relative clause here? Like durdurulan ogrenci. 
+As for the experiment, I have used the same type of fillers with the Experiment 1 in order to tackle with two possible strategies that can be utilized by the participants: (i) deeming the sentence acceptable when the matrix verb is singular and (ii) deeming most of the sentences unacceptable when the matrix verb is plural. To tackle with the first type of strategy, I have used a sentence where the object is not marked with accusative and it is not in an immediately pre-verbal position as in \autoref{filler1a}. The idea was to have a singular matrix verb in an ungrammatical sentence where the ungrammaticality does not stem from the local elements. As for the other strategy I have used pro-drop characteristics of Turkish and made the first noun phrase with a relative clause an object as in \autoref{filler1b}. The idea behind is that the plural agreement on the matrix verb is resolved with a dropped subject instead of the first noun phrase with a relative clause. Every participant saw 40 experimental item that is Latin-squared and 40 fillers.
 
 \begin{exe}
 \ex
 \begin{xlist}
-\ex \label{fillerreg1}
-\gll Dur-dur-duk-lar-{\i} \"{o}\u{g}renci \c{s}a\c{s}{\i}r-{\i}nca arkada\c{s}-lar-{\i} birden g\"{u}l-d\"{u}-ler.\\
-stop-\textsc{caus}-\textsc{nmlz}-\textsc{pl}-\textsc{poss} student surprise-\textsc{cvb} friend-\textsc{pl}-\textsc{poss} suddenly laugh--\textsc{pst}-\textsc{pl}\\
-\glt When the student which was stopped surprised, his friends burst out laughing.
-\ex \label{fillerreg2}
-\gll *Tut-tuk-lar-{\i} a\c{s}\c{c}{\i} gel-me-yince dan{\i}\c{s}man-lar hala ver-di.\\
-hire-\textsc{nmlz}-\textsc{pl}-\textsc{poss} cook come--\textsc{neg}-\textsc{cvb} advisor-\textsc{pl} still give-\textsc{pst}\\
-\glt Inteded: When the cook that they hired did not come, advisors did not still give. 
+\ex \label{filler1a}
+\gll * Haberleş-tiğ-i çevirmen ara-ma-yınca metin keyfince bitir-di.\\
+{\ } communicate-\textsc{Nmlz}-\textsc{Poss} translator call-\textsc{Neg}-\textsc{Nmlz} text as.he.wished finis-\textsc{Pst}\\
+\glt Intended: ``When the translator that he spoke with did not call, he finished the text as he wished.''
+\ex \label{filler1b}
+\gll Sev-dik-ler-i öğretmen emekli ol-unca saatlerce ağla-dı-lar.\\
+love-\textsc{Nmlz}-\textsc{Pl}-\textsc{Poss} teacher retired be-\textsc{Nmlz} for.hours cry-\textsc{Pst}-\textsc{Pl}\\
+\glt ``When the teacher they loved retired, they cried for hours.''
 \end{xlist}
 \end{exe}
 
-## Participants and Procedure 
-
-We plan to have participants from the undergrad students of Bogazici University, which will be given an extra credit incentive. They will again carry out the experiment on an online experiment platform Ibex Farm. The experiment process will be exactly the same with the replication of @Lago, including descriptions before the experiment, the layout of the experiment, the time spared for visualization of every word, exclusion criteria, and analysis. 
-
-## Expectations
-
-(This part is extremely tentative)
-
-Our objective is to explore the number attraction phenomenon without the effects of case information and without the limits of nominal paradigm. By doing so, we expect participants to engage with the sentences which are ungrammatical in an extremely shallow fashion. We argue that instead of reconstructing the sentence utilizing every detail from the attractor and the controller, participants disregard the information from other sources in the sentence and look for a matching morpheme, i.e. *-lAr*. 
 
 
-In the case that there will be a similar attraction effects with the replication of @Lago and @Lago study, we think that... what do we think? I need to talk about the paper and idea more thoroughly, I guess. Because I feel like I am repeating myself.
+### Participants and Procedure
 
-
-# DISCUSSION
-
-Discuss.
+Eighty Turkish speakers were recruited from Bogazici University in İstanbul. The procedure was exactly the same as Experiment 1. The participants in this experiment were completely different from Experiment 1.
 
 
 
-# CONCLUSIONS
+### Analysis
 
-In this paper, we have entertained the idea of task effect in the so-called Turkish number attraction phenomenon. We argue that the findings of the @Lago study is not clear and there are too many variables to account for in the experiment, one of them being the ambiguous morphology that the head noun bears. In the first experiment, we have replicated the attraction task of @Lago. We have found the similar effects of agreement with a bigger pool of participants. Then, for entertaining the other possibility in which we argue that participants do not fully reconstruct the sentence; however, they make us of the direct cue of overt morpheme *-lAr*, we offer an experiment where we use object relative clauses as an attractor. 
--
-
-# ACKNOWLEDGEMENTS
-We used the statistical language `R` `r citep(citation())` for all our analyses. These were implemented in dynamic rmarkdown documents using `knitr` `r citep(citation("knitr")[1])` and `rmarkdown` `r citep(citation("rmarkdown")[2])` packages. All graphs have been done with `ggplot` `r citep(citation("ggplot2"))`.
+Every experimental item from both experiments (this experiment and Experiment (1) is included in the analysis. Participants that could not exceed the threshold of 0.25 difference in *yes* answer between the condition (c) and (d), namely Ungrammatical, SG attractor and Grammatical, SG attractor, were excluded. I performed an analysis by fitting linear mixed-effect models to  my data, controlling for vowel ending, plural attractor, grammaticality and their interactions. Models were fit using Bernoulli distribution with probit link function and 95\% confidence intervals.
 
 
+### Results 
 
-# REFERENCES
 
-```{r write_citations, eval =T, cache=FALSE, include=FALSE}
-write.bibtex(file="references.bib")
+```{r exp2AvgResponse, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
+
+avg_exp2 <- avg_clean2 %>% subset(is.na(source) | source != "filler")
+avg_fillers2 <- avg_clean2 %>% subset(source == "filler")
+
+p_avg_resp2 <- ggplot(avg_exp2, 
+                     aes(grammatical, p_yes, #linetype = attractor_num, 
+                         color = attractor_num, group = attractor_num)) + 
+                geom_point() + geom_line() + 
+                facet_wrap(~experiment)
+
+p_avg_resp2 <- p_avg_resp2 + geom_line(data = avg_fillers) + geom_point(data = avg_fillers2)
+
+print(p_avg_resp2)
+
 ```
+
+
+
+It is clear from Figure \@ref(fig:exp2AvgResponse) that in the condition (c) where I expect an agreement attraction, participants find as unacceptable as the condition (d) with singular attractor, singular head noun, and plural matrix verb. While I do not see any agreement attraction (`r round(as.numeric(avg_exp2[7,6]), digits = 2)`%), I also see a more firm analysis of the ungrammatical sentence with singular matrix verb ((`r round(as.numeric(avg_exp2[7,6]), digits = 3)`%)).
+
+
+
+
+```{r exp2ModelResponse, include=FALSE}
+
+# # TODO: the following subjects have too much data: 11, 28, 36, 42, 55, 65, 73, 84, 92, 
+# #
+# x <- df_merged %>% subset(experiment == "Experiment 1") %>% group_by(subject) %>% dplyr::summarize(F = sum(is.na(attractor_num)),
+#                                                           N = length(is.na(attractor_num)) )
+# x %>% as.data.frame()
+# 
+# x$N %>% sum()
+# x$F %>% sum()
+
+#summary(as.factor(df_merged$attractor_num))
+
+df_merged2 %<>% within(., {
+  cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
+  cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
+  cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
+  cVerbalPlural <- ifelse(experiment == "Experiment 2", .5, -.5)
+})
+df_merged_nofillers2 <- df_merged2 %>% subset(is.na(source) | source != "filler")
+
+# ## test model parameterization using a simple GLM first
+# m <- glm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural,
+#          data = df_merged_nofillers,
+#          family = binomial("probit"))
+# summary(m)
+
+n_chains <- 6
+n_cores <- 6
+n_iter <- 5000
+
+fname_exp2_responses <- "../workspace_exp2/model_responses"
+
+library(brms)
+
+m_responses2 <- brm(ResponseYes ~ cVerbalPlural * cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers2,
+                   family = bernoulli("probit"),
+                   file = fname_exp2_responses, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+```
+
+As for the estimates of coefficients in \@ref(fig:exp2ResponseModelPlot), I can conclude that there is a significant negative effect of plural morpheme on the relative clause, which means that it does not cause any agreement affects. Again, the effect of ungrammaticality that stems from the existence of plural morpheme on the matrix verb is visible. The interaction between the plural morpheme on the attractor RC and the matrix verb is even higher than the sole effect of plural morpheme on the attractor RC.  
+
+
+```{r exp2ResponseModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients."}
+
+contrast_names2 <- c("cUngrammatical" = "Ungrammaticality",
+                    "cAttractorPlural" = "Plural Attactor",
+                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
+                    "cVerbalPlural" = "Verbal Plural",
+                    "cVerbalPlural:cUngrammatical" = "Ungrammaticality * Verbal Plural",
+                    "cVerbalPlural:cAttractorPlural" = "Verbal Plural * Plural Attractor",
+                    "cVerbalPlural:cUngrammatical:cAttractorPlural" = "Verbal Plural * Ungrammaticality * Plural Attractor")
+
+p_m_response2 <- create_model_coefs_plot(m_responses2, map_names = contrast_names2)
+p_m_response2 <- p_m_response2 + xlab("Estimate (log-odds)")
+print(p_m_response2)
+
+```
+
+
+
+
+```{r exp2AvgRTs, fig.height=2.5, fig.width = 6 ,fig.cap="Average response times for  my replication and Experiment2"}
+
+p_avg_rt2 <- ggplot(avg_clean2, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
+
+print(p_avg_rt2)
+
+```
+
+
+Finally, the response times of Experiment 2 is significantly lower than the Experiment 1 as seen from Figure \@ref(fig:exp2AvgRTs). The even lower response time in ungrammatical plural (condition c) shows that participants were extremely confident with their decision and did not have any issue with the dependency resolution.
+
+
+### Discussion
+
+These findings indicate that  my hypothesis regarding the matching of the forms is not supported by the empirical evidence. However, results in Experiment 2 points in a direction where the Marking and Morphing studies predicted in the first place. Due to the deeper syntactic embedding, the numeral feature cannot percolate as freely as it can in genitive possessive structure and cannot affect the final number of the subject root node.
+
+However, with the right prediction with regards to which features are stored and can be cued for, cue-based retrieval mechanisms can also explain the findings in Experiment 2.
+
+# Conclusion
+
+We have shown that the agreement attraction effects cannot be explained by the extremely shallow processing mechanisms, at least with the implementation I have proposed here. However, I also show that findings from Experiment 1 and 2 were not enough to differentiate between two models that can explain agreement attraction: the Marking and Morphing and cue-based retrieval models. While the findings of Experiment 1 favors the cue-based retrieval mechanism, Experiment 2 with the harsh decline in the effects of agreement attraction points to another horizon.
+
+Another take on the results may follow from the redefinition of the *shallowness* concept. Experiments show that it is not only dependent on the form. However, it can be an issue related to already-formed dependencies inability to be used in the memory process. One can argue that once the dependencies are formed and resolved, participants do not go back to them when another cue is set out.
+
+# References
+```{r create_r-references}
+r_refs(file = "r-references.bib")
+```
+
+
+\begingroup
+\setlength{\parindent}{-0.5in}
+\setlength{\leftskip}{0.5in}
+
+<div id = "refs"></div>
+\endgroup
