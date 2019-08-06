@@ -443,30 +443,29 @@ df_lagoetal_attr <- df_lagoetal %>%
 ```
 
 
-In their study, @Lago2018 investigates the comprehension of subject-verb agreement  Turkish monolinguals. They use speeded acceptability judgments for the effects of number attraction in Turkish. Their sentences make us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They manipulate the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulate the plurality of the attractor noun. In grammatical conditions, the subject and the verb both bear singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions, the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
+In their study, @Lago2018 investigate the comprehension of subject-verb agreement  Turkish monolinguals. They use speeded acceptability judgments for the effects of number attraction in Turkish. Their sentences make us of genitive-possessive constructions in the subject position, where the genitive is the attractor and the possessive is the head noun. They manipulate the grammaticality of the sentence by changing the plural morphology of the verb, and they also manipulate the plurality of the attractor noun. In grammatical conditions, the subject and the verb both bear singular morphology with no overt morpheme. Moreover, in the ungrammatical conditions, the verb bears the overt *-lAr* morpheme whereas the subject is still singular as exemplified below.
 
 
 \begin{exe}
 \ex
 \begin{xlist}
 
-\ex \textsc{Ungrammatical, SG attractor} \label{lago4}
+\ex \textsc{ungrammatical, sg attractor} \label{lago4}
 \gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
 singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
 \glt The singer's backup vocalist jumped on the stage non-stop.
 
-\ex \textsc{Grammatical, PL attractor} \label{lago2}
+\ex \textsc{grammatical, pl attractor} \label{lago2}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
 \glt The singers' backup vocalist jumped on the stage non-stop.
 
-
-\ex \textsc{Ungrammatical, PL attractor} \label{lago3}
+\ex \textsc{ungrammatical, sg attractor} \label{lago3}
 \gll \c{S}ark{\i}c{\i}-lar-{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}-lar.\\
 singer-\textsc{pl}-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-\textsc{3Pl}\\
 \glt The singers' backup vocalist jumped on the stage non-stop.
 
-\ex \textsc{Grammatical, SG attractor} \label{lago1}
+\ex \textsc{grammatical, pl attractor} \label{lago1}
 \gll \c{S}ark{\i}c{\i}-n{\i}n vokalist-i sahne-de s\"{u}rekli z{\i}pla-d{\i}\\
 singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\textsc{pst}-$\varnothing$\\
 \glt The singer's backup vocalist jumped on the stage non-stop.
@@ -497,23 +496,23 @@ In order to test this hypothesis, I have replicated the experiment of @Lago2018 
 \begin{exe}
 \ex
   \begin{xlist}
-  \ex \underline{Ungrammatical, PL attractor} \label{exp3}
+  \ex \underline{ungrammatical, pl attractor} \label{exp3}
       \gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
   comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
       \glt Because of the northeaster, comedians' assistant felt chilly.
 
-  \ex \underline{Grammatical, PL attractor} \label{exp2}
+  \ex \underline{grammatical, pl attractor} \label{exp2}
       \gll Komedyen-ler-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
   comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
       \glt Because of the northeaster, comedians' assistant felt chilly.
 
   
-  \ex \underline{Ungrammatical, SG attractor} \label{exp4}
+  \ex \underline{ungrammatical, sg attractor} \label{exp4}
       \gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}-ler.\\
   comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
       \glt Because of the northeaster, comedian's assistant felt chilly.
   
-  \ex \underline{Grammatical, SG attractor} \label{exp1}
+  \ex \underline{grammatical, sg attractor} \label{exp1}
       \gll Komedyen-in yard{\i}mc{\i}-s{\i} poyraz-dan dolayi \"{u}\c{s}\"{u}-d\"{u}.\\
   comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
       \glt Because of the northeaster, comedian's assistant felt chilly.
@@ -540,15 +539,33 @@ pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} 
 
 ### Participants and Procedure
 
-One hundred and seven Turkish speakers were recruited from Bogazici University in İstanbul. I did not collect participants' knowledge of other languages; however, I verified that Turkish is their native language and that they predominantly use it in their daily lives. In the experiments, participants were asked to judge the acceptability of experimental and filler sentences in Turkish. All of the sentences were presented one word at a time in the center of the screen for 500 ms per word unlike @Lago2018 and @Wagers2009, in which the duration was 300 ms per word. The experiment was run on a web-based platform titled the Ibex Farm, and all of the documentation can be found on  my Github page:\url{https://github.com/utkuturk/AgreementAttraction_Experiment}. 
+One hundred and seven Turkish speakers were recruited from Bogazici University in İstanbul. We verified that Turkish was their native language and that they predominantly used it in their daily lives. 
+In the experiments, participants were asked to judge the acceptability of Turkish sentences. All of the sentences were presented one word at a time in the center of the screen for 500 ms per word.
+<!-- unlike @Lago2018 and @Wagers2009, in which the duration was 300 ms per word. -->
+The experiment was run on *Ibex Farm*, a web-based experiment platform (\url{http://spellout.net/ibexfarm}). All experimental stimuli, data, and documentation can be found on \url{https://github.com/utkuturk/AgreementAttraction_Experiment}.
 
-Before the experiment, participants were instructed to give accurate and quick answers based on their own intuitions, and they were also notified about the time limit for answering. At the start of the experiment, they were given 4 practice items with feedback. Each trial after the practice items started with a blank screen, followed by a flash of single words in the middle of the screen. After the sentence, they were asked a grammaticality judgment questions (Was the sentence you read was natural to you?) where they need to press P for *no* and press Q for *yes*. In the experiment, every participant saw 40 experimental item that is Latin-squared and 40 fillers.
+Participants were instructed to quickly clasify sentences as acceptable or unacceptable based on their intuition. They were further informed about the $XXXX ms$ time limit for answering. At the start of the experiment, they were given 4 practice trials, and received feedback on their response. Each trial after the practice items started with a blank screen, followed by a word-by-word RSVP presentaion of the sentence in the center of the screen. After the sentence presentation, they were asked for a grammaticality judgment 
+(Was the sentence you read was natural to you?) 
+<!-- Is this really how it was phrased? -->
+responded Q for *yes*, and P for *no*. 
+The 40 experimental items were automatically divided into four lists according to a Latin-square design, and were intermixed with filler sentences, such that each participant saw 40 experimental items and 40 fillers in random order over the course of the experiment.
 
 
+### Data Analysis
+<!-- to-do: find out if the items from experiment 1 and Lago's paper were minimal pairs. Should
+at least some of them have the same item id? -->
 
-### Analysis
+In order to find out whether the noun class, and thus the presence of an ambiguity between genitive and accusative affected the magnitude of the agreement attraction effect, we analyzed the data from our experiment
+together with the data from @Lago2018.
 
-Every experimental item from both experiments (Experiment 1 and @Lago2018) is included in the analysis. Participants that could not exceed the threshold of 0.25 difference in *yes* answer between the condition (c) and (d), namely Ungrammatical, SG attractor and Grammatical, SG attractor, were excluded. I performed an analysis by fitting linear mixed-effect models to  my data, controlling for vowel ending, plural attractor, grammaticality and their interactions. Models for responses were fit using Bernoulli distribution with probit link function and 95\% confidence intervals. Models for response times were fit using Lognormal distribution. 
+Participants for whom the difference in the percentage of `yes' responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below $0.25$ were deemed to not have performed the task as instructed, and their data was excluded from further analysis.
+
+We used `R` `r citep(citation())` and the *tidyverse* R packages `r citep(citation("tidyverse"))` for data processing and plotting, and the R packages *brms* `r citep(citation("brms"))` and *rstan* `r citep(citation("rstan"))` to fit Bayesian hierarchical models [e.g.,@GelmanHill:2007, @McElreath:2016, @BDA3].
+
+A Bayesian hierarchical generalized linear model was fitted to the participant's responses 
+
+
+I performed an analysis by fitting linear mixed-effect models to  my data, controlling for vowel ending, plural attractor, grammaticality and their interactions. Models for responses were fit using Bernoulli distribution with probit link function and 95\% confidence intervals. Models for response times were fit using Lognormal distribution. 
 
 
 ### Results 
@@ -718,16 +735,6 @@ In Figure \@ref(fig:exp1ResponseModelPlot), I clearly see the effects of ungramm
 
 ```{r exp1ModelResponse, include=FALSE}
 
-# # TODO: the following subjects have too much data: 11, 28, 36, 42, 55, 65, 73, 84, 92, 
-# #
-# x <- df_merged %>% subset(experiment == "Experiment 1") %>% group_by(subject) %>% dplyr::summarize(F = sum(is.na(attractor_num)),
-#                                                           N = length(is.na(attractor_num)) )
-# x %>% as.data.frame()
-# 
-# x$N %>% sum()
-# x$F %>% sum()
-
-#summary(as.factor(df_merged$attractor_num))
 
 df_merged %<>% within(., {
   cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
@@ -1100,11 +1107,3 @@ Another take on the results may follow from the redefinition of the *shallowness
 ```{r create_r-references}
 r_refs(file = "r-references.bib")
 ```
-
-
-\begingroup
-\setlength{\parindent}{-0.5in}
-\setlength{\leftskip}{0.5in}
-
-<div id = "refs"></div>
-\endgroup
