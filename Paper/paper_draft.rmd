@@ -225,41 +225,75 @@ while people do indeed care more than just "matching" the forms of plural verbal
 -->
 
 
-# Theories of attraction
+# Theories of agreement attraction
 
-One of the theoretical attempts to explain such phenomenon was Marking and Morphing Theories [@Bock2001; @Eberhard2005 among others]. The reason it is called *Marking* and *Morphing* is because there are two possible explanations within the framework with regards to where and when the attraction occurs. The first possibility is the speaker can erroneously create a semantic representation of the head with the wrong number feature in the marking process in the marking process. Another possibility is that the attraction may arise from an interfering number feature of the attractor with the number feature of the highest noun phrase node in the morphing process. During this process, the speaker forms a final number value of the subject phrase, which is determined by each morpheme within the same phrase and their number information with a particular weight. In the morphing process, these other morphemes with number information may contaminate the final number value with the percolation mechanism, which depends on the depth of the syntactic embedding. As the prediction goes, the more embedded an attractor is, the less attraction they trigger as shown in @Bock1992 in which authors show that attractors within a relative clause trigger less agreement attraction in the production. 
+One of the theoretical attempts to explain such phenomenon was *Marking and Morphing* [@Bock2001; @Eberhard2005 among others]. 
+<!-- to-do: PL, check whether the description below is correct. That's not how I remember it. -->
++
+*Marking* and *Morphing* assumes two possible explanations within the framework with regards to where and when the attraction occurs. The first possibility is the speaker can erroneously create a semantic representation of the head with the wrong number feature in the marking process in the marking process. Another possibility is that the attraction may arise from an interfering number feature of the attractor with the number feature of the highest noun phrase node in the morphing process. During this process, the speaker forms a final number value of the subject phrase, which is determined by each morpheme within the same phrase and their number information with a particular weight. In the morphing process, these other morphemes with number information may contaminate the final number value with the percolation mechanism, which depends on the depth of the syntactic embedding. One of the predictions of this account is that the more deeply embedded an attractor is, the less attraction it should trigger. \ldots presumably, there is even some evidence for it \ldots 
 
-However, other studies have shown that other preverbal elements, such as objects, object relative clauses, object clefts, and object questions, may trigger agreement attraction [@Kimball1971; @Hartsuiker2001; @Franck2006; @Franck2015 among others]. In sentences like \autoref{E2}, the pronominal object *hen* triggers and agreement attraction without being a part of the subject. 
+<!-- to-do: How is this related to depth???
+as shown in @Bock1992 in which authors show that attractors within a relative clause trigger less agreement attraction in the production. 
+-->
+
+Further studies have shown that other preverbal elements, such as objects, object relative clauses, object clefts, and object questions, may trigger agreement attraction [@Kimball1971; @Hartsuiker2001; @Franck2006; @Franck2015 among others]. For example, @XXX showed that in sentences like \autoref{E2}, the pronominal object *hen* triggers and agreement attraction without being a part of the subject. 
 +
 \begin{exe}
 \ex[*]{
 \gll Theo denkt dat de knecht hen roep.\\
-     Theo thinks that the servant them call.\textsc{Pl}.\\
+     Theo thinks that the servant them call.\textsc{pl}.\\
 \trans  `Theo thinks that the servant \textit{call} them'}
 \label{E2}
 \end{exe}
+
+<!-- to-do: please give example sentences more descriptive lables than 'E2'. Remember you're not numbering them, but labelling them. --> 
 
 Since the Marking and Morphing theories put the source of the agreement attraction on the probe, i.e. subject phrase, they cannot explain agreement attraction effects that are triggered by a distractor outside of the syntactic scope of the subject.
 
 <!-- to-do: which theory do the terms trigger and probe come from? -->
 
-<!-- to-do: no idea what this means -->
-<!--
+<!-- to-do: no idea what the sentence below means 
 Regardless, these effects may be explained in a framework where the source of the agreement attraction is placed on the trigger, i.e. verb. 
 --> 
-@Badecker2007 suggests that a process where the subject is retrieved from the memory plays a role in agreement attraction effects as well [see as well @Wagers2009]. Building on the work in cue-based retrieval mechanism [@Gordon2001; @Lewis2005; @Lewis2006 among others], they argued that when speakers reach the verb, they try to retrieve the subject using certain features (cues) that essentially marks the *subjecthood*. Thus, any element that matches (or partially matches) with the cues in use may cause agreement attraction regardless of their position or syntactic relation to the subject. Going back to \autoref{E2}, it is expected, then, for an object which shares features like being preverbal, being a noun phrase, ability to bear agreement with a subject to trigger agreement attraction.
 
-Another challenge for the Marking and Morphing model was the grammaticality asymmetry. Due to the spreading activation formula utilized in the Marking and Morphing model [see @Dell1986], this model overgeneralizes the attraction effects to both ungrammatical and grammatical sentences and predicts both \autoref{E1} and \autoref{E3} to be present empirically, which is not the case [@Wagers2009]. 
+
+<!-- to-do: I suggest that you use multiple author names or XxxEtAl in your citation keys. That way, you won't get the number agreement wrong when writing about a paper authored by several people. -->
+@Badecker2007 suggest that a process where the subject is retrieved from the memory plays a role in agreement attraction effects as well.
++
+<!-- to-do: Don't use "see also"/"cf." without a clear reason. 
+"Cf. X for a similar proposal" is fine, but
+"cf. X" isn't helpful.
+
+[see also @Wagers2009]. 
+-->
++
+<!-- to-do:
+Genuine question: What makes you think that @Gordon2001 is a "cue-based retrieval mechanism" paper??
+-->
++
+Building on the work on cue-based parsing [@Lewis2005; @Lewis2006 among others], they argued that when readers reach the verb, they try to retrieve the subject using certain features (cues) that essentially marks the *subjecthood*. Thus, any element that matches (or partially matches) with the cues in use may cause agreement attraction regardless of their position or syntactic relation to the subject. Going back to \autoref{E2}, it is expected, then, for an object which shares features like being preverbal, being a noun phrase, ability to bear agreement with a subject to trigger agreement attraction.
+<!-- to-do: Plz revise the entire paragraph above for clarity. I don't think that you're sure what you mean here. -->
+
+
+<!-- to-do: Why "another" below? Did you mention another problem. -->
+Another challenge for the Marking and Morphing model was the grammaticality asymmetry. Due to the spreading activation formula 
+<!-- to-do: This is the first time you mention this formula, and the first time you mention that marking an morphing has anything to do with spreading activation. Please expand your explanation of M&M above.  -->
+utilized in the Marking and Morphing model [see @Dell1986], this model overgeneralizes the attraction effects to both ungrammatical and grammatical sentences and predicts both \autoref{E1} and \autoref{E3} to be present empirically, which is not the case [@Wagers2009]. 
 
 \begin{exe}
 \ex[*]{The labels on the bottle \textit{is} wrong.}
 \label{E3}
 \end{exe}
 
+<!-- to-do: Move this paragraph up, before you mention the challenge for "Marking and morphing". Then conclude the section with the problem to M&M. This will improve the flow of the paragraph. -->
 On the other hand, cue-based retrieval models successfully predict the grammaticality asymmetry as shown by @Dillon2013 in an ACT-R simulation as well as numerous studies in self-paced reading, eye-tracking, and ERP studies [@Wagers2009; @Tucker2010; @Tanner2014; @Lago2015 among others]. This success was due to their replacement of source of the attraction. According to cue-based retrieval models, the probe, verb, present certain cues to retrieve an NP with matching features in agreement. When features of the grammatical controller of the verb do not *fully* match with the cues, no single NP will be satisfying the *agreement*. Thus, another NP in the clause can match with cues presented by the VP, such as its case, syntactic position, grammatical number. Thus, if there is no *retrieval cue* in the first place, i.e. the verb is not marked plural, there will be no need for partial match. 
 
 
 
+<!-- to-do: This entire section needs rewriting, bigly! I'll do it.
+These reference-type sections don't go down well in psycholinguistics papers, because most ppl in the field don't care to learn more than they need to know about languages other than English.
+They also happen to interrupt the flow of the paper.
+-->
 ## Turkish relative clauses and plural marking
 
 Before discussing the experiments, I will touch upon the mechanisms that I utilize in the experiments: optional plural agreement, relative clause structure, and syncretism between possessive and accusative. 
