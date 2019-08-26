@@ -3,28 +3,38 @@ title             : "Agreement Attraction in Turkish: Who let the -lAr out?"
 shorttitle        : "Agreement Attraction in Turkish"
 author: 
   - name          : "Utku Türk"
-    affiliation   : ""
+    affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
-    address       : ""
+    address       : "Postal address"
     email         : "utku.turk@boun.edu.tr"
-
+  - name          : "Pavel Logačev"
+    affiliation   : "1"
 affiliation:
-  - id            : ""
-    institution   : "Boğaziçi University"
-
-#authornote: |
-#  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
-#
-#   Enter author note here.
-
+  - id            : "1"
+    institution   : "Boğaziçi University University, Istanbul, Turkey"
+authornote: |
+  Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+  Enter author note here.
 abstract: |
-
+  One or two sentences providing a **basic introduction** to the field,  comprehensible to a scientist in any discipline.
   
-# keywords          : "keywords"
-# wordcount         : "X"
-
-bibliography      : ["myreferences.bib","r-references.bib"]
-
+  Two to three sentences of **more detailed background**, comprehensible  to scientists in related disciplines.
+  
+  One sentence clearly stating the **general problem** being addressed by  this particular study.
+  
+  One sentence summarizing the main result (with the words "**here we show**" or their equivalent).
+  
+  Two or three sentences explaining what the **main result** reveals in direct comparison to what was thought to be the case previously, or how the  main result adds to previous knowledge.
+  
+  One or two sentences to put the results into a more **general context**.
+  
+  Two or three sentences to provide a **broader perspective**, readily comprehensible to a scientist in any discipline.
+  
+  
+  <!-- https://tinyurl.com/ybremelq -->
+keywords          : "keywords"
+wordcount         : "X"
+bibliography      : ["myreferences.bib", "library.bib", "r-references.bib"]
 floatsintext      : no
 figurelist        : no
 tablelist         : no
@@ -32,6 +42,21 @@ footnotelist      : no
 linenumbers       : no
 mask              : no
 draft             : no
+documentclass     : "apa6"
+classoption       : "doc"
+output:
+  papaja::apa6_pdf:
+    citation_package: biblatex
+    includes:
+        in_header: paper_draft_preamble.tex
+
+editor_options: 
+  chunk_output_type: console
+keep_tex: TRUE
+keep_md: TRUE
+---
+
+<!--
 header-includes   :
   - \usepackage[utf8]{inputenc}
   - \usepackage[T1]{fontenc}
@@ -55,11 +80,7 @@ header-includes   :
   - \renewcommand*{\nameyeardelim}{\addcomma\space}
   - \usepackage{tikz}
   - \usepackage{tikz-qtree}
-#  - \usepackage[mcolblock]{leipzig}
-#  - \makeglossaries
   - \let\eachwordone=\textit
-#  - \renewcommand{\eachwordone}{\footnotesize\textit}
-#  - \let\eachwordtwo=\footnotesize
   - \usepackage{geometry}
   - \geometry{margin=2cm}
   - \usepackage{libertine}
@@ -71,17 +92,14 @@ header-includes   :
   - \rhead{Türk}
   - \lhead{Agreement Attraction in Turkish}
   - \rfoot{\thepage}
+  - \usepackage{lmodern}
   
-documentclass     : "apa6"
-classoption       : "doc"
-output:
-  papaja::apa6_pdf:
-    number_sections: true
-    citation_package: biblatex
-keep_tex: TRUE
-biblatexoptions: [maxbibnames=999]
----
+-->
 
+<!--
+    includes:
+        in_header: paper_draft_preamble.tex
+-->
 <!--
 Introduction:
  - Review of the key attraction findings: 
@@ -170,11 +188,37 @@ options("citation_format" = "pandoc")
 
 It has been observed that speakers often fail to accurately process grammatical dependencies between the parts of a sentence. 
 For example, \ldots illusory npi licensing, agreement attraction \ldots
-One such comprehension error that is made has been dubbed agreement attraction (cite): Speakers may erroneously find sentences acceptable, in which the the verb erroneously agrees with an unreated noun phrase (*the attractor*) instead of the subject (*the agreement controller*). 
+One such comprehension error is agreement attraction (cite): Speakers may erroneously find sentences acceptable in which the the verb erroneously agrees with a syntactically unreated noun phrase (*the attractor*) instead of the subject (*the agreement controller*). 
 
-Some theories (cite) explain this phenomenon by means of a faulty representation of the number on the head of the agreement controller whereas other theories assume that the attraction is due to an error in the access to the number of the subject. 
 
-In this paper, we report two experiments exploring another possible explanation for agreement attraction: shallow processing. The first experiment is a replication of @Lago2018 in which a potentially confounding variable is controlled. In the second experiment, we explore whether verbs with plural agreement can serve as as potential attractors.  The results show that 
+
+
+One instance of agreement attraction in language production is incorrect number-agreement between verb and a noun phrase which is not the agreement controller. For example, @Bock1991 found 
+that \ldots something interesting happends resulting in sentences like \ldots.
+<!-- to-do -->
+<!--
+in a sentence like \autoref{AAEx1}, the target of the agreement is the verb *are*, the attracting distractor is *bottles*, and the feature erroneously assessed is the number feature of the grammatical controller *label*.  
+-->
+<!-- 
+This type of attraction, called number attraction in subject-verb agreement, first theorized by  
+@Quirk1972 and attested experimentally by
+-->
+<!-- to-do: use the original example here -->
+\begin{exe}
+\ex[*]{The key to the cabinets \textit{are} \ldots }
+\label{AAEx1}
+\end{exe}
+
+They interpreted the effect as \ldots some fairly theory neutral interpretation of what happens.
+
+And it turns out that agreement attraction surfaces in comprehension, too.  \ldots For example, here is another example from comprehension. \ldots 
+
+Some theories (cite) explain this phenomenon by means of a faulty representation of the number on the head of the agreement controller whereas other theories assume that aagreement attraction is due to an error in the access to the number of the agreement controller. 
+
+
+<!-- to-do: mention the Lago et al study briefly since we'll be referring to it. -->
+In this paper, we report the results of two experiments about agreement attraction: The first experiment adressed a potential confound in the @Lago2018 study. In the second experiment we tested an explanation of agreement attraction in Turkish as a task-specific strategy: we tested  whether verbs with plural agreement can serve as as potential attractors.
+The results show that \ldots 
 <!--
 pvl: no idea what the text below means
 while people do indeed care more than just "matching" the forms of plural verbal. either comprehenders have some sort of restriction to not use cues from verbs upon accessing the number of the plural morpheme or there is a syntactic reason for the number feature of the plural morpheme to not "percolate." 
@@ -183,18 +227,10 @@ while people do indeed care more than just "matching" the forms of plural verbal
 
 # Theories of attraction
 
-Agreement attraction are defined as instances of incorrect agreements of an element with a distractor that is not its grammatical controller. As in \autoref{E1}, the target of the agreement is the verb *are*, the attracting distractor is *bottles*, and the feature erroneously assessed is the number feature of the grammatical controller *label*.  
-
-\begin{exe}
-\ex[*]{The key to the cabinets \textit{are} \ldots }
-\label{E1}
-\end{exe}
-
-
-This type of attraction, called number attraction in subject-verb agreement, first theorized by @Quirk1972 and attested experimentally by @Bock1991 in language production. One of the theoretical attempts to explain such phenomenon was Marking and Morphing Theories [@Bock2001; @Eberhard2005 among others]. The reason it is called *Marking* and *Morphing* is because there are two possible explanations within the framework with regards to where and when the attraction occurs. The first possibility is the speaker can erroneously create a semantic representation of the head with the wrong number feature in the marking process in the marking process. Another possibility is that the attraction may arise from an interfering number feature of the attractor with the number feature of the highest noun phrase node in the morphing process. During this process, the speaker forms a final number value of the subject phrase, which is determined by each morpheme within the same phrase and their number information with a particular weight. In the morphing process, these other morphemes with number information may contaminate the final number value with the percolation mechanism, which depends on the depth of the syntactic embedding. As the prediction goes, the more embedded an attractor is, the less attraction they trigger as shown in @Bock1992 in which authors show that attractors within a relative clause trigger less agreement attraction in the production. 
+One of the theoretical attempts to explain such phenomenon was Marking and Morphing Theories [@Bock2001; @Eberhard2005 among others]. The reason it is called *Marking* and *Morphing* is because there are two possible explanations within the framework with regards to where and when the attraction occurs. The first possibility is the speaker can erroneously create a semantic representation of the head with the wrong number feature in the marking process in the marking process. Another possibility is that the attraction may arise from an interfering number feature of the attractor with the number feature of the highest noun phrase node in the morphing process. During this process, the speaker forms a final number value of the subject phrase, which is determined by each morpheme within the same phrase and their number information with a particular weight. In the morphing process, these other morphemes with number information may contaminate the final number value with the percolation mechanism, which depends on the depth of the syntactic embedding. As the prediction goes, the more embedded an attractor is, the less attraction they trigger as shown in @Bock1992 in which authors show that attractors within a relative clause trigger less agreement attraction in the production. 
 
 However, other studies have shown that other preverbal elements, such as objects, object relative clauses, object clefts, and object questions, may trigger agreement attraction [@Kimball1971; @Hartsuiker2001; @Franck2006; @Franck2015 among others]. In sentences like \autoref{E2}, the pronominal object *hen* triggers and agreement attraction without being a part of the subject. 
-
++
 \begin{exe}
 \ex[*]{
 \gll Theo denkt dat de knecht hen roep.\\
@@ -203,7 +239,15 @@ However, other studies have shown that other preverbal elements, such as objects
 \label{E2}
 \end{exe}
 
-Since the Marking and Morphing theories put the source of the agreement attraction on the probe, i.e. subject phrase, they cannot explain agreement attraction effects that are triggered by a distractor outside of the syntactic scope of the subject. Regardless, these effects may be explained in a framework where the source of the agreement attraction is placed on the trigger, i.e. verb. @Badecker2007 suggests that a process where the subject is retrieved from the memory plays a role in agreement attraction effects as well [see as well @Wagers2009]. Building on the work in cue-based retrieval mechanism [@Gordon2001; @Lewis2005; @Lewis2006 among others], they argued that when speakers reach the verb, they try to retrieve the subject using certain features (cues) that essentially marks the *subjecthood*. Thus, any element that matches (or partially matches) with the cues in use may cause agreement attraction regardless of their position or syntactic relation to the subject. Going back to \autoref{E2}, it is expected, then, for an object which shares features like being preverbal, being a noun phrase, ability to bear agreement with a subject to trigger agreement attraction.
+Since the Marking and Morphing theories put the source of the agreement attraction on the probe, i.e. subject phrase, they cannot explain agreement attraction effects that are triggered by a distractor outside of the syntactic scope of the subject.
+
+<!-- to-do: which theory do the terms trigger and probe come from? -->
+
+<!-- to-do: no idea what this means -->
+<!--
+Regardless, these effects may be explained in a framework where the source of the agreement attraction is placed on the trigger, i.e. verb. 
+--> 
+@Badecker2007 suggests that a process where the subject is retrieved from the memory plays a role in agreement attraction effects as well [see as well @Wagers2009]. Building on the work in cue-based retrieval mechanism [@Gordon2001; @Lewis2005; @Lewis2006 among others], they argued that when speakers reach the verb, they try to retrieve the subject using certain features (cues) that essentially marks the *subjecthood*. Thus, any element that matches (or partially matches) with the cues in use may cause agreement attraction regardless of their position or syntactic relation to the subject. Going back to \autoref{E2}, it is expected, then, for an object which shares features like being preverbal, being a noun phrase, ability to bear agreement with a subject to trigger agreement attraction.
 
 Another challenge for the Marking and Morphing model was the grammaticality asymmetry. Due to the spreading activation formula utilized in the Marking and Morphing model [see @Dell1986], this model overgeneralizes the attraction effects to both ungrammatical and grammatical sentences and predicts both \autoref{E1} and \autoref{E3} to be present empirically, which is not the case [@Wagers2009]. 
 
@@ -552,36 +596,6 @@ The 40 experimental items were automatically divided into four lists according t
 
 
 ### Data Analysis
-<!-- to-do: find out if the items from experiment 1 and Lago's paper were minimal pairs. Should
-at least some of them have the same item id? -->
-
-In order to find out whether the noun class, and thus the presence of an ambiguity between genitive and accusative affected the magnitude of the agreement attraction effect, we analyzed the data from our experiment
-together with the data from @Lago2018.
-
-Participants for whom the difference in the percentage of `yes' responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below $0.25$ were deemed to not have performed the task as instructed, and their data was excluded from further analysis.
-
-We used `R` `r citep(citation())` and the *tidyverse* R packages `r citep(citation("tidyverse"))` for data processing and plotting, and the R packages *brms* `r citep(citation("brms"))` and *rstan* `r citep(citation("rstan"))` to fit Bayesian hierarchical models [e.g.,@GelmanHill:2007, @McElreath:2016, @BDA3].
-
-A Bayesian hierarchical generalized linear model was fitted to the participant's responses 
-
-
-I performed an analysis by fitting linear mixed-effect models to  my data, controlling for vowel ending, plural attractor, grammaticality and their interactions. Models for responses were fit using Bernoulli distribution with probit link function and 95\% confidence intervals. Models for response times were fit using Lognormal distribution. 
-
-
-### Results 
-
-```{r identifyBadSubjects, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-
-# identify participants 
-bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
-
-#dataAvBySubj %>% subset(subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~subject)
-
-data_clean <- data %>% subset(!subject %in% bad_subjects)
-
-```
-
-
 
 
 ```{r loadFrequencies, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
@@ -608,9 +622,14 @@ word_freq_exp1 <- word_freq %>%
 word_freq_lago <- word_freq %>% 
                     subset(exp == "lago") %>% 
                     dplyr::select(-exp)
-
 ```
 
+
+```{r identifyBadSubjects, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+# identify participants 
+bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
+data_clean <- data %>% subset(!subject %in% bad_subjects)
+```
 
 ```{r mergeData, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
@@ -633,7 +652,6 @@ df_merge_exp1$item %<>% as.integer()
 df_merge_exp1$subject %<>% as.character()
 df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
 
-
 df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") )
 df_merge_lago <- df_lagoetal_attr %>% ungroup() %>% 
                       dplyr::select(grammatical=Grammatical,
@@ -650,65 +668,36 @@ df_merge_lago$item %<>% add(1000)
 df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
 df_merged$subject %<>% as.factor()
 df_merged$item %<>% as.factor()
+
+df_exp1_na_nofillers <- subset(df_merge_exp1, is.na(ResponseYes) & source != "filler")
+df_merged %<>% subset( !is.na(ResponseYes) )
 ```
 
+<!-- to-do: find out if the items from experiment 1 and Lago's paper were minimal pairs. Should
+at least some of them have the same item id? -->
 
-```{r computeAverages, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+In order to find out whether the noun class, and thus the presence of an ambiguity between genitive and accusative affected the magnitude of the agreement attraction effect, we analyzed the data from our experiment
+together with the data from @Lago2018.
 
-avg_clean <- 
-  df_merged %>%
-     group_by(experiment, source, grammatical, attractor_num) %>%
-     summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+Participants for whom the difference in the percentage of `yes` responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below $0.25$ were deemed to not have performed the task as instructed, and their data was excluded from further analysis. In consequence, `r length(bad_subjects)` participants' data was excluded.
 
-# ##
-# avg_clean1 <- df_merged %>%
-#                 group_by(experiment, source, grammatical, attractor_num, cat_n1) %>%
-#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
-# 
-# p_avg_resp1 <- ggplot(avg_clean1 %>% subset(is.na(source) | source != "filler"), 
-#                      aes(grammatical, p_yes, #linetype = attractor_num, 
-#                          color = attractor_num, linetype = cat_n1, 
-#                          group = paste(attractor_num,cat_n1) )) + 
-#                 geom_point() + geom_line() + 
-#                 facet_wrap(cat_n1~experiment)
-# p_avg_resp1
-# 
-# ##
-# ##
-# 
-# avg_clean2 <- df_merged %>%
-#                 group_by(experiment, source, grammatical, attractor_num, cat_n2) %>%
-#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
-# 
-# p_avg_resp2 <- ggplot(avg_clean2 %>% subset(is.na(source) | source != "filler"), 
-#                      aes(grammatical, p_yes, #linetype = attractor_num, 
-#                          color = attractor_num, linetype = cat_n2, 
-#                          group = paste(attractor_num,cat_n2) )) + 
-#                 geom_point() + geom_line() + 
-#                 facet_wrap(cat_n2~experiment)
-# p_avg_resp2
-# 
-# ##
-# ##
-# 
-# avg_clean3 <- df_merged %>%
-#                 group_by(experiment, source, grammatical, attractor_num, cat_n1n2) %>%
-#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
-# 
-# p_avg_resp3 <- ggplot(avg_clean3 %>% subset(is.na(source) | source != "filler"), 
-#                      aes(grammatical, p_yes, #linetype = attractor_num, 
-#                          color = attractor_num, linetype = cat_n1n2, 
-#                          group = paste(attractor_num,cat_n1n2) )) + 
-#                 geom_point() + geom_line() + 
-#                 facet_wrap(~experiment)
-# p_avg_resp3
-# 
-# ##
+Across participants, `r sum(is.na(df_exp1_na_nofillers$ResponseYes))` trials were not responded to before the deadline (by `r length(unique(df_exp1_na_nofillers$subject))` participants). The data from these trials was not used in the analysis of responses or reaction times.
+
+We used `R` `r citep(citation())` and the *tidyverse* R packages `r citep(citation("tidyverse"))` for data processing and plotting, and the R packages *brms* `r citep(citation("brms"))` and *rstan* `r citep(citation("rstan"))` to fit Bayesian hierarchical models [e.g.,@GelmanHill:2007; @McElreath:2016; @BDA3].
 
 
-```
+Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link. Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
+<!-- to-do: fix the below formulation -->
+vowel ending, plural attractor, grammaticality and their interactions. 
+<!-- to-do: varying by-participants and by-items intercepts and slopes --> 
+
+### Results 
 
 ```{r exp1AvgResponse, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
+
+avg_clean <- df_merged %>%
+     group_by(experiment, source, grammatical, attractor_num) %>%
+     summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
 
 avg_exp <- avg_clean %>% subset(is.na(source) | source != "filler")
 avg_fillers <- avg_clean %>% subset(source == "filler")
@@ -719,22 +708,22 @@ p_avg_resp <- ggplot(avg_exp,
                 geom_point() + geom_line() + 
                 facet_wrap(~experiment)
 
-p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + geom_point(data = avg_fillers)
+p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + geom_point(data = avg_fillers) + 
+              theme_bw() + theme( strip.background = element_rect(fill="white") ) +
+              xlab("") + ylab("Percentage 'acceptable'")
 
 print(p_avg_resp)
 
 ```
 
-
-In Figure \@ref(fig:exp1AvgResponse), the y-axis shows the percentage of "acceptable" answers, and the x-axis indicates whether or not the sentences in that group are grammatical. As seen in the figure, `r round(as.numeric(avg_exp[3,6]), digits = 2)`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @Lago2018. I also see a number attraction rate of `r round(as.numeric(avg_exp[3,6]), digits = 2)-round(as.numeric(avg_exp[4,6]), digits = 2)`% which was also observed in @Lago2018 with close results. 
-
+Figure \@ref(fig:exp1AvgResponse) shows the percentage of "acceptable" answers as a function of sentence grammaticality and 
+with the grammaticality on the x-axis, and color marking the grammatical number of the attractor noun phrase. As seen in the figure, `r round(100*avg_exp[3,6])`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @Lago2018. I also see a number attraction rate of `r round(100*(avg_exp[3,6]-avg_exp[4,6]))`% which was also observed in @Lago2018 with close results. 
 
 In Figure \@ref(fig:exp1ResponseModelPlot), I clearly see the effects of ungrammaticality and the interaction between the ungrammaticality and plural attractor. I see that the vowel ending is not significant even though it has a negative effect. Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical. 
 
-
-
 ```{r exp1ModelResponse, include=FALSE}
 
+library(brms)
 
 df_merged %<>% within(., {
   cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
@@ -754,50 +743,35 @@ df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
 #          family = binomial("probit"))
 # summary(m)
 
-n_chains <- 6
-n_cores <- 6
-n_iter <- 5000
-
+n_chains <- 4
+n_cores <- 4
+n_iter <- 2000
 fname_exp1_responses <- "../workspace_exp1/model_responses"
 
-library(brms)
-
-#with(df_merged_nofillers, cor(cFreqlog_n1, cFreqlog_n2))
-#with(df_merged_nofillers, cor(cFreqlog_n1, cFreqlog_n1n2))
-#with(df_merged_nofillers, cor(cFreqlog_n2, cFreqlog_n1n2))
-#
-# m <- glm(ResponseYes ~ (cFreqlog_n1n2) * #+ cFreqlog_n1n2
-#                         cEndsInVowel * cUngrammatical * cAttractorPlural,
-#                    data = df_merged_nofillers,
-#                    family = "binomial")
-# summary(m)
-
-# + cFreqlog_n1n2
-m_responses <- brm(ResponseYes ~ (cFreqlog_n1 + cFreqlog_n2) *
-                                  cEndsInVowel * cUngrammatical * cAttractorPlural + 
-                                 ((cFreqlog_n1 + cFreqlog_n2) * cUngrammatical * cAttractorPlural + 1| subject) +
+# to-do: Re-run, ESS low
+m_responses <- brm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
-                   init = "0",
+                   #init = "0",
                    family = bernoulli("probit"),
                    file = fname_exp1_responses, 
                    chains = n_chains, cores = n_cores, iter = n_iter)
 
 
-fname_exp3_responses <- "../workspace_exp1/model_responses_rt"
+fname_exp1_rts <- "../workspace_exp1/model_responses_rt"
 
-m_rts <- brm(RT ~ cEndsInVowel * cUngrammatical * cAttractorPlural + 
+m_rts <- brm(RT ~ cEndsInVowel * cUngrammatical * cAttractorPlural +
                                  (cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
                    family = lognormal(),
-                   file = fname_exp3_responses, 
+                   file = fname_exp1_rts,
                    chains = n_chains, cores = n_cores, iter = n_iter)
-
 
 ```
 
-
+<!-- to-do: relabel all 'vowel ending' stuff to be about ACC-GEN ambiguity -->
 ```{r exp1ResponseModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Accuracy."}
 
 contrast_names <- c("cUngrammatical" = "Ungrammaticality",
@@ -808,8 +782,10 @@ contrast_names <- c("cUngrammatical" = "Ungrammaticality",
                     "cEndsInVowel:cAttractorPlural" = "Vowel Ending * Plural Attractor",
                     "cEndsInVowel:cUngrammatical:cAttractorPlural" = "Vowel Ending * Ungrammaticality * Plural Attractor")
 
-p_m_response <- stanplot(m_responses, pars = "^b_c" , type="areas")
-p_m_response <- p_m_response + xlab("Estimate (log-odds)")
+p_m_response <- create_model_coefs_plot( m_responses, plot_stats = T,
+                                  map_names = contrast_names,
+                              expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1
+                              ) + xlab("Estimate (log-odds)")
 print(p_m_response)
 
 
@@ -818,10 +794,10 @@ print(p_m_response)
 
 ```{r exp1ResponseTimeModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Reading Times."}
 
-p_m_rt <- stanplot(m_rts, pars = "^b_c" , type="areas")
-p_m_rt <- p_m_rt + xlab("Estimate (log-odds)")
-print(p_m_rt)
-
+p_m_rts <- create_model_coefs_plot( m_rts, plot_stats = T, map_names = contrast_names,
+                              expand_right = 2.5, expand_top = 2, x_stat_adjust = 0.1
+                              )
+print(p_m_rts)
 
 ```
 
@@ -887,8 +863,6 @@ avg_by_subj_wide2 <- avg_by_subj2 %>%
 # identify participants 
 bad_subjects2 <- subset(avg_by_subj_wide2, delta_dc <= 0.25 ) %>% .$subject
 
-#dataAvBySubj %>% subset(subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~subject)
-
 data_clean2 <- data2 %>% subset(!subject %in% bad_subjects)
 
 ```
@@ -911,13 +885,13 @@ df_merge_exp2$attractor_num <- with(df_merge_exp2, ifelse(attractor_num == "pl",
 df_merge_exp2$item %<>% as.integer()
 df_merge_exp2$subject %<>% as.character()
 
-
+df_exp2_na_nofillers <- subset(df_merge_exp2, is.na(ResponseYes))
 
 df_merged2 <- dplyr::bind_rows(df_merge_exp1, df_merge_exp2)
+df_merged2 %<>% subset(!is.na(ResponseYes))
 df_merged2$subject %<>% as.factor()
 df_merged2$item %<>% as.factor()
 ```
-
 
 
 ```{r computeAverages2, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
@@ -976,30 +950,45 @@ love-\textsc{Nmlz}-\textsc{Pl}-\textsc{Poss} teacher retired be-\textsc{Nmlz} fo
 
 ### Participants and Procedure
 
-Eighty Turkish speakers were recruited from Bogazici University in İstanbul. The procedure was exactly the same as Experiment 1. The participants in this experiment were completely different from Experiment 1.
+Eighty Turkish speakers were recruited from Bogazici University in İstanbul. The procedure was exactly the same as Experiment 1. None of the participants in this experiment had participated in Experiment 1.
 
 
 
 ### Analysis
 
-Every experimental item from both experiments (this experiment and Experiment (1) is included in the analysis. Participants that could not exceed the threshold of 0.25 difference in *yes* answer between the condition (c) and (d), namely Ungrammatical, SG attractor and Grammatical, SG attractor, were excluded. I performed an analysis by fitting linear mixed-effect models to  my data, controlling for vowel ending, plural attractor, grammaticality and their interactions. Models were fit using Bernoulli distribution with probit link function and 95\% confidence intervals.
+Every experimental item from both experiments (this experiment and Experiment (1) is included in the analysis. 
+Participants for whom the difference between grammatical and ungrammatical sentences with no potential for agreement attraction (conditions c and d) did not exceed a threshold of $0.25$ were deemed not to have performed the task as instructed, and their data was excluded from further analysis. In consequence, `r length(bad_subjects2)` participants' data was excluded.
 
+Across participants, `r sum(is.na(df_exp2_na_nofillers$ResponseYes))` trials were not responded to before the deadline (by `r length(unique(df_exp2_na_nofillers$subject))` participants). The data from these trials was not used in the analysis of responses or reaction times.
+
+We used `R` `r citep(citation())` and the *tidyverse* R packages `r citep(citation("tidyverse"))` for data processing and plotting, and the R packages *brms* `r citep(citation("brms"))` and *rstan* `r citep(citation("rstan"))` to fit Bayesian hierarchical models [e.g.,@GelmanHill:2007; @McElreath:2016; @BDA3].
+
+Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link. Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
+<!-- to-do: fix the below formulation -->
+\ldots predictors \ldots
+<!-- to-do: varying by-participants and by-items intercepts and slopes --> 
 
 ### Results 
 
+<!-- to-do: Omit the fillers from experiment 1 from plots unless they really add something to the interpretation. 
+            Mention it in the text instead, along with the fact that the 'acceptable' items were clearly no good at
+            doing what they were supposed to.
+-->
+
+<!-- to-do: add CIs to experiment 1 plot  -->
+<!-- to-do: add CIs to experiment 2 plot  -->
 
 ```{r exp2AvgResponse, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
 
 avg_exp2 <- avg_clean2 %>% subset(is.na(source) | source != "filler")
 avg_fillers2 <- avg_clean2 %>% subset(source == "filler")
 
-p_avg_resp2 <- ggplot(avg_exp2, 
-                     aes(grammatical, p_yes, #linetype = attractor_num, 
-                         color = attractor_num, group = attractor_num)) + 
+p_avg_resp2 <- ggplot(avg_exp2, aes(grammatical, p_yes, #linetype = attractor_num, 
+                                    color = attractor_num, group = attractor_num)) + 
                 geom_point() + geom_line() + 
-                facet_wrap(~experiment)
-
-p_avg_resp2 <- p_avg_resp2 + geom_line(data = avg_fillers) + geom_point(data = avg_fillers2)
+                facet_wrap(~experiment) +
+                theme_bw() + theme( strip.background = element_rect(fill="white") ) +
+                xlab("") + ylab("Percentage 'acceptable'")
 
 print(p_avg_resp2)
 
@@ -1013,17 +1002,6 @@ It is clear from Figure \@ref(fig:exp2AvgResponse) that in the condition (c) whe
 
 
 ```{r exp2ModelResponse, include=FALSE}
-
-# # TODO: the following subjects have too much data: 11, 28, 36, 42, 55, 65, 73, 84, 92, 
-# #
-# x <- df_merged %>% subset(experiment == "Experiment 1") %>% group_by(subject) %>% dplyr::summarize(F = sum(is.na(attractor_num)),
-#                                                           N = length(is.na(attractor_num)) )
-# x %>% as.data.frame()
-# 
-# x$N %>% sum()
-# x$F %>% sum()
-
-#summary(as.factor(df_merged$attractor_num))
 
 df_merged2 %<>% within(., {
   cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
@@ -1039,9 +1017,9 @@ df_merged_nofillers2 <- df_merged2 %>% subset(is.na(source) | source != "filler"
 #          family = binomial("probit"))
 # summary(m)
 
-n_chains <- 6
-n_cores <- 6
-n_iter <- 5000
+n_chains <- 4
+n_cores <- 4
+n_iter <- 2000
 
 fname_exp2_responses <- "../workspace_exp2/model_responses"
 
