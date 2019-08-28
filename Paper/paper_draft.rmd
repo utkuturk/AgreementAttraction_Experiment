@@ -46,7 +46,6 @@ documentclass     : "apa6"
 classoption       : "doc"
 output:
   papaja::apa6_pdf:
-    citation_package: biblatex
     includes:
         in_header: paper_draft_preamble.tex
 
@@ -57,49 +56,10 @@ keep_md: TRUE
 ---
 
 <!--
-header-includes   :
-  - \usepackage[utf8]{inputenc}
-  - \usepackage[T1]{fontenc}
-  - \usepackage{xcolor}
-  - \usepackage{hhline}
-  - \usepackage{mathtools}
-  - \linespread{1}
-  - \usepackage{gb4e}
-  - \noautomath #trying to see why shorttitle does not appear in the other paper. when done like this it appears.
-  - \usepackage{setspace}
-  - \makeatletter
-  - \apptocmd{\@exe}{\singlespacing}{}{}
-  - \makeatother
-  - \usepackage{sectsty}
-  - \allsectionsfont{\large}
-  - \usepackage{color}
-  - \usepackage{hyperref}
-  - \hypersetup{colorlinks = true, linkcolor = blue, citecolor = blue, urlcolor = blue} 
-  - \usepackage[english]{babel}
-  - \addto\extrasenglish{\renewcommand{\itemautorefname}{Item}}
-  - \renewcommand*{\nameyeardelim}{\addcomma\space}
-  - \usepackage{tikz}
-  - \usepackage{tikz-qtree}
-  - \let\eachwordone=\textit
-  - \usepackage{geometry}
-  - \geometry{margin=2cm}
-  - \usepackage{libertine}
-  - \usepackage{libertinust1math}
-  - \usepackage[T1]{fontenc}
-  - \usepackage{fancyhdr}
-  - \pagestyle{fancy}
-  - \fancyhf{}
-  - \rhead{Türk}
-  - \lhead{Agreement Attraction in Turkish}
-  - \rfoot{\thepage}
-  - \usepackage{lmodern}
-  
+    citation_package: biblatex
+
 -->
 
-<!--
-    includes:
-        in_header: paper_draft_preamble.tex
--->
 <!--
 Introduction:
  - Review of the key attraction findings: 
