@@ -294,70 +294,35 @@ On the other hand, cue-based retrieval models successfully predict the grammatic
 These reference-type sections don't go down well in psycholinguistics papers, because most ppl in the field don't care to learn more than they need to know about languages other than English.
 They also happen to interrupt the flow of the paper.
 -->
-## Turkish relative clauses and plural marking
 
-Before discussing the experiments, I will touch upon the mechanisms that I utilize in the experiments: optional plural agreement, relative clause structure, and syncretism between possessive and accusative. 
-
-Turkish plural agreement is quite similar with regards to the subject-verb number agreement in the first and second plural person. However, Turkish plural agreement is optional in third person plurals as shown in \autoref{TB1} and \autoref{TB2}. The other important characteristicc of Turkish plural agreement is the fact that the nominal and verbal plural marking is done by the same morpheme *-lAr*\footnote{The convention of using an uppercase A is to show that the morpheme can surface as either \textit{-ler} or \textit{-lar} according to the previous vowel due to the vowel harmony reasons.}. 
-
-
-\begin{exe}
-\ex \label{TB1} Dün çocuk-\textsc{Lar} okul-a git-ti-\textsc{Ler} mi?
-\ex 
-\gll Dün çocuk-LAR okul-a git-ti mi?\\
-yesterday child-\textsc{Pl} school-\textsc{Dat} go-\textsc{Pst}(-\textsc{Pl}) Q\\
-\trans ``Did the children go to school yesterday?''
-\label{TB2}
-\end{exe}
-
-As for Turkish relative clauses, they always precede the external head noun [@Goksel2004; @Taylan2015] and they use either *-An* or *-dIk* nomilizers to show the referentiality of the subject within the relative clause as shown in \autoref{TB3} and \autoref{TB4} [@Haig1997]. Moreover, due to pro-drop and null object properties of the Turkish [see @Ozturk2005], relative clauses can consist of only the verb itself in Turkish as in \autoref{TB5}.
-
-\begin{exe}
-\ex \label{TB3}
-\gll Kazı-lar-ın yap-ıl-dığ-ı alan ... \\
-excavation-\textsc{Pl}-\textsc{Gen} do-\textsc{Pass}-\textsc{Nmlz}-\textsc{Poss} area ... \\
-\glt ``The place where the excavations are done ...''
-\ex \label{TB4}
-\gll Kazı-lar yap-ıl-an alan ... \\
-excavation-\textsc{Pl} do-\textsc{Pass}-\textsc{Nmlz} area ... \\
-\glt ``A place where some excavations are done ...''
-\ex \label{TB5}
-\gll Gör-düğ-ü kuş çok güzel-di.\\
-see-\textsc{Nmlz}-\textsc{Poss} bird very pretty-\textsc{Pst}\\
-\glt ``The bird that he/she saw was very pretty.''
-\end{exe}
-
-Final characteristics that interest us in this paper is the morphological syncretism between the accusative case and possessive suffix in Turkish. When the possessive case is attached to a nominal stem that ends with a consonant, it is pronounced as \textit{-I}, which is exactly how the accusative case is also pronounced in the same environment in Turkish. However, the ambiguity is immediately resolved when they follow a nominal stem that ends with a vowel. In the latter environment, the accusative case surfaces as *-yI* whereas the possessive surfaces as *-sI(n)*\footnote{The final \textit{n} only surfaces when any other morphemes follow the possessive suffix. Otherwise, it surfaces as \textit{-sI}} as shown in \autoref{TB6}-\autoref{TB9}.
-
-\begin{exe}
-\ex
-\begin{xlist}
-\ex \label{TB6}
-\gll Kuş-\textbf{u} beğen-di-m.\\
-bird-\textsc{Acc} like-\textsc{Pst}-\textsc{1Sg}\\
-\glt ``I liked the bird.''
-\ex \label{TB7}
-\gll Emin'in kuş-\textbf{u} güzel-miş.\\
-Emin-\textsc{Gen} bird-\textsc{Poss} pretty-\textsc{Evd}\\
-\glt ``Emin's bird was pretty.''
-\ex \label{TB8}
-\gll Kedi-\textbf{yi} beğen-di-m.\\
-cat-\textsc{Acc} like-\textsc{Pst}-\textsc{1Sg}\\
-\glt ``I liked the cat.''
-\ex \label{TB9}
-\gll Emin'in kedi-\textbf{si} güzel-miş.\\
-Emin-\textsc{Gen} cat-\textsc{Poss} pretty-\textsc{Evd}\\
-\glt ``Emin's cat was pretty.''
-\end{xlist}
-\end{exe}
+Agreement attraction in sentence comprehension has beeen attested in 
+English[@WagersEtAl:2009, @PatsonHusband:2015, @EnochsonCulbertson:2015, @HammerlyEtAl:2018]  (... more ...), 
+German [@ReifegersteEtAl:2016], 
+Arabic [@TuckerEtAl:2015], 
+Spanish [@LagoEtAl:2015], 
+Turkish [@LagoEtAl:2018], 
+Slovak [@BadeckerKuminiak:2007],
+Russian [@SlioussarMalko:2016], 
+Korean [@KwonSturt:2016]
 
 
+<!--
+production:
+  * @SlevcMartin:2016
+theoretical:
+  * @LinzenLeonard:2018
+  * @SmithFranck:2018
+  * @ParkerPhillips:2017
+  * @VasishthEtAl:2017 **
+other:
+  * @RisticMolinaroMancini:2016
+  * TannerBulkes:2015
+  * FranckColonnaRizzi:2015
+-->
 
-# The Current Study
+Recently, @Lago2018 demonstrated agreement attraction in Turkish. They used sentences like \ref{Lagoitem}, \ldots
 
-In this study, I examine the question of whether agreement attraction is due to the shallow parsing that mainly depends on the memory of plural morpheme *-lAr* and matching the verbal plural morpheme with the nominal plural morpheme. 
-
-First of all, I investigate the effects of ambiguous suffix with Experiment 1, which is a replication of @Lago2018. @Lago2018 makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor as in \autoref{Lagoitem}. In a speeded acceptability judgment study, @Lago2018 found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambiguous between possessive and accusative. 
+@Lago2018 makes use of genitive-possessive structures in the subject position, in which the possessive-marked noun is the head of the noun phrase which acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor as in \autoref{Lagoitem}. In a speeded acceptability judgment study, @Lago2018 found a significant effect of number agreement attraction. However, the interpretation of their findings may be a result of the fact that non-subjecthood cues originate from their use of morphologically ambiguous forms of the possessive. In the possessive forms that are used, all the head nouns in their stimuli are ambiguous between possessive and accusative. 
 
 \begin{exe}
 \ex \label{Lagoitem}
@@ -368,91 +333,28 @@ singer-\textsc{Gen} vocalist-\textsc{Poss} stage-\textsc{Loc} non-stop jump-\tex
 
 In Turkish, accusative number agreement controllers are extremely rare, while genitive agreement controllers are very frequent. Thus, @Lago2018's finding could potentially be explained with occasional shallow processing. When all syntactic relations in the sentence were processed fully, the possessive noun may have been identified as the controller. Meanwhile, the genitive noun may sometimes have been erroneously identified as the controller during shallow processing because genitives are more likely to act as agreement controllers than accusatives. In order to check this effect, I have replicated @Lago2018 in Experiment 1. I have used different head nouns which ends with a vowel to differentiate between the accusative case and the possessive suffix, i.e. *taksici* (taxi driver) instead of *vokalist* in \autoref{Lagoitem}.
 
+
+<!-- -->
+First of all, I investigate the effects of ambiguous suffix with Experiment 1, which is a replication of @Lago2018. 
+
+
+
+# Experiment 1
+
+In this study, I examine the question of whether agreement attraction is due to the shallow parsing that mainly depends on the memory of plural morpheme *-lAr* and matching the verbal plural morpheme with the nominal plural morpheme. 
+
+...
+
+
 With regards to percolation theories, this replication should yield no difference from @Lago2018. The syntactic depth has not changed, the number information of the head and distractor have not changed. Slight differences may be expected since I have changed some items which can be found in Appendix 1, and this situation can create erroneous number information to be used in the marking process. 
 
 As for cue-based retrieval models, I should expect a lower agreement attraction effect in this replication. This prediction stems from the fact that the possibility of erroneous representation of features of the head noun is now lower due to  my efforts to differentiate between the accusative case and the possessive marking. @Lago2018 argues that due to the subjecthood information provided by the genitive case, there is an effect of agreement attraction. I eliminate the possibility of possible non-subjecthood clues given by the form that is shared by the accusative case and the possessive suffix. 
 
 Within the shallow processing model, I would also expect a no change in the status of agreement attraction. In  my account of shallow processing, I argue that when the comprehenders reach the verb and saw plural morpheme, they engage in a matching mechanism where they try to match the verbal plural morpheme with a previous nominal plural morpheme. An agreement attraction, then, is not a result of a partial matching or a representational error of number feature; instead, it is the result of a state of memory in which comprehenders misremember either the existence of the nominal plural morpheme or the place of the nominal plural morpheme as stated in the MPT model of the agreement attraction within shallow processor within \autoref{model1}, \autoref{model2}, \autoref{model3}\footnote{Author here wishes he knew more latex to do the MPT tree more neat.}.
 
-\begin{figure}[htb!]
-\centering
-\begin{tikzpicture}[
-    sibling distance        = 0.5em,
-    level distance          = 5em,
-    edge from parent/.style = {draw, -latex},
-    every node/.style       = {font=\scriptsize},
-    sloped
-  ]
-\Tree [.{\ }
-        \edge node[auto=left]{f}; [.\node[draw,rounded corners=.8ex]{generic failure};
-                                     \node[draw]{Ungrammatical};]
-        \edge node[auto=left]{1-f};
-        [.\node[draw,rounded corners=.8ex]{no failure};
-          \edge[dashed]; [.\node[]{Plural Verbs}; 
-                           \edge[dashed]; \node[]{With Distractor};
-                           \edge[dashed]; \node[]{Without Distractor};
-                         ] 
-          \edge[dashed]; [.\node[]{Singular Verbs}; 
-                          \edge[dashed]; [.\node[draw,rounded corners=.8ex]{No checking};
-                                           \node[draw]{Grammatical};]
-                         ] 
-        ] 
-      ]
-\end{tikzpicture}
-\caption{Proposed multinomial processing tree of how people judge sentences in a agreement attraction task}
-\label{model1}
-\end{figure}
 
-\begin{figure}[htb!]
-\centering
-\begin{tikzpicture}[
-    sibling distance        = 0.5em,
-    level distance          = 5em,
-    edge from parent/.style = {draw, -latex},
-    every node/.style       = {font=\scriptsize},
-    sloped
-  ]
-\Tree [.\node[]{Without Distractor}; 
-                                          \edge node[auto=left]{m$_2$}; [.\node[draw,rounded corners=.8ex]{No Memory of -lAr};
-                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
-                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
-                                          \edge node[auto=left]{1-m$_2$}; [.\node[draw,rounded corners=.8ex]{Memory of -lAr}; 
-                                          \edge node[auto=left]{1-p$_2$}; [.\node[draw,rounded corners=.8ex]{No Place of -lAr};
-                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
-                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
-                                          \edge node[auto=left]{p$_2$}; [.\node[draw,rounded corners=.8ex]{Misrepresented place of -lAr};
-                                                                        \node[draw]{Ungrammatical};]]]
-                                                                        
-                                                                    
-                                                                    
-\end{tikzpicture}
-\caption{The Continuation of the proposed MPT with regards to the items which do not have an attractors with overt plural morphology but do have a plural marked verbs.}
-\label{model2}
-\end{figure}
-\begin{figure}[htb!]
-\centering
-\begin{tikzpicture}[
-    sibling distance        = 0.5em,
-    level distance          = 5em,
-    edge from parent/.style = {draw, -latex},
-    every node/.style       = {font=\scriptsize},
-    sloped
-  ]
-\Tree [.\node[]{With Distractor}; 
-                                          \edge node[auto=left]{m$_1$}; [.\node[draw,rounded corners=.8ex]{No Memory of -lAr};
-                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
-                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
-                                          \edge node[auto=left]{1-m$_1$}; [.\node[draw,rounded corners=.8ex]{Memory of -lAr}; 
-                                          \edge node[auto=left]{1-p$_1$}; [.\node[draw,rounded corners=.8ex]{No Place of -lAr};
-                                                                        \edge node[auto=left]{g}; \node[draw]{Grammatical};
-                                                                        \edge node[auto=left]{1-g}; \node[draw]{Ungrammatical};]
-                                          \edge node[auto=left]{p$_1$}; [.\node[draw,rounded corners=.8ex]{Memory of place of -lAr};
-                                                                        \node[draw]{Grammatical};]]]
-                                                   
-\end{tikzpicture}
-\caption{The Continuation of the proposed MPT with regards to the items who have attractors with overt plural morphology and  plural marked verbs.}
-\label{model3}
-\end{figure}
+
+
 
 In  my second experiment, I investigate the predictions made from  my model using a verbal plural morpheme within a distractor relative clause. As mentioned earlier, the verbal plural morpheme in Turkish is exactly the same as the nominal plural with regards to its stress, its behavior, and its form: *-lAr*. Since Turkish relative clauses are essentially nominals due to the nominalization process, they behave exactly like other nominals within the sentence [@Goksel2004; @Taylan2015]. They can be marked with cases, plural agreement and they can have postpositions that any nominal also can. This syntactic formation enables us to question how shallow people process, how much syntactic information is relevant, or how perfectly people encode the features of the elements of the sentence. In  my experiment 2, I have used items in which the referential head noun of the subject is modified with a single-word relative clause as in \autoref{ouritem1}. 
 
