@@ -217,9 +217,10 @@ create_model_coefs_plot <- function(m,
     geom_errorbarh(aes(xmin = Q2.5, xmax = Q97.5), height=0) + 
     geom_vline(xintercept = 0, color = "grey")
   
-  if (plot_stats) {
-    
+  if (plot_stats)
+  {
     tbl$xmax <- with(tbl, max(c(Estimate, Q2.5, Q97.5))) + x_stat_adjust
+
     
     p <- p + scale_y_discrete(expand = expand_scale(mult = c(.05, .15*expand_top), 
                                                     add = c(0, 0)) )
@@ -230,9 +231,10 @@ create_model_coefs_plot <- function(m,
                            label = sprintf("[%s]", tbl$PBelowZeroStr)), 
                        family = "mono", hjust = "left")
     suppressWarnings({
+      label <- parse(text = "paste('P(', theta, ' < 0)')")
       p <-  p + geom_text(x = tbl$xmax[1], y = max(as.integer(tbl$coef))+1, 
                           # label = "P( < 0)", 
-                          label = parse(text = "paste('P(', theta, ' < 0)')"),
+                          label = label,
                           family = "mono", hjust = "left")#, fontface = "bold")
     })
   }

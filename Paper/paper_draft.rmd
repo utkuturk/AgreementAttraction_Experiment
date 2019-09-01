@@ -139,7 +139,7 @@ set.seed(42)
 knitr::opts_chunk$set(encoding = 'UTF-8',
                       cache.extra = knitr::rand_seed,
                       echo = FALSE,
-                      results = 'hide')
+                      results = 'asis')
 options("citation_format" = "pandoc")
 
 ```
@@ -314,7 +314,13 @@ However, a potential complication in interpreting these results is the fact that
 
 In Turkish, accusative number agreement controllers are extremely rare, while genitive agreement controllers are very frequent. Thus, it is possible that the ambiguity of the head noun may occasionally render the genitive modifier a stronger contender for being the agreement controller, resulting in agreement attraction.
 
-In order to control for the effect of head noun ambiguity on the magnitude of agreement attraction, we replicated Lago et al.'s experiment with unambiguous head nouns. To this end, we modified Lago et al.'s stimuli by replacing the head nouns with unambiguous nouns. 
+In order to control for the effect of head noun ambiguity on the magnitude of agreement attraction, we replicated Lago et al.'s experiment with unambiguous head nouns. 
+
+
+# Experiment 1
+
+The aim of this study was examine the question of whether the agreement attraction effect @LagoEtAl:2019 found is mediated by the morphological ambiguity of the head noun.
+To this end, we modified Lago et al.'s stimuli by replacing the head nouns with unambiguous nouns. 
 \ldots which end in a vowel to differentiate between the accusative case and the possessive suffix, i.e. *taksici* (taxi driver). 
 \ldots two words on why vowel-ending nouns don't exhibit this ambiguity \ldots
 For example, we changed sentence (\ref{Lagoitem}) to sentence (\ref{LagoiteModified}) instead of in \autoref{Lagoitem}.
@@ -333,17 +339,71 @@ Did we change anything except the possessive and genitive nouns? If so, how ofte
 -->
 
 
-# Experiment 1
+We tried to keep the modified sentences as close as possible to the original sentences while also trying to make the sentences as plausible as possible.
+Like Lago et al., we keept the semantic relation between the head noun and the controller \ldots explain the relationship \ldots.
 
-The aim of this study was examine the question of whether agreement attraction is due to the shallow parsing that mainly depends on the memory of plural morpheme *-lAr* and matching the verbal plural morpheme with the nominal plural morpheme. 
+
+### Materials
+
+Example (\ref{exp1_item}) shows one full set of experimental sentences. \ldots now explain the design again (yes, it's necessary) \ldots 
+
+As seen in example (\ref{exp1_item}), unlike @LagoEtAl:2019's experimental sentences, the head nouns in our experiment are consonant-final and are therefore unambigously marked for posessive case -- the accusative form of *'yardımcı'* is *'XXX'*.
+
+\begin{exe}
+\ex \label{exp1_item}
+  \begin{xlist}
+
+  \ex \textsc{ungrammatical, pl attractor} \label{exp1_a}
+      \gll Komedyen-ler-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü-ler.\\
+  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
+      \glt Because of the northeaster, comedians' assistant felt chilly.
+
+  \ex \textsc{grammatical, pl attractor} \label{exp1_b}
+      \gll Komedyen-ler-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü.\\
+  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+      \glt Because of the northeaster, comedians' assistant felt chilly.
+
+  \ex \textsc{ungrammatical, sg attractor} \label{exp1_c}
+      \gll Komedyen-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü-ler.\\
+  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
+      \glt Because of the northeaster, comedian's assistant felt chilly.
+  
+  \ex \textsc{grammatical, sg attractor} \label{exp1_d}
+      \gll Komedyen-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü.\\
+  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
+      \glt Because of the northeaster, comedian's assistant felt chilly.
+
+  \end{xlist}
+\end{exe}
+
+
+We used two types of filler sentences: grammatical sentences in which the verb bears plural agreement, such as sentence (\ref{fillera}), and ungrammatical sentences with verbs without plural agreement, such as sentence (\ref{fillerb}).
+\ldots Were the fillers templatic like the experimental items, or not? If not, how did they vary? \ldots
+
+The purpose of using such filler sentences was to prevent participants from a adopting a response strategy of responding 'no' to sentences with verbs with plural agreement and 'yes' to verbs without plural agreement, while ignoring other words in the sentence.
+
+\begin{exe}
+\ex
+\begin{xlist}
+\ex \label{fillera}
+\gll Adam-ın anne-si fena-la\c{s}-ınca inek kurban et-ti-ler.\\
+man-\textsc{gen} mother-\textsc{poss} bad-\textsc{vrb}-\textsc{cvb} cow sacrifice do-\textsc{pst}-\textsc{pl}\\
+\glt When his mother got ill, (they) sacrificed a cow.
+\ex \label{fillerb}
+\gll *Pizzacı-nın kurye-si tökezle-yince sos-lar yer-e saç-tı.\\
+pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} floor-\textsc{dat} scatter-\textsc{pst}\\
+\glt Intended: When the pizza boy tripped, sauces scattered around. 
+\end{xlist}
+\end{exe}
+
 
 ```{r loadDataExp1, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
 fname_data <- "../workspace_exp1/exp_data.rds"
-data <- readRDS(file = fname_data)
+data_exp1 <- readRDS(file = fname_data)
 
 # compute by-subject percentages of 'yes' responses, and average RTs 
-avg_by_subj <- data %>%
+avg_by_subj <- data_exp1 %>%
                 group_by(subject, experiment, condition, 
                          grammatical, verb_num, attractor_num) %>%
                 summarize(avRT = mean(RT), 
@@ -381,72 +441,68 @@ df_lagoetal_unp <- df_lagoetal %>%
 df_lagoetal_attr <- df_lagoetal %>% 
                   subset(!is.na(Grammatical)) %>%
                   dplyr::select(-Distance:-NewCond)
+
+df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") ) %>% 
+                      dplyr::select(-Response)
+df_lagoetal_attr %<>% ungroup() %>%
+                      dplyr::select(grammatical=Grammatical,
+                                    attractor_num=Attractor,
+                                    experiment=Experiment,
+                                    lagoetal_condition=Condition, 
+                                    subject=Participant, 
+                                    item=Item,
+                                    ResponseYes,
+                                    RT)
+
+# map to our condition labels
+lagoetal_condition_mapping <- data.frame(
+    condition = c("a", "b", "c", "d"),
+    lagoetal_condition = c("d", "b", "c", "a"), 
+    stringsAsFactors = F)
+
+df_lagoetal_attr %<>% left_join( lagoetal_condition_mapping, by = "lagoetal_condition" )
+
+# compute by-subject percentages of 'yes' responses, and average RTs 
+avg_by_subj_lagoetal <- df_lagoetal_attr %>%
+            group_by(subject, experiment, condition, grammatical, attractor_num) %>%
+            summarize(avRT = mean(RT), 
+                      p_yes = mean(ResponseYes, na.rm = T), 
+                      N = sum(!is.na(ResponseYes))  )
+
+# reformat by-subject averages to a wide format
+avg_by_subj_lagoetal_wide <- avg_by_subj_lagoetal %>% 
+            mutate(expcond = paste(experiment, condition, sep="_")) %>% 
+            ungroup() %>%
+            dplyr::select(-experiment, -condition, -avRT, -N,
+                          -grammatical, -attractor_num) %>%
+            tidyr::spread(expcond, p_yes) %>% 
+            mutate(delta_dc = online_d - online_c)
+
 ```
 
-In order to test this hypothesis, I have replicated the experiment of @LagoEtAl:2019 with modified items, in which the possessive is not ambiguous with the accusative case. I tried to be as faithful as possible to the original sentences while also trying to make the sentences as plausible as possible. I keep the semantic relation between the head noun and the controller the same with what has been described in @LagoEtAl:2019, which is either a relation regarding profession or a service that is given by the head noun for the possessor. A set of sentences are exemplified below.
-
-\begin{exe}
-\ex
-  \begin{xlist}
-
-  \ex \textsc{ungrammatical, pl attractor} \label{exp1_a}
-      \gll Komedyen-ler-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü-ler.\\
-  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}--\textsc{pl}\\
-      \glt Because of the northeaster, comedians' assistant felt chilly.
-
-  \ex \textsc{grammatical, pl attractor} \label{exp1_b}
-      \gll Komedyen-ler-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü.\\
-  comedian-\textsc{pl}-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
-      \glt Because of the northeaster, comedians' assistant felt chilly.
-
-  \ex \textsc{ungrammatical, sg attractor} \label{exp1_c}
-      \gll Komedyen-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü-ler.\\
-  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-\textsc{pl}\\
-      \glt Because of the northeaster, comedian's assistant felt chilly.
-  
-  \ex \textsc{grammatical, sg attractor} \label{exp1_d}
-      \gll Komedyen-in yardımcı-sı poyraz-dan dolayi ü\c{s}ü-dü.\\
-  comedian-\textsc{gen} helper-\textsc{poss} northeaster-\textsc{abl} because.of feel.chilly-\textsc{pst}-$\varnothing$\\
-      \glt Because of the northeaster, comedian's assistant felt chilly.
-
-  \end{xlist}
-\end{exe}
-
-As seen in the examples, unlike @LagoEtAl:2019's experimental items, all of  my items bear the *-sI* possessive marker instead of the ambiguous *-I* marker. As for the filler items, I could not use or modify the original experiment items since the fillers of the original study were not online. I have used two types of filler sentences: grammatical sentences in which the verb bears plural agreement (\autoref{fillera}), and ungrammatical sentences in which the verb does not bear plural agreement (\autoref{fillerb}). I wanted to nullify a possible strategy by the participants where they associate the sentence-final morpheme directly with the acceptability of the sentence. And I also wanted to eliminate the possibility of participants disregarding other elements in the sentences while answering the questions I ask right after the sentence. 
-
-\begin{exe}
-\ex
-\begin{xlist}
-\ex \label{fillera}
-\gll Adam-ın anne-si fena-la\c{s}-ınca inek kurban et-ti-ler.\\
-man-\textsc{gen} mother-\textsc{poss} bad-\textsc{vrb}-\textsc{cvb} cow sacrifice do-\textsc{pst}-\textsc{pl}\\
-\glt When his mother got ill, (they) sacrificed a cow.
-\ex \label{fillerb}
-\gll *Pizzacı-nın kurye-si tökezle-yince sos-lar yer-e saç-tı.\\
-pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} floor-\textsc{dat} scatter-\textsc{pst}\\
-\glt Intended: When the pizza boy tripped, sauces scattered around. 
-\end{xlist}
-\end{exe}
 
 
 ### Participants and Procedure
 
-One hundred and seven Turkish speakers were recruited from Bogazici University in İstanbul. We verified that Turkish was their native language and that they predominantly used it in their daily lives. 
+One hundred and eighteen Turkish speakers were recruited from the undergraduate population enrolled in linguistics classes at Bogazici University in İstanbul. We verified that Turkish was their native language and that they predominantly used it in their daily lives. 
+<!-- to-do: When you say 'verified', do you mean 'asked'? 'Verify' sounds like you actually made sure they aren't lying. Tone down if appropriate. -->
+<!-- to-do: Did anyone say Turkish wasn't their first language? Did we exclude them? -->
+
 In the experiments, participants were asked to judge the acceptability of Turkish sentences. All of the sentences were presented one word at a time in the center of the screen for 500 ms per word.
 <!-- unlike @LagoEtAl:2019 and @WagersEtAl:2009, in which the duration was 300 ms per word. -->
 The experiment was run on *Ibex Farm*, a web-based experiment platform (\url{http://spellout.net/ibexfarm}). All experimental stimuli, data, and documentation can be found on \url{https://github.com/utkuturk/AgreementAttraction_Experiment}.
 
-Participants were instructed to quickly clasify sentences as acceptable or unacceptable based on their intuition. They were further informed about the $XXXX ms$ time limit for answering. At the start of the experiment, they were given 4 practice trials, and received feedback on their response. Each trial after the practice items started with a blank screen, followed by a word-by-word RSVP presentaion of the sentence in the center of the screen. After the sentence presentation, they were asked for a grammaticality judgment 
-(Was the sentence you read was natural to you?) 
-<!-- Is this really how it was phrased? -->
-responded Q for *yes*, and P for *no*. 
+Participants were instructed to quickly classify sentences as acceptable or unacceptable based on their intuition. They were further informed about the $XXXX ms$ time limit for answering. At the start of the experiment, they were given 4 practice trials, and received feedback on their response. Each trial after the practice items started with a blank screen, followed by a word-by-word RSVP presentaion of the sentence in the center of the screen. After the sentence presentation, they were asked for a grammaticality judgment. More specifically, they were asked:
+*'Was the sentence you read was natural to you?'*
+<!-- to-do: Is this really how it was phrased? -->
+Participants responded Q for *yes*, and P for *no*. 
+
 The 40 experimental items were automatically divided into four lists according to a Latin-square design, and were intermixed with filler sentences, such that each participant saw 40 experimental items and 40 fillers in random order over the course of the experiment.
 
 
 ### Data Analysis
 
-
-```{r loadFrequencies, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
+```{r loadFrequencies, eval=F, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
 word_freq <- readxl::read_excel("../Data/freq.xlsx", sheet = 1)
 word_freq$freq_percentage %<>% as.numeric()
@@ -472,16 +528,21 @@ word_freq_lago <- word_freq %>%
                     dplyr::select(-exp)
 ```
 
-
 ```{r identifyBadSubjects, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
-# identify participants 
+
+# identify bad participants 
 bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
-data_clean <- data %>% subset(!subject %in% bad_subjects)
+data_exp1_clean <- data_exp1 %>% subset(!subject %in% bad_subjects)
+
+# identify bad participants 
+bad_subjects_lagoetal <- subset(avg_by_subj_lagoetal_wide, delta_dc <= 0.25 ) %>% .$subject
+df_lagoetal_attr_clean <- df_lagoetal_attr %>% subset(!subject %in% bad_subjects_lagoetal)
+
 ```
 
 ```{r mergeData, eval =T, message=FALSE, warning=FALSE, include=FALSE, paged.print=FALSE}
 
-df_merge_exp1 <- data_clean %>% ungroup() %>% 
+df_merge_exp1 <- data_exp1_clean %>% ungroup() %>% 
                       dplyr::select(source=experiment, 
                                     grammatical, attractor_num,
                                     # condition,
@@ -498,18 +559,14 @@ df_merge_exp1$attractor_num <- with(df_merge_exp1,
                                            "singular"))
 df_merge_exp1$item %<>% as.integer()
 df_merge_exp1$subject %<>% as.character()
-df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
+#df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
 
-df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") )
-df_merge_lago <- df_lagoetal_attr %>% ungroup() %>% 
-                      dplyr::select(grammatical=Grammatical,
-                                    attractor_num=Attractor,
-                                    #condition=Condition, 
-                                    subject=Participant, 
-                                    item=Item,
-                                    ResponseYes, RT)
-df_merge_lago %<>% left_join(word_freq_lago, by = "item")
-df_merge_lago$experiment <- "Lago et al. (2018)" 
+df_merge_lago <- df_lagoetal_attr_clean %>%
+                      ungroup() %>% 
+                      dplyr::select(grammatical, attractor_num,
+                                    subject, item, ResponseYes, RT)
+#df_merge_lago %<>% left_join(word_freq_lago, by = "item")
+df_merge_lago$experiment <- "Lago et al. (2019)" 
 df_merge_lago$source <- NA
 df_merge_lago$item %<>% add(1000)
 
@@ -521,23 +578,21 @@ df_exp1_na_nofillers <- subset(df_merge_exp1, is.na(ResponseYes) & source != "fi
 df_merged %<>% subset( !is.na(ResponseYes) )
 ```
 
-<!-- to-do: find out if the items from experiment 1 and Lago's paper were minimal pairs. Should
-at least some of them have the same item id? -->
+<!-- to-do: find out if the items from experiment 1 and Lago's paper were minimal pairs. Should at least some of them have the same item id? 
+To control for that, we'd probably need to use random effects for two sets of item ids, one cross-experimental, one within-experiment?? 
+-->
 
-In order to find out whether the noun class, and thus the presence of an ambiguity between genitive and accusative affected the magnitude of the agreement attraction effect, we analyzed the data from our experiment
+In order to determine whether the ambiguity of the head noun type affected the magnitude of the agreement attraction effect, we analyzed the data from our experiment
 together with the data from @LagoEtAl:2019.
-
-Participants for whom the difference in the percentage of `yes` responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below $0.25$ were deemed to not have performed the task as instructed, and their data was excluded from further analysis. In consequence, `r length(bad_subjects)` participants' data was excluded.
-
-Across participants, `r sum(is.na(df_exp1_na_nofillers$ResponseYes))` trials were not responded to before the deadline (by `r length(unique(df_exp1_na_nofillers$subject))` participants). The data from these trials was not used in the analysis of responses or reaction times.
+Participants for whom the difference in the percentage of `yes` responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below $0.25$ were deemed to not have performed the task as instructed, and their data was excluded from further analysis. In consequence, the data for `r length(bad_subjects)` participants from experiment 1, and `r stopifnot(length(bad_subjects_lagoetal) == 1)` one participant from Lago et al.'s experiment was excluded from further analysis.
+Across participants, a total `r sum(is.na(df_exp1_na_nofillers$ResponseYes))` trials were not responded to before the deadline by `r length(unique(df_exp1_na_nofillers$subject))` participants. The data from these trials was not used in the analysis of responses or reaction times.
 
 We used `R` `r citep(citation())` and the *tidyverse* R packages `r citep(citation("tidyverse"))` for data processing and plotting, and the R packages *brms* `r citep(citation("brms"))` and *rstan* `r citep(citation("rstan"))` to fit Bayesian hierarchical models [e.g.,@GelmanHill:2007; @McElreath:2016; @BDA3].
-
-
 Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link. Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
-<!-- to-do: fix the below formulation -->
-vowel ending, plural attractor, grammaticality and their interactions. 
+head noun ambiguity, attractor number, grammaticality, their interactions, as well as varying by-participants and by-items intercepts with a maximal random-effect structure.
 <!-- to-do: varying by-participants and by-items intercepts and slopes --> 
+
+
 
 ### Results 
 
@@ -556,18 +611,20 @@ p_avg_resp <- ggplot(avg_exp,
                 geom_point() + geom_line() + 
                 facet_wrap(~experiment)
 
-p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + geom_point(data = avg_fillers) + 
-              theme_bw() + theme( strip.background = element_rect(fill="white") ) +
-              xlab("") + ylab("Percentage 'acceptable'")
+# p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + 
+#                             geom_point(data = avg_fillers) + 
+  
+p_avg_resp <- p_avg_resp + theme( strip.background = element_rect(fill="white") ) +
+                           theme_bw() + xlab("") + ylab("Percentage 'acceptable'")
 
 print(p_avg_resp)
 
 ```
 
-Figure \@ref(fig:exp1AvgResponse) shows the percentage of "acceptable" answers as a function of sentence grammaticality and 
-with the grammaticality on the x-axis, and color marking the grammatical number of the attractor noun phrase. As seen in the figure, `r round(100*avg_exp[3,6])`% of the sentences with plural attractors and a singular verb were accepted by the participants, in line with the findings of @LagoEtAl:2019. I also see a number attraction rate of `r round(100*(avg_exp[3,6]-avg_exp[4,6]))`% which was also observed in @LagoEtAl:2019 with close results. 
+Figure \@ref(fig:exp1AvgResponse) shows the percentage of "acceptable" answers as a function of the grammatical of number the attractor noun phrase, and sentence grammaticality. While ungrammatical sentences with a plural attractor were found acceptable in `r round(100*avg_exp[[3,6]])`% of the cases, the accepability rate was only `r round(100*avg_exp[[4,6]])`% when the attractor was singular. 
+This ovserved agreement attraction effect of `r round(100*(avg_exp[[3,6]]-avg_exp[[4,6]]))`%, as well as the condition averages are fairly close to Lago et al.'s attraction effect of `r round(100*(avg_exp[[7,6]]-avg_exp[[8,6]]))`%.
 
-In Figure \@ref(fig:exp1ResponseModelPlot), I clearly see the effects of ungrammaticality and the interaction between the ungrammaticality and plural attractor. I see that the vowel ending is not significant even though it has a negative effect. Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical. 
+In Figure \@ref(fig:exp1ResponseModelPlot), I clearly see the effects of ungrammaticality and the interaction between the ungrammaticality and plural attractor. I see that the vowel ending is not significant even though it has a negative effect. Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical.
 
 ```{r exp1ModelResponse, include=FALSE}
 
@@ -578,9 +635,9 @@ df_merged %<>% within(., {
   cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
   cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
   cEndsInVowel <- ifelse(experiment == "Experiment 1", .5, -.5)
-  cFreqlog_n1n2 <- scale(freqlog_n1n2)
-  cFreqlog_n1 <- scale(freqlog_n1)
-  cFreqlog_n2 <- scale(freqlog_n2)
+  #cFreqlog_n1n2 <- scale(freqlog_n1n2)
+  #cFreqlog_n1 <- scale(freqlog_n1)
+  #cFreqlog_n2 <- scale(freqlog_n2)
 })
 df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
 
@@ -630,6 +687,8 @@ contrast_names <- c("cUngrammatical" = "Ungrammaticality",
                     "cEndsInVowel:cAttractorPlural" = "Vowel Ending * Plural Attractor",
                     "cEndsInVowel:cUngrammatical:cAttractorPlural" = "Vowel Ending * Ungrammaticality * Plural Attractor")
 
+#options(warn = 2)
+
 p_m_response <- create_model_coefs_plot( m_responses, plot_stats = T,
                                   map_names = contrast_names,
                               expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1
@@ -638,7 +697,6 @@ print(p_m_response)
 
 
 ```
-
 
 ```{r exp1ResponseTimeModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Reading Times."}
 
