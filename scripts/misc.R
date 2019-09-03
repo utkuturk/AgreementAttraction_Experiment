@@ -108,8 +108,8 @@ model_summary <- function(m, include_pp_below_zero = T)
     
     pref_coef_stats_df <- function(df, name) {
       df %>% as.data.frame(colnames = "x") %T>% 
-      { colnames(.) <- name } %T>%
-      { .$coef <- rownames(.) %>% gsub("^b_", "", .) }
+        { colnames(.) <- name } %T>%
+        { .$coef <- rownames(.) %>% gsub("^b_", "", .) }
     }
     
     p_below_zero <- samples %>% sapply(function(x) mean(x < 0)) %>% 
@@ -146,7 +146,9 @@ create_model_coefs_plot <- function(m,
                                     plot_stats = FALSE, 
                                     expand_right = 1, 
                                     expand_top = 1,
-                                    x_stat_adjust = 0)
+                                    x_stat_adjust = 0,
+                                    x_breaks = ggplot2::waiver(),
+                                    x_minor_breaks = ggplot2::waiver())
 {
   interaction_symbol <- " * "
   use_interaction_panels <- length(interaction_panels) > 0
@@ -220,22 +222,24 @@ create_model_coefs_plot <- function(m,
   if (plot_stats)
   {
     tbl$xmax <- with(tbl, max(c(Estimate, Q2.5, Q97.5))) + x_stat_adjust
-
+    
     
     p <- p + scale_y_discrete(expand = expand_scale(mult = c(.05, .15*expand_top), 
-                                                    add = c(0, 0)) )
+                                                    add = c(0, 0))
+                              )
     p <- p + scale_x_continuous(expand = expand_scale(mult = c(.05, .15*expand_right), 
-                                                      add = c(0, 0)) )
+                                                      add = c(0, 0)),
+                                breaks = x_breaks, 
+                                minor_breaks = x_minor_breaks)
     
     p <- p + geom_text(aes(x = tbl$xmax, y = tbl$coef,#_idx, 
                            label = sprintf("[%s]", tbl$PBelowZeroStr)), 
                        family = "mono", hjust = "left")
     suppressWarnings({
-      label <- parse(text = "paste('P(', theta, ' < 0)')")
+      label <- parse(text = "underline(paste('P(', theta, ' < 0)'))")
       p <-  p + geom_text(x = tbl$xmax[1], y = max(as.integer(tbl$coef))+1, 
-                          # label = "P( < 0)", 
                           label = label,
-                          family = "mono", hjust = "left")#, fontface = "bold")
+                          family = "mono", hjust = "left")#, fontface = "underlined")
     })
   }
   

@@ -68,7 +68,7 @@ Introduction:
       * Definitely Russian (Sliosar on gender). [@SlioussarMalko:2016]
       * Arabic: @TuckerEtAl:2015
       * Spanish: @LagoEtAl:2015
-      * Turkish: @LagoEtAl:2019
+      * Turkish: @LagoEtAl:2018
       * Hammerly 2019 [@HammerlyEtAl:2019]
       * @LinzenLeonard:2018
       * @SmithFranck:2018
@@ -177,7 +177,7 @@ Some theories (cite) explain this phenomenon by means of a faulty representation
 
 
 <!-- to-do: mention the Lago et al study briefly since we'll be referring to it. -->
-In this paper, we report the results of two experiments about agreement attraction: The first experiment adressed a potential confound in the @LagoEtAl:2019 study. In the second experiment we tested an explanation of agreement attraction in Turkish as a task-specific strategy: we tested  whether verbs with plural agreement can serve as as potential attractors.
+In this paper, we report the results of two experiments about agreement attraction: The first experiment adressed a potential confound in the @LagoEtAl:2018 study. In the second experiment we tested an explanation of agreement attraction in Turkish as a task-specific strategy: we tested  whether verbs with plural agreement can serve as as potential attractors.
 The results show that \ldots 
 <!--
 pvl: no idea what the text below means
@@ -264,7 +264,7 @@ Korean [@KwonSturt:2016],
 Russian [@SlioussarMalko:2016], 
 Slovak [@BadeckerKuminiak:2007],
 Spanish [@LagoEtAl:2015], 
-Turkish [@LagoEtAl:2019]
+Turkish [@LagoEtAl:2018]
 
 
 <!--
@@ -292,8 +292,8 @@ https://en.wikibooks.org/wiki/LaTeX/Linguistics
 # Agreement attraction in Turkish
 
 
-Recently, @LagoEtAl:2019 demonstrated agreement attraction in Turkish. In a speeded acceptability judgement study, they presented sentences like (\ref{Lagoitem}) to participants. 
-@LagoEtAl:2019 makes use of genitive-possessive structures in the subject position, in which the possessive-marked head of the complex noun phrase *'the singer's vocalist'* acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. 
+Recently, @LagoEtAl:2018 demonstrated agreement attraction in Turkish. In a speeded acceptability judgement study, they presented sentences like (\ref{Lagoitem}) to participants. 
+@LagoEtAl:2018 makes use of genitive-possessive structures in the subject position, in which the possessive-marked head of the complex noun phrase *'the singer's vocalist'* acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor. 
 
 <!-- to-do: where did the 'backup' come from in the translation ??? -->
 <!-- to-do: what is the singer's vocalist ??? does this expression make sense? -->
@@ -305,7 +305,7 @@ singer-\textsc{gen} vocalist-\textsc{poss} stage-\textsc{loc} non-stop jump-\tex
 \end{exe}
 
 
-@LagoEtAl:2019 found a significant effect of number agreement attraction.
+@LagoEtAl:2018 found a significant effect of number agreement attraction.
 They argue that genitive modifiers my cause agreement attraction in Turkish because Turkish makes frequent use of genitive subjects in embedded clauses. This would explain why genitive modifiers cause little to no agreement attraction in English 
 [@NicolEtAl:2016]. <!-- to-do: read, double-check the claim above -->
 
@@ -319,7 +319,7 @@ In order to control for the effect of head noun ambiguity on the magnitude of ag
 
 # Experiment 1
 
-The aim of this study was examine the question of whether the agreement attraction effect @LagoEtAl:2019 found is mediated by the morphological ambiguity of the head noun.
+The aim of this study was examine the question of whether the agreement attraction effect @LagoEtAl:2018 found is mediated by the morphological ambiguity of the head noun.
 To this end, we modified Lago et al.'s stimuli by replacing the head nouns with unambiguous nouns. 
 \ldots which end in a vowel to differentiate between the accusative case and the possessive suffix, i.e. *taksici* (taxi driver). 
 \ldots two words on why vowel-ending nouns don't exhibit this ambiguity \ldots
@@ -347,7 +347,7 @@ Like Lago et al., we keept the semantic relation between the head noun and the c
 
 Example (\ref{exp1_item}) shows one full set of experimental sentences. \ldots now explain the design again (yes, it's necessary) \ldots 
 
-As seen in example (\ref{exp1_item}), unlike @LagoEtAl:2019's experimental sentences, the head nouns in our experiment are consonant-final and are therefore unambigously marked for posessive case -- the accusative form of *'yardımcı'* is *'XXX'*.
+As seen in example (\ref{exp1_item}), unlike @LagoEtAl:2018's experimental sentences, the head nouns in our experiment are consonant-final and are therefore unambigously marked for posessive case -- the accusative form of *'yardımcı'* is *'XXX'*.
 
 \begin{exe}
 \ex \label{exp1_item}
@@ -401,6 +401,15 @@ pizzaria-\textsc{gen} courier-\textsc{poss} trip-\textsc{cvb} sauce-\textsc{pl} 
 
 fname_data <- "../workspace_exp1/exp_data.rds"
 data_exp1 <- readRDS(file = fname_data)
+
+### note: the low accuracy on fillers is not caused by a couple of items
+# filler_avgs <- 
+# data_exp1 %>% subset(Type == "filler") %>% group_by(Item, condition) %>% 
+#               summarize(M = mean(ResponseYes, na.rm = T)) %>%
+#               arrange(condition, Item)
+# fillers %>% subset(condition == "a") 
+# fillers %>% subset(condition == "b")
+###
 
 # compute by-subject percentages of 'yes' responses, and average RTs 
 avg_by_subj <- data_exp1 %>%
@@ -489,7 +498,7 @@ One hundred and eighteen Turkish speakers were recruited from the undergraduate 
 <!-- to-do: Did anyone say Turkish wasn't their first language? Did we exclude them? -->
 
 In the experiments, participants were asked to judge the acceptability of Turkish sentences. All of the sentences were presented one word at a time in the center of the screen for 500 ms per word.
-<!-- unlike @LagoEtAl:2019 and @WagersEtAl:2009, in which the duration was 300 ms per word. -->
+<!-- unlike @LagoEtAl:2018 and @WagersEtAl:2009, in which the duration was 300 ms per word. -->
 The experiment was run on *Ibex Farm*, a web-based experiment platform (\url{http://spellout.net/ibexfarm}). All experimental stimuli, data, and documentation can be found on \url{https://github.com/utkuturk/AgreementAttraction_Experiment}.
 
 Participants were instructed to quickly classify sentences as acceptable or unacceptable based on their intuition. They were further informed about the $XXXX ms$ time limit for answering. At the start of the experiment, they were given 4 practice trials, and received feedback on their response. Each trial after the practice items started with a blank screen, followed by a word-by-word RSVP presentaion of the sentence in the center of the screen. After the sentence presentation, they were asked for a grammaticality judgment. More specifically, they were asked:
@@ -566,7 +575,7 @@ df_merge_lago <- df_lagoetal_attr_clean %>%
                       dplyr::select(grammatical, attractor_num,
                                     subject, item, ResponseYes, RT)
 #df_merge_lago %<>% left_join(word_freq_lago, by = "item")
-df_merge_lago$experiment <- "Lago et al. (2019)" 
+df_merge_lago$experiment <- "Lago et al. (2018)" 
 df_merge_lago$source <- NA
 df_merge_lago$item %<>% add(1000)
 
@@ -583,18 +592,22 @@ To control for that, we'd probably need to use random effects for two sets of it
 -->
 
 In order to determine whether the ambiguity of the head noun type affected the magnitude of the agreement attraction effect, we analyzed the data from our experiment
-together with the data from @LagoEtAl:2019.
+together with the data from @LagoEtAl:2018.
 Participants for whom the difference in the percentage of `yes` responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below $0.25$ were deemed to not have performed the task as instructed, and their data was excluded from further analysis. In consequence, the data for `r length(bad_subjects)` participants from experiment 1, and `r stopifnot(length(bad_subjects_lagoetal) == 1)` one participant from Lago et al.'s experiment was excluded from further analysis.
 Across participants, a total `r sum(is.na(df_exp1_na_nofillers$ResponseYes))` trials were not responded to before the deadline by `r length(unique(df_exp1_na_nofillers$subject))` participants. The data from these trials was not used in the analysis of responses or reaction times.
 
 We used `R` `r citep(citation())` and the *tidyverse* R packages `r citep(citation("tidyverse"))` for data processing and plotting, and the R packages *brms* `r citep(citation("brms"))` and *rstan* `r citep(citation("rstan"))` to fit Bayesian hierarchical models [e.g.,@GelmanHill:2007; @McElreath:2016; @BDA3].
-Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link. Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
+Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link. 
+Response times were modeled assuming lognormally distributed errors.
+Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
 head noun ambiguity, attractor number, grammaticality, their interactions, as well as varying by-participants and by-items intercepts with a maximal random-effect structure.
 <!-- to-do: varying by-participants and by-items intercepts and slopes --> 
 
 
 
 ### Results 
+
+<!-- to-do: confidence intervals in plot, here and elsewhere -->
 
 ```{r exp1AvgResponse, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the analysis of the probability of a 'yes' response."}
 
@@ -613,18 +626,29 @@ p_avg_resp <- ggplot(avg_exp,
 
 # p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + 
 #                             geom_point(data = avg_fillers) + 
-  
+
 p_avg_resp <- p_avg_resp + theme( strip.background = element_rect(fill="white") ) +
                            theme_bw() + xlab("") + ylab("Percentage 'acceptable'")
-
+p_avg_resp <- p_avg_resp + scale_y_continuous(labels=scales::percent)#, breaks = c(0, .25, .5, .75, 1))
+p_avg_resp <- p_avg_resp + theme_bw()
+p_avg_resp <- p_avg_resp + scale_color_discrete(name = "Attractor Number")
 print(p_avg_resp)
 
 ```
 
-Figure \@ref(fig:exp1AvgResponse) shows the percentage of "acceptable" answers as a function of the grammatical of number the attractor noun phrase, and sentence grammaticality. While ungrammatical sentences with a plural attractor were found acceptable in `r round(100*avg_exp[[3,6]])`% of the cases, the accepability rate was only `r round(100*avg_exp[[4,6]])`% when the attractor was singular. 
-This ovserved agreement attraction effect of `r round(100*(avg_exp[[3,6]]-avg_exp[[4,6]]))`%, as well as the condition averages are fairly close to Lago et al.'s attraction effect of `r round(100*(avg_exp[[7,6]]-avg_exp[[8,6]]))`%.
+Figure \@ref(fig:exp1AvgResponse) shows the percentages of "acceptable" answers for experiment 1 as well as the Lago et al. data as a function of sentence grammaticality and the grammatical of number the attractor noun phrase. In our data, while ungrammatical sentences with a plural attractor were found acceptable in `r round(100*avg_exp[[3,6]])`% of the cases, the accepability rate was only `r round(100*avg_exp[[4,6]])`% when the attractor was singular. 
+This observed agreement attraction effect of `r round(100*(avg_exp[[3,6]]-avg_exp[[4,6]]))`%, as well as the condition averages were fairly close to Lago et al.'s attraction effect of `r round(100*(avg_exp[[7,6]]-avg_exp[[8,6]]))`%.
 
-In Figure \@ref(fig:exp1ResponseModelPlot), I clearly see the effects of ungrammaticality and the interaction between the ungrammaticality and plural attractor. I see that the vowel ending is not significant even though it has a negative effect. Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical.
+Figure \@ref(fig:exp1ResponseModelPlot) shows the estimates of the fixed effects of a Bayesian hierarchical model. It shows that ungrammatical sentences were judged as acceptable far less often than grammatical sentences (CI = [XXX]). It also shows that sentences with plural attractors were considered acceptable a little bit better than sentences (CI = [XXX]) with singular attractors. Importantly, we found an interaction between these two factors, such that plural attractors increased the likelihood of 'acceptable' responses disproportionately more in ungrammatical sentences (CI = [XXX]).
+
+<!-- to-do: fix-me, pavel --> 
+<!-- three-way interaction between ambiguity, ungrammaticality, and attractor number -->
+We found a small positive effect \ldots
+evidence that the ambiguity of the head noun affects the effect of attractor number on ungrammaticality (CI = [XXX]).
+\ldots no interesting difference between experiments \ldots
+\ldots we may even have produced a bayes factor or LOO metric, to test whether that three way interaction actually matters
+I see that the vowel ending is not significant even though it has a negative effect. 
+Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical.
 
 ```{r exp1ModelResponse, include=FALSE}
 
@@ -634,7 +658,7 @@ df_merged %<>% within(., {
   cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
   cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
   cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
-  cEndsInVowel <- ifelse(experiment == "Experiment 1", .5, -.5)
+  cEndsInConsonant <- ifelse(experiment != "Experiment 1", .5, -.5)
   #cFreqlog_n1n2 <- scale(freqlog_n1n2)
   #cFreqlog_n1 <- scale(freqlog_n1)
   #cFreqlog_n2 <- scale(freqlog_n2)
@@ -643,7 +667,7 @@ df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
 
 # ## test model parameterization using a simple GLM first
 # m <- glm(ResponseYes ~ (cFreqlog_n1 + cFreqlog_n2) *
-#            cEndsInVowel * cUngrammatical * cAttractorPlural,
+#            cEndsInConsonant * cUngrammatical * cAttractorPlural,
 #          data = df_merged_nofillers,
 #          family = binomial("probit"))
 # summary(m)
@@ -651,22 +675,30 @@ df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
 n_chains <- 4
 n_cores <- 4
 n_iter <- 2000
-fname_exp1_responses <- "../workspace_exp1/model_responses"
 
-# to-do: Re-run, ESS low
-m_responses <- brm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural + 
+
+fname_exp1_responses <- "../workspace_exp1/model_responses"
+m_responses <- brm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorPlural + 
                                  (cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
-                   #init = "0",
                    family = bernoulli("probit"),
                    file = fname_exp1_responses, 
                    chains = n_chains, cores = n_cores, iter = n_iter)
 
 
-fname_exp1_rts <- "../workspace_exp1/model_responses_rt"
+fname_exp1_responses_minimal <- "../workspace_exp1/model_responses_minimal"
+m_responses_minimal <- brm(ResponseYes ~ (cEndsInConsonant + cUngrammatical + cAttractorPlural)^2 + 
+                                         (cUngrammatical * cAttractorPlural + 1| subject) +
+                                         (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers,
+                   family = bernoulli("probit"),
+                   file = fname_exp1_responses_minimal, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
 
-m_rts <- brm(RT ~ cEndsInVowel * cUngrammatical * cAttractorPlural +
+
+fname_exp1_rts <- "../workspace_exp1/model_responses_rt"
+m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
                                  (cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
@@ -677,62 +709,77 @@ m_rts <- brm(RT ~ cEndsInVowel * cUngrammatical * cAttractorPlural +
 ```
 
 <!-- to-do: relabel all 'vowel ending' stuff to be about ACC-GEN ambiguity -->
-```{r exp1ResponseModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Accuracy."}
+<!-- to-do: make sure the CIs are HPDIs, and say so -->
+
+```{r exp1ResponseModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the regression coefficients in accuracy (log-odds units)."}
 
 contrast_names <- c("cUngrammatical" = "Ungrammaticality",
                     "cAttractorPlural" = "Plural Attactor",
                     "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
-                    "cEndsInVowel" = "Vowel Ending",
-                    "cEndsInVowel:cUngrammatical" = "Ungrammaticality * Vowel Ending",
-                    "cEndsInVowel:cAttractorPlural" = "Vowel Ending * Plural Attractor",
-                    "cEndsInVowel:cUngrammatical:cAttractorPlural" = "Vowel Ending * Ungrammaticality * Plural Attractor")
+                    "cEndsInConsonant" = "Ambiguity",
+                    "cEndsInConsonant:cUngrammatical" = "Ambiguity * Ungrammaticality",
+                    "cEndsInConsonant:cAttractorPlural" = "Ambiguity * Plural Attractor",
+                    "cEndsInConsonant:cUngrammatical:cAttractorPlural" = "Ambiguity * Ungrammaticality * Plural Attractor")
 
-#options(warn = 2)
+p_m_response <- 
+  create_model_coefs_plot( m_responses, 
+        plot_stats = T, map_names = contrast_names,
+        expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1,
+        x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
+        xlab("Estimate (log-odds)")
 
-p_m_response <- create_model_coefs_plot( m_responses, plot_stats = T,
-                                  map_names = contrast_names,
-                              expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1
-                              ) + xlab("Estimate (log-odds)")
-print(p_m_response)
+suppressWarnings({
+print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+})
 
-
-```
-
-```{r exp1ResponseTimeModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="log-odd Estimates and 95% credible intervals for the regression coefficients in Reading Times."}
-
-p_m_rts <- create_model_coefs_plot( m_rts, plot_stats = T, map_names = contrast_names,
-                              expand_right = 2.5, expand_top = 2, x_stat_adjust = 0.1
-                              )
-print(p_m_rts)
 
 ```
 
-In Figure \@ref(fig:exp1AvgRTs), I see that average response times are significantly higher than the those of @LagoEtAl:2019. I also see it in \@ref(exp1ResponseTimeModelPlot), since **b_cEndsinVowel** indicates whether or not it is Experiment 1 or Experiment from @LagoEtAl:2019, i.e. distractors in items in @LagoEtAl:2019 ends with a consonant, while ours ends in a vowel. Again, these results show the effect of disambiguation of the possessive suffix from the accusative case has surfaced as the difficulty in response and memory retrieval time.
 
-```{r exp1AvgRTs, fig.height=2.5, fig.width = 6, fig.cap="Average response times for  my replication and Lago et. al. (2018)"}
+Figure \@ref(fig:exp1AvgRTs) shows higher
 
-p_avg_rt <- ggplot(avg_clean, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
+, I see that average response times are significantly higher than the those of @LagoEtAl:2018. I also see it in \@ref(exp1ResponseTimeModelPlot), since **b_cEndsinVowel** indicates whether or not it is Experiment 1 or Experiment from @LagoEtAl:2018, i.e. distractors in items in @LagoEtAl:2018 ends with a consonant, while ours ends in a vowel. Again, these results show the effect of disambiguation of the possessive suffix from the accusative case has surfaced as the difficulty in response and memory retrieval time.
+
+```{r exp1AvgRTs, fig.height=2.5, fig.width = 6, fig.cap="Average response times for experiment 1 and Lago et. al. (2018)"}
+
+p_avg_rt <- avg_exp %>% ggplot(aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line() + ylab("Response Time (ms)")
 
 print(p_avg_rt)
 
 ```
 
+<!-- to-do: confidence intervals in plot -->
+```{r exp1ResponseTimeModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the regression coefficients in response times (log units)."}
+
+p_m_rts <- 
+  create_model_coefs_plot(
+        m_rts, plot_stats = T, map_names = contrast_names,
+        expand_right = 2.5, expand_top = 2, x_stat_adjust = 0.1,
+        x_breaks = c(-0.3, -0.2, -0.1, 0, 0.1, 0.2, 0.3) )
+
+suppressWarnings({
+print(p_m_rts + annotate(x=-0.3, xend=0.3, y=0, yend=0, lwd=0.25, geom="segment") )
+})
+```
+
+
+
 ### Discussion 
 
-Experiment 1 found number attraction effects, like also attested in @LagoEtAl:2019, and also found a significant effect of form ambiguity of possessive and an interaction of plural attractor with ungrammaticality in response times. Illusionary agreement of the verb with the plural attractor was more than the singular attractor. In addition to what has been discussed by @AvetisyanEtAl:2019. this results also show that not only the case itself but also the form of the case can affect the response times.
+Experiment 1 found number attraction effects, like also attested in @LagoEtAl:2018, and also found a significant effect of form ambiguity of possessive and an interaction of plural attractor with ungrammaticality in response times. Illusionary agreement of the verb with the plural attractor was more than the singular attractor. In addition to what has been discussed by @AvetisyanEtAl:2019. this results also show that not only the case itself but also the form of the case can affect the response times.
 
 In the previous sections, I have predicted that with an assumed mechanism where people do take the clues from the form of the plural morpheme itself and have a strategy based on matching the plural morphemes, I would expect no change with regards to the agreement attraction effects. I also should not expect increasing response times when an irrelevant morpheme for the mechanism I assume. 
 
 However, I see that response times have changed drastically when the suffixes are dismabiguated. It is clear from the Figure \@ref(fig:exp1AvgRTs), when people are prompted to judge the sentence, they have difficulty in resolving and back-tracking the dependencies of the sentence even though nothing relevant to the plural morpheme and its host word has changed. 
 
-The results follow from what a cue-based model would predict: slightly lower agreement attraction and increased response time. Due to the disambiguation between the accusative case and the possessive suffix, I speculated that the features related to the *non-subjecthood* of the head of the subject would not surface falsely in  my replication. With more clearly formed genitive-possessive structures, participants do not have an easy time to partially match the cues with the phrases. This situation stems from the idea proposed by @LagoEtAl:2019 with regards to the effects of the cases on numeral agreement attraction. She argues that the frequency of the case being used in the subject position affects the agreement attraction effects in a positive manner. Since the accusative case is rarely used in Turkish, I have argued that it may give *wrong* clues an enable the distractors to even distract more. Yet, with clearly marked possessive suffix, I see that these enabling nature of the genitive possessive structure is eliminated, which is also shown in @AvetisyanEtAl:2019.
+The results follow from what a cue-based model would predict: slightly lower agreement attraction and increased response time. Due to the disambiguation between the accusative case and the possessive suffix, I speculated that the features related to the *non-subjecthood* of the head of the subject would not surface falsely in  my replication. With more clearly formed genitive-possessive structures, participants do not have an easy time to partially match the cues with the phrases. This situation stems from the idea proposed by @LagoEtAl:2018 with regards to the effects of the cases on numeral agreement attraction. She argues that the frequency of the case being used in the subject position affects the agreement attraction effects in a positive manner. Since the accusative case is rarely used in Turkish, I have argued that it may give *wrong* clues an enable the distractors to even distract more. Yet, with clearly marked possessive suffix, I see that these enabling nature of the genitive possessive structure is eliminated, which is also shown in @AvetisyanEtAl:2019.
 
 
 However, these results can also be a result of badly formed filler sentences which are shown with a purple line. Participants may be biased towards saying no since most of the experimental items being ungrammatical. However, this can also be statistical *miss* since I may accidentally have a group such as this one. However, the visible effect of vowel ending and response time suggest that people do indeed care more than only the retrieval of plural morpheme *-lar* and its place. 
 
 These results go against what I have predicted for the Marking and Morphing model as well. Due to the no extreme semantic change in the experimental (*Marking*) and no change in the structural relations among the genitive-possessive constructions (*Morphing*), there should be no difference in agreement attraction. 
 
-However, the existence of an extremely close degree of agreement attraction effects and non-significant nature of the effect of the vowel ending indicates that I cannot readily discard other explanations. Another reason for not jumping to the conclusion with percolation models can be related to the number of participants @LagoEtAl:2019 have included in their study [see @Vasishth2018]. 
+However, the existence of an extremely close degree of agreement attraction effects and non-significant nature of the effect of the vowel ending indicates that I cannot readily discard other explanations. Another reason for not jumping to the conclusion with percolation models can be related to the number of participants @LagoEtAl:2018 have included in their study [see @Vasishth2018]. 
 
 
 
@@ -757,9 +804,9 @@ In  my second experiment, I investigate the predictions made from  my model usin
 
 Within the framework of percolation theories, I expect a harsh decline in the agreement attraction effects\footnote{Discussion with regards to how and where relative clauses adjoined is omitted due to the scope of the paper. However, it should be clear that a late insertion analysis where the relative clauses are actually above the head noun would yield different results. In this paper, I assume that modifiers like relative clauses are within the noun phrase, which deems them \textit{syntactically} deeper placed in the hierarchical three than the possessee.}. The reason for this expected decline is the fact that relative clauses being relative *deeper* in the hierarchical structure than the possessee of genitive-possessive structure.
 
-As for cue-based retrieval models, I would expect an agreement attraction quite similar to the one that I originally have in @LagoEtAl:2019. The reason for this expected agreement attraction is the fact that apart from having a verbal root, the relative clauses and nominals behave exactly the same in terms of *nounness*. Like nominals, nominalized structures first marked with plural and then with the case or possessive suffix.  From this perspective, it seems like there should be no difference. However, one may argue that the features related to the verbal and nominal can be encoded differently. Thus, there will no partial match at any time given due to the fact that verbal plural morpheme at the main verb does specify cues for a specific type of plural marking. One other question that may arise from this structure is that whether or not the parts of already-formed dependencies can feed the following dependency resolution. In other words, the verbal plural morpheme *-lar* on *dövdükleri* in \autoref{ouritem1} is already a trigger of a cue retrieval process. And, when it is merged with the nominal head *çocuk*, there is a formed semantic meaning that is  "a group of people has beaten a kid."  However, this *suggestion* assumes that relative clauses are formed at the very moment. Moreover, I also need to assume that after forming a relative clause they are unreachable, meaning that they do not contribute to the processing of the sentence, anymore. 
+As for cue-based retrieval models, I would expect an agreement attraction quite similar to the one that I originally have in @LagoEtAl:2018. The reason for this expected agreement attraction is the fact that apart from having a verbal root, the relative clauses and nominals behave exactly the same in terms of *nounness*. Like nominals, nominalized structures first marked with plural and then with the case or possessive suffix.  From this perspective, it seems like there should be no difference. However, one may argue that the features related to the verbal and nominal can be encoded differently. Thus, there will no partial match at any time given due to the fact that verbal plural morpheme at the main verb does specify cues for a specific type of plural marking. One other question that may arise from this structure is that whether or not the parts of already-formed dependencies can feed the following dependency resolution. In other words, the verbal plural morpheme *-lar* on *dövdükleri* in \autoref{ouritem1} is already a trigger of a cue retrieval process. And, when it is merged with the nominal head *çocuk*, there is a formed semantic meaning that is  "a group of people has beaten a kid."  However, this *suggestion* assumes that relative clauses are formed at the very moment. Moreover, I also need to assume that after forming a relative clause they are unreachable, meaning that they do not contribute to the processing of the sentence, anymore. 
 
-Lastly, in  my extremely shallow processing model, I would expect a significant effect of agreement attraction. Due to one of the writers' inability to *run the numbers* and *form the mpt trees in time*, this part---unfortunately---does not go beyond than a verbal argumentation. The reason I expect a significant effect of the agreement attraction is due to the fact that upon the agreement process is driven by the faulty memory of the place of the plural morpheme and uneducated guessing. Since the parsing is shallow, comprehenders do not engage in perfect attribution of the features, thus having a somewhat blurry representation behind. I expect this behavior to be omnipresent in other agreement attraction phenomenon that has been shown, as well as in @LagoEtAl:2019 and in  my replication of it. Therefore, there is no reason to have anything to be different in experiment 2.
+Lastly, in  my extremely shallow processing model, I would expect a significant effect of agreement attraction. Due to one of the writers' inability to *run the numbers* and *form the mpt trees in time*, this part---unfortunately---does not go beyond than a verbal argumentation. The reason I expect a significant effect of the agreement attraction is due to the fact that upon the agreement process is driven by the faulty memory of the place of the plural morpheme and uneducated guessing. Since the parsing is shallow, comprehenders do not engage in perfect attribution of the features, thus having a somewhat blurry representation behind. I expect this behavior to be omnipresent in other agreement attraction phenomenon that has been shown, as well as in @LagoEtAl:2018 and in  my replication of it. Therefore, there is no reason to have anything to be different in experiment 2.
 
 
 
@@ -836,9 +883,9 @@ avg_clean2 <- df_merged2 %>%
 ```
 
 
-Having discussed the replication study of @LagoEtAl:2019, I have shown that results favor the cue-based models, especially with the effect of disambiguated possessive suffix on response times. However, due to the extremely similar effects on agreement attraction, I can still entertain shallow processing mechanism as explained in \autoref{model1}, \autoref{model2}, and \autoref{model3}. Since I argue that the agreement attraction is a product of memory state in which comprehenders do not have an exact memory of the place of the plural morpheme mainly, I conducted an experiment where the distractor with the plural morpheme in on the relative clause. 
+Having discussed the replication study of @LagoEtAl:2018, I have shown that results favor the cue-based models, especially with the effect of disambiguated possessive suffix on response times. However, due to the extremely similar effects on agreement attraction, I can still entertain shallow processing mechanism as explained in \autoref{model1}, \autoref{model2}, and \autoref{model3}. Since I argue that the agreement attraction is a product of memory state in which comprehenders do not have an exact memory of the place of the plural morpheme mainly, I conducted an experiment where the distractor with the plural morpheme in on the relative clause. 
 
-The study consists of a speeded acceptability judgment experiment in the web-based platform Ibex Farm. In the experiment, I test whether or not speakers utilize even more shallow parser than what is stipulated by @LagoEtAl:2019 and  my replication of @LagoEtAl:2019 Experiment 2. This was investigated using syntactic structures similar to @LagoEtAl:2019 materials, in which I have opted out the Genitive Construction (GC) for Relative Clause construction (RCC) as a distractor. In Turkish, like GC, the relative clause in RCC precedes the head noun, and length-wise Turkish relative clauses can consist of only one word and the rest can be dropped. Turkish allows us to use RCCs as distractors in the same place because Turkish plural morpheme in the verbal domain and nominal domain are the same: *-lAr*. Both of them react similarly in the same phonological environments, and they also exhibit the same stress patterns. 
+The study consists of a speeded acceptability judgment experiment in the web-based platform Ibex Farm. In the experiment, I test whether or not speakers utilize even more shallow parser than what is stipulated by @LagoEtAl:2018 and  my replication of @LagoEtAl:2018 Experiment 2. This was investigated using syntactic structures similar to @LagoEtAl:2018 materials, in which I have opted out the Genitive Construction (GC) for Relative Clause construction (RCC) as a distractor. In Turkish, like GC, the relative clause in RCC precedes the head noun, and length-wise Turkish relative clauses can consist of only one word and the rest can be dropped. Turkish allows us to use RCCs as distractors in the same place because Turkish plural morpheme in the verbal domain and nominal domain are the same: *-lAr*. Both of them react similarly in the same phonological environments, and they also exhibit the same stress patterns. 
 
 In the experimental items, the distractor RC and the matrix verb had f my configurations in which the number morpheme on the RCC (*plural* vs. *singular* marked RC verb) and matrix verb (*grammatical* vs. *ungrammatical*) as in \autoref{prereg1}.
 
@@ -924,6 +971,9 @@ p_avg_resp2 <- ggplot(avg_exp2, aes(grammatical, p_yes, #linetype = attractor_nu
                 theme_bw() + theme( strip.background = element_rect(fill="white") ) +
                 xlab("") + ylab("Percentage 'acceptable'")
 
+p_avg_resp2 <- p_avg_resp2 + scale_y_continuous(labels=scales::percent)
+p_avg_resp2 <- p_avg_resp2 + scale_color_discrete(name = "Attractor Number")
+
 print(p_avg_resp2)
 
 ```
@@ -946,7 +996,7 @@ df_merged2 %<>% within(., {
 df_merged_nofillers2 <- df_merged2 %>% subset(is.na(source) | source != "filler")
 
 # ## test model parameterization using a simple GLM first
-# m <- glm(ResponseYes ~ cEndsInVowel * cUngrammatical * cAttractorPlural,
+# m <- glm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorPlural,
 #          data = df_merged_nofillers,
 #          family = binomial("probit"))
 # summary(m)
@@ -984,14 +1034,14 @@ contrast_names2 <- c("cUngrammatical" = "Ungrammaticality",
 
 p_m_response2 <- create_model_coefs_plot(m_responses2, map_names = contrast_names2)
 p_m_response2 <- p_m_response2 + xlab("Estimate (log-odds)")
-print(p_m_response2)
+print(p_m_response2 + annotate(x=-2, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
 
 ```
 
 
 
 
-```{r exp2AvgRTs, fig.height=2.5, fig.width = 6 ,fig.cap="Average response times for  my replication and Experiment2"}
+```{r exp2AvgRTs, fig.height=2.5, fig.width = 6 ,fig.cap="Average response times for experiment 1 and experiment 2."}
 
 p_avg_rt2 <- ggplot(avg_clean2, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
 
