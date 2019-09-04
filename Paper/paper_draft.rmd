@@ -708,7 +708,6 @@ m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
 
 ```
 
-<!-- to-do: relabel all 'vowel ending' stuff to be about ACC-GEN ambiguity -->
 <!-- to-do: make sure the CIs are HPDIs, and say so -->
 
 ```{r exp1ResponseModelPlot, fig.height = 2.5, fig.width = 6, fig.cap="Estimates and 95% credible intervals for the regression coefficients in accuracy (log-odds units)."}
@@ -735,8 +734,7 @@ print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment
 
 ```
 
-
-Figure \@ref(fig:exp1AvgRTs) shows higher
+Figure \@ref(fig:exp1AvgRTs) shows higher average RTs in 
 
 , I see that average response times are significantly higher than the those of @LagoEtAl:2018. I also see it in \@ref(exp1ResponseTimeModelPlot), since **b_cEndsinVowel** indicates whether or not it is Experiment 1 or Experiment from @LagoEtAl:2018, i.e. distractors in items in @LagoEtAl:2018 ends with a consonant, while ours ends in a vowel. Again, these results show the effect of disambiguation of the possessive suffix from the accusative case has surfaced as the difficulty in response and memory retrieval time.
 
