@@ -1,14 +1,15 @@
 
 # TODO: Figure out how to treat missing data in this function
+# TODO: Make sure this is strictly a within-participants design. Strange things happen to the means if one tries to process two experiments at once, even if the experiment is used as a grouping factor in the group argument
 se_cousineau <- function(df, n_conditions, subject, DV, group, is_proportion = NULL)
 {
   stopifnot(!"avgDV" %in% colnames(df))
-  subject <- substitute(subject) %>% deparse()
+  subject_var <- substitute(subject) %>% deparse()
   DV <- substitute(DV) %>% deparse()
   
-  subj_means <- df %>% group_by_(subject) %>% dplyr::summarize_(avgDV = sprintf("mean(%s, na.rm = T)", DV))
+  subj_means <- df %>% group_by(.dots = subject_var) %>% dplyr::summarize(avgDV := mean(!!as.name(DV), na.rm = T))
   GM <- mean(subj_means$avgDV)
-  df %<>% group_by_(subject) %>% mutate_(nDV = sprintf("%s - mean(%s, na.rm = T) + GM", DV, DV) )
+  df %<>% group_by(.dots = subject_var) %>% dplyr::mutate(nDV = !!as.name(DV) - mean(!!as.name(DV), na.rm = T) + GM )
   
   if (is.null(is_proportion)) {
     dv <- df[[DV]]
@@ -21,15 +22,36 @@ se_cousineau <- function(df, n_conditions, subject, DV, group, is_proportion = N
   }
   
   var_correction_factor <- n_conditions/(n_conditions-1)
-  df %>% group_by_(.dots = group) %>% 
-    dplyr::summarize(M = mean(nDV, na.rm = T),
-                     #Var = ifelse(is_proportion, M*(1-M), var(x)) * var_correction_factor,
-                     Var = var(nDV, na.rm = T) * var_correction_factor,
-                     N = sum(!is.na(nDV)),
-                     SE = sqrt(Var/N) )
+  df %>% group_by(.dots = group) %>% 
+          dplyr::summarize(M = mean(nDV, na.rm = T),
+                           Var = ifelse(is_proportion, M*(1-M), var(nDV, na.rm = T)) * var_correction_factor,
+                           #Var = var(nDV, na.rm = T) * var_correction_factor,
+                           N = sum(!is.na(nDV)),
+                           SE = sqrt(Var/N) )
 }
 
 
+# 
+# se_cousineau <- function(df, n_conditions, subject, DV, group, is_proportion = NULL)
+# {
+#   stopifnot(!"avgDV" %in% colnames(df))
+#   subject_var <- substitute(subject) %>% deparse()
+#   DV <- substitute(DV) %>% deparse()
+#   
+#   subj_means <- df %>% group_by(.dots = subject_var) %>% dplyr::summarize(avgDV := mean(!!as.name(DV), na.rm = T))
+#   #subj_means$avgDV <- mean(subj_means$avgDV)
+#   GM <- mean(subj_means$avgDV)
+#   df %<>% left_join( subj_means, by = subject_var )
+#   df %<>% group_by(.dots = subject_var) %>% dplyr::mutate(nDV := !!as.name(DV) - avgDV)
+#   
+#   #df
+#   df %>% group_by(.dots = group) %>% dplyr::summarize( M = mean(nDV, na.rm = T),# + GM,
+#                                                        N_yes = sum(ResponseYes == T, na.rm = T),
+#                                                        N = sum(!is.na(nDV))
+#                                                        )
+# }
+# 
+# 
 
 
 nunique <- function(x) length(unique(x))
@@ -160,7 +182,7 @@ create_model_coefs_plot <- function(m,
   } else if (is.list(m)) {
     stopifnot( length(names(m)) == length(unique(names(m))) )
     
-    tbl <- ldply(seq_along(m), function(i) { 
+    tbl <- plyr::ldply(seq_along(m), function(i) { 
       tbl <- model_summary( m[[i]] #, include_pp_below_zero = plot_stats 
       )
       tbl$model <- names(m)[i]
@@ -237,7 +259,7 @@ create_model_coefs_plot <- function(m,
                        family = "mono", hjust = "left")
     suppressWarnings({
       label <- parse(text = "underline(paste('P(', theta, ' < 0)'))")
-      p <-  p + geom_text(x = tbl$xmax[1], y = max(as.integer(tbl$coef))+1, 
+      p <-  p + geom_text(x = tbl$xmax[1], y = length(unique(tbl$coef))+1, 
                           label = label,
                           family = "mono", hjust = "left")#, fontface = "underlined")
     })
