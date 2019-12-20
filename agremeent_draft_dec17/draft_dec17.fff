@@ -1,0 +1,57 @@
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+
+\begin{center}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/fig1-1}
+
+\end{knitrout}
+\end{center}
+\caption{Scatter Plot with Regression Line}
+\label{fig:one}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h]
+\centering
+\includegraphics[width=\textwidth]{figures/exp1AvgResponse-1.png}
+\caption{Percentage of \IeC {\textquoteleft }yes\IeC {\textquoteright } (acceptable) responses of Experiment 1 and \citet{LagoEtAl:2018}}
+\label{fig:exp1AvgResponse}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h]
+\centering
+\includegraphics[width=\textwidth]{figures/exp1ResponseModelPlot-1.png}
+\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1}
+% give details regarding encoding etc.
+\label{fig:exp1ResponseModel}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h]
+    \centering
+    \includegraphics[width=0.8\textwidth]{example-grid-100x100pt}
+    \caption{Proposed multinomial processing tree of how people judge sentences in an agreement attraction task}
+    \label{fig:mptModel}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h]
+\centering
+\includegraphics[width=\textwidth]{figures/exp2AvgResponse-1.png}
+\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2}
+% give details regarding encoding etc.
+\label{fig:exp2AvgResponse}
+\end{figure*}
+\begin{figure*}[hbt]
+\ifnextchar[{\eatarg}{}
+[h]
+\centering
+\includegraphics[width=\textwidth]{figures/exp2ResponseModelPlot-1.png}
+\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 2}
+% give details regarding encoding etc.
+% similar to experiment1 model graph
+\label{fig:exp2ResponseModel}
+\end{figure*}

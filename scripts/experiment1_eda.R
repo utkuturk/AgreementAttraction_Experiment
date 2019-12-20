@@ -5,9 +5,9 @@ library(MASS)
 library(magrittr)
 library(ggplot2)
 
-fname_data <- "../workspace1/exp_data.rds"
+fname_data <- "../workspace_exp1/exp_data.rds"
 
-
+data <- readRDS(file = fname_data)
 dataAv <- data %>% 
   group_by(experiment, condition, grammatical, verb_num, attracted) %>%
   summarize(avRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T)) %>% 

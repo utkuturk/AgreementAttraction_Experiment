@@ -1,40 +1,62 @@
-\documentclass[a4paper,man,natbib]{apa6}
-<<echo=F>>=
-# Set the global chunk options
-set.seed(42)
-knitr::opts_chunk$set(encoding = 'UTF-8',
-                      cache.extra = knitr::rand_seed,
-                      echo = F,
-                      results = 'hide',
-                      message = F,
-                      warning = F)
-options("citation_format" = "pandoc")
+\documentclass[a4paper,man,natbib]{apa6}\usepackage[]{graphicx}\usepackage[]{color}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
 
-@
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlstr}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hlstd}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 
-<<>>=
-# load packages
-library(knitcitations)
-library(car, warn.conflicts = FALSE)
-library(MASS)
-library(brms)
-library(xtable)
-library(ggpubr)
-library(languageR)
-library(tidyverse)
-library(gdata)
-library(magrittr)
-library(ggplot2)
-theme_set(theme_bw())
 
-source("../scripts/misc.R")
-
-@
 \title{The Role of Shallow Processing in Agreement Attraction}
 \shorttitle{Your APA6-Style Manuscript}
 \author{Utku Türk, Pavel Loga\v{c}ev}
@@ -43,6 +65,7 @@ source("../scripts/misc.R")
 
 \abstract{We report the results of two speeded acceptability judgment experiments in Turkish. We hypothesized an alternative explanation for agreement attraction effects in Turkish that is based on shallow processing. Our findings contradict our hypothesized form-driven processing strategy and support an account of agreement attraction based on the use of abstract linguistic features, rather than mere form.}
 \input{settings.tex}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 \maketitle
 
@@ -67,46 +90,7 @@ section{Introduction} \label{sec:Intro}
 
 
 \section{Experiment 1} \label{sec:exp1}
-<<>>=
 
-fname_data <- "../workspace_exp1/exp_data.rds"
-data <- readRDS(file = fname_data)
-
-# compute by-subject percentages of 'yes' responses, and average RTs 
-avg_by_subj <- data %>%
-                group_by(subject, experiment, condition, 
-                         grammatical, verb_num, attractor_num) %>%
-                summarize(avRT = mean(RT), 
-                          p_yes = mean(ResponseYes, na.rm = T), 
-                          N = sum(!is.na(ResponseYes))  )
-
-# reformat by-subject averages to a wide format
-avg_by_subj_wide <- avg_by_subj %>% 
-                      mutate(expcond = paste(experiment, condition, sep="_")) %>% 
-                      ungroup() %>%
-                      dplyr::select(-experiment, -condition, -avRT, -N,
-                                    -grammatical, -verb_num, -attractor_num) %>%
-                      tidyr::spread(expcond, p_yes) %>% 
-                      mutate(delta_dc = AgrAttr_d - AgrAttr_c)
-# Load Lago et al.'s monolingual data
-fname_lagoetal <- "../Data/Lago_et_al/Lago_data.csv"
-df_lagoetal <- read.csv(fname_lagoetal, encoding = "UTF-8", as.is = T)
-df_lagoetal %<>% subset(Group == "monolingual")
-df_lagoetal %<>% dplyr::select(-Accuracy, -L1:-Group, -List:-SelfRateGerman)
-
-# Note: All rows with Experiment == "offline" also seem to be for 
-#       the UNP task ('Grammatical' is NA). I wonder if these were
-#       the same subjects, or if the subject labels were simply the same
-#       for the two experiments.
-with(df_lagoetal, stopifnot( is.na(Grammatical) == (Experiment == "offline") ))
-
-df_lagoetal_unp <- df_lagoetal %>% 
-                    subset(is.na(Grammatical)) %>%
-                    dplyr::select(-Grammatical:-Label)
-df_lagoetal_attr <- df_lagoetal %>% 
-                  subset(!is.na(Grammatical)) %>%
-                  dplyr::select(-Distance:-NewCond)
-@
 In Experiment 1, we tested whether speakers of Turkish make fewer errors when the local ambiguity in the head noun is resolved. Specifically, we have replicated the \citet{LagoEtAl:2018} study. However, instead of using their NP heads, we chose to use nouns that end in a vowel, thus resolving the ambiguity between the accusative and possessive. 
 
 \subsection{Participants} \label{sec:exp1:participants}
@@ -162,104 +146,20 @@ Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:
 %I did not know how to state (1+x*y|subjet)
 Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
 
-<<>>=
 
-# identify participants 
-bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
-
-#dataAvBySubj %>% subset(subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~subject)
-
-data_clean <- data %>% subset(!subject %in% bad_subjects)
-
-
-word_freq <- readxl::read_excel("../Data/freq.xlsx", sheet = 1)
-word_freq$freq_percentage %<>% as.numeric()
-word_freq %<>% dplyr::select(-freq_standardized, -freq_percentage, -word)
-word_freq %<>% tidyr::spread(place, freq_count)
-
-word_freq %<>% dplyr::group_by(exp) %>% 
-               dplyr::mutate( cat_n1 = ifelse(n1 > median(n1), "high", "low"),
-                              cat_n2 = ifelse(n2 > median(n2), "high", "low"),
-                              freqlog_n1 = scale(log(n1)),
-                              freqlog_n2 = scale(log(n2)),
-                              freqlog_n1n2 = log(n1) - log(n2)
-                            ) %>% 
-                ungroup()
-word_freq$cat_n1 %<>% as.factor()
-word_freq$cat_n2 %<>% as.factor()
-
-word_freq_exp1 <- word_freq %>% 
-                    subset(exp == "up") %>% 
-                    dplyr::select(-exp)
-word_freq_lago <- word_freq %>% 
-                    subset(exp == "lago") %>% 
-                    dplyr::select(-exp)
-df_merge_exp1 <- data_clean %>% ungroup() %>% 
-                      dplyr::select(source=experiment, 
-                                    grammatical, attractor_num,
-                                    # condition,
-                                    subject, item=Item,
-                                    ResponseYes, RT)
-df_merge_exp1$experiment <- "Experiment 1"
-df_merge_exp1$grammatical <- with(df_merge_exp1, 
-                                  ifelse(grammatical == "gram", 
-                                          "grammatical",
-                                          "ungrammatical"))
-df_merge_exp1$attractor_num <- with(df_merge_exp1, 
-                                    ifelse(attractor_num == "pl",
-                                           "plural", 
-                                           "singular"))
-df_merge_exp1$item %<>% as.integer()
-df_merge_exp1$subject %<>% as.character()
-df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
-
-
-df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") )
-df_merge_lago <- df_lagoetal_attr %>% ungroup() %>% 
-                      dplyr::select(grammatical=Grammatical,
-                                    attractor_num=Attractor,
-                                    #condition=Condition, 
-                                    subject=Participant, 
-                                    item=Item,
-                                    ResponseYes, RT)
-df_merge_lago %<>% left_join(word_freq_lago, by = "item")
-df_merge_lago$experiment <- "Lago et al. (2018)" 
-df_merge_lago$source <- NA
-df_merge_lago$item %<>% add(1000)
-
-df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
-df_merged$subject %<>% as.factor()
-df_merged$item %<>% as.factor()
-avg_clean <- 
-  df_merged %>%
-     group_by(experiment, source, grammatical, attractor_num) %>%
-     summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
-
-avg_exp <- avg_clean %>% subset(is.na(source) | source != "filler")
-avg_fillers <- avg_clean %>% subset(source == "filler")
-
-p_avg_resp <- ggplot(avg_exp, 
-                     aes(grammatical, p_yes, #linetype = attractor_num, 
-                         color = attractor_num, group = attractor_num)) + 
-                geom_point() + geom_line() + 
-                facet_wrap(~experiment)
-
-p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + geom_point(data = avg_fillers)
-
-@
 
 
 \subsection{Results} \label{sec:exp1:results}
 
-<<label=fig1plot,include=FALSE>>=
-print(p_avg_resp)
-@
+
 
 \begin{figure}
 \begin{center}
-<<label=fig1,fig=TRUE,echo=FALSE>>=
-<<fig1plot>>
-@
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
+\includegraphics[width=\maxwidth]{figure/fig1-1} 
+
+\end{knitrout}
 \end{center}
 \caption{Scatter Plot with Regression Line}
 \label{fig:one}

@@ -1,0 +1,256 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Bürkner%
+}{%
+Bürkner%
+}{%
+{\protect \APACyear {2018}}%
+}]{%
+R-brms_b}
+\APACinsertmetastar {%
+R-brms_b}%
+\begin{APACrefauthors}%
+Bürkner, P\BHBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Advanced {Bayesian} Multilevel Modeling with the {R}
+  Package {brms}} {Advanced {Bayesian} multilevel modeling with the {R} package
+  {brms}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The R Journal}{10}{1}{395--411}.
+\newblock
+\begin{APACrefDOI} \doi{10.32614/RJ-2018-017} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Gelman%
+\ \BBA {} Hill%
+}{%
+Gelman%
+\ \BBA {} Hill%
+}{%
+{\protect \APACyear {2007}}%
+}]{%
+GelmanHill:2007}
+\APACinsertmetastar {%
+GelmanHill:2007}%
+\begin{APACrefauthors}%
+Gelman, A.%
+\BCBT {}\ \BBA {} Hill, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2007}.
+\newblock
+\APACrefbtitle {{Data Analysis Using Regression and Multilevel/Hierarchical
+  Models}} {{Data Analysis Using Regression and Multilevel/Hierarchical
+  Models}}.
+\newblock
+\APACaddressPublisher{Cambridge, UK}{Cambridge University Press}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+J{\"{a}}ger%
+, Engelmann%
+\BCBL {}\ \BBA {} Vasishth%
+}{%
+J{\"{a}}ger%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2017}}%
+}]{%
+JagerEngelmannVasishth:2017}
+\APACinsertmetastar {%
+JagerEngelmannVasishth:2017}%
+\begin{APACrefauthors}%
+J{\"{a}}ger, L\BPBI A.%
+, Engelmann, F.%
+\BCBL {}\ \BBA {} Vasishth, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Similarity-based interference in sentence
+  comprehension: Literature review and Bayesian meta-analysis}}
+  {{Similarity-based interference in sentence comprehension: Literature review
+  and Bayesian meta-analysis}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Memory and Language}{94}{}{316--339}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jml.2017.01.004} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kornfilt%
+}{%
+Kornfilt%
+}{%
+{\protect \APACyear {2009}}%
+}]{%
+kornfilt2009dom}
+\APACinsertmetastar {%
+kornfilt2009dom}%
+\begin{APACrefauthors}%
+Kornfilt, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {DOM and two types of DSM in Turkish} {Dom and two types
+  of dsm in turkish}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {Differential subject marking} {Differential subject
+  marking}\ (\BPGS\ 79--111).
+\newblock
+\APACaddressPublisher{}{Springer}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lago%
+\ \protect \BOthers {.}}{%
+Lago%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+LagoEtAl:2018}
+\APACinsertmetastar {%
+LagoEtAl:2018}%
+\begin{APACrefauthors}%
+Lago, S.%
+, Felser, C.%
+, Gra{\v{c}}anin-Yuksek, M.%
+, Demir, O.%
+, Kırkıcı, B.%
+\BCBL {}\ \BBA {} Şafak, D\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Straight from the horse's mouth: Agreement attraction
+  effects with Turkish possessors}} {{Straight from the horse's mouth:
+  Agreement attraction effects with Turkish possessors}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Linguistic Approaches to Bilingualism}{12}{1}{1--29}.
+\newblock
+\begin{APACrefDOI} \doi{10.1075/lab.17019.lag} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Lewis%
+\ \BBA {} Vasishth%
+}{%
+Lewis%
+\ \BBA {} Vasishth%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+LewisVasishth:2005}
+\APACinsertmetastar {%
+LewisVasishth:2005}%
+\begin{APACrefauthors}%
+Lewis, R\BPBI L.%
+\BCBT {}\ \BBA {} Vasishth, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{An activation-based model of sentence processing as
+  skilled memory retrieval}} {{An activation-based model of sentence processing
+  as skilled memory retrieval}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Cognitive Science}{29}{3}{375--419}.
+\newblock
+\begin{APACrefDOI} \doi{10.1207/s15516709cog0000_25} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Nicol%
+, Barss%
+\BCBL {}\ \BBA {} Barker%
+}{%
+Nicol%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2016}}%
+}]{%
+nicol2016minimal}
+\APACinsertmetastar {%
+nicol2016minimal}%
+\begin{APACrefauthors}%
+Nicol, J\BPBI L.%
+, Barss, A.%
+\BCBL {}\ \BBA {} Barker, J\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Minimal interference from possessor phrases in the
+  production of subject-verb agreement} {Minimal interference from possessor
+  phrases in the production of subject-verb agreement}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Frontiers in psychology}{7}{}{548}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Stan Development Team}%
+}{%
+{Stan Development Team}%
+}{%
+{\protect \APACyear {2019}}%
+}]{%
+R-stan}
+\APACinsertmetastar {%
+R-stan}%
+\begin{APACrefauthors}%
+{Stan Development Team}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2019}{}{}.
+\newblock
+\APACrefbtitle {{RStan}: the {R} interface to {Stan}.} {{RStan}: the {R}
+  interface to {Stan}.}
+\newblock
+\begin{APACrefURL} \url{http://mc-stan.org/} \end{APACrefURL}
+\newblock
+\APACrefnote{R package version 2.19.1}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wagers%
+, Lau%
+\BCBL {}\ \BBA {} Phillips%
+}{%
+Wagers%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+WagersEtAl:2009}
+\APACinsertmetastar {%
+WagersEtAl:2009}%
+\begin{APACrefauthors}%
+Wagers, M\BPBI W.%
+, Lau, E\BPBI F.%
+\BCBL {}\ \BBA {} Phillips, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Agreement attraction in comprehension: Representations
+  and processes}} {{Agreement attraction in comprehension: Representations and
+  processes}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Memory and Language}{61}{2}{206--237}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.jml.2009.04.002} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}
