@@ -1,4 +1,4 @@
-\documentclass[a4paper,man,natbib]{apa6}
+\documentclass[doc,a4paper,man,natbib,floatsintext,noextraspace]{apa6}
 <<echo=F>>=
 # Set the global chunk options
 set.seed(42)
@@ -9,14 +9,13 @@ knitr::opts_chunk$set(encoding = 'UTF-8',
                       message = F,
                       warning = F)
 options("citation_format" = "pandoc")
-
 @
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
-
+\usepackage[singlespacing]{setspace}
 <<>>=
 # load packages
 library(knitcitations)
@@ -44,6 +43,7 @@ source("../scripts/misc.R")
 \abstract{We report the results of two speeded acceptability judgment experiments in Turkish. We hypothesized an alternative explanation for agreement attraction effects in Turkish that is based on shallow processing. Our findings contradict our hypothesized form-driven processing strategy and support an account of agreement attraction based on the use of abstract linguistic features, rather than mere form.}
 \input{settings.tex}
 \begin{document}
+
 \maketitle
 
 
@@ -67,13 +67,22 @@ section{Introduction} \label{sec:Intro}
 
 
 \section{Experiment 1} \label{sec:exp1}
+% do not do this in one chunk. differentiate the chunks and give them proper names.
 <<>>=
-
 fname_data <- "../workspace_exp1/exp_data.rds"
-data <- readRDS(file = fname_data)
+data_exp1 <- readRDS(file = fname_data)
+
+### note: the low accuracy on fillers is not caused by a couple of items
+# filler_avgs <- 
+# data_exp1 %>% subset(Type == "filler") %>% group_by(Item, condition) %>% 
+#               summarize(M = mean(ResponseYes, na.rm = T)) %>%
+#               arrange(condition, Item)
+# fillers %>% subset(condition == "a") 
+# fillers %>% subset(condition == "b")
+###
 
 # compute by-subject percentages of 'yes' responses, and average RTs 
-avg_by_subj <- data %>%
+avg_by_subj <- data_exp1 %>%
                 group_by(subject, experiment, condition, 
                          grammatical, verb_num, attractor_num) %>%
                 summarize(avRT = mean(RT), 
@@ -88,6 +97,8 @@ avg_by_subj_wide <- avg_by_subj %>%
                                     -grammatical, -verb_num, -attractor_num) %>%
                       tidyr::spread(expcond, p_yes) %>% 
                       mutate(delta_dc = AgrAttr_d - AgrAttr_c)
+
+
 # Load Lago et al.'s monolingual data
 fname_lagoetal <- "../Data/Lago_et_al/Lago_data.csv"
 df_lagoetal <- read.csv(fname_lagoetal, encoding = "UTF-8", as.is = T)
@@ -106,7 +117,109 @@ df_lagoetal_unp <- df_lagoetal %>%
 df_lagoetal_attr <- df_lagoetal %>% 
                   subset(!is.na(Grammatical)) %>%
                   dplyr::select(-Distance:-NewCond)
+
+df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") ) %>% 
+                      dplyr::select(-Response)
+df_lagoetal_attr %<>% ungroup() %>%
+                      dplyr::select(grammatical=Grammatical,
+                                    attractor_num=Attractor,
+                                    experiment=Experiment,
+                                    lagoetal_condition=Condition, 
+                                    subject=Participant, 
+                                    item=Item,
+                                    ResponseYes,
+                                    RT)
+
+# map to our condition labels
+lagoetal_condition_mapping <- data.frame(
+    condition = c("a", "b", "c", "d"),
+    lagoetal_condition = c("d", "b", "c", "a"), 
+    stringsAsFactors = F)
+
+df_lagoetal_attr %<>% left_join( lagoetal_condition_mapping, by = "lagoetal_condition" )
+
+# compute by-subject percentages of 'yes' responses, and average RTs 
+avg_by_subj_lagoetal <- df_lagoetal_attr %>%
+            group_by(subject, experiment, condition, grammatical, attractor_num) %>%
+            summarize(avRT = mean(RT), 
+                      p_yes = mean(ResponseYes, na.rm = T), 
+                      N = sum(!is.na(ResponseYes))  )
+
+# reformat by-subject averages to a wide format
+avg_by_subj_lagoetal_wide <- avg_by_subj_lagoetal %>% 
+            mutate(expcond = paste(experiment, condition, sep="_")) %>% 
+            ungroup() %>%
+            dplyr::select(-experiment, -condition, -avRT, -N,
+                          -grammatical, -attractor_num) %>%
+            tidyr::spread(expcond, p_yes) %>% 
+            mutate(delta_dc = online_d - online_c)
+word_freq <- readxl::read_excel("../Data/freq.xlsx", sheet = 1)
+word_freq$freq_percentage %<>% as.numeric()
+word_freq %<>% dplyr::select(-freq_standardized, -freq_percentage, -word)
+word_freq %<>% tidyr::spread(place, freq_count)
+
+word_freq %<>% dplyr::group_by(exp) %>% 
+               dplyr::mutate( cat_n1 = ifelse(n1 > median(n1), "high", "low"),
+                              cat_n2 = ifelse(n2 > median(n2), "high", "low"),
+                              freqlog_n1 = scale(log(n1)),
+                              freqlog_n2 = scale(log(n2)),
+                              freqlog_n1n2 = log(n1) - log(n2)
+                            ) %>% 
+                ungroup()
+word_freq$cat_n1 %<>% as.factor()
+word_freq$cat_n2 %<>% as.factor()
+
+word_freq_exp1 <- word_freq %>% 
+                    subset(exp == "up") %>% 
+                    dplyr::select(-exp)
+word_freq_lago <- word_freq %>% 
+                    subset(exp == "lago") %>% 
+                    dplyr::select(-exp)
+
+# identify bad participants 
+bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
+data_exp1_clean <- data_exp1 %>% subset(!subject %in% bad_subjects)
+
+# identify bad participants 
+bad_subjects_lagoetal <- subset(avg_by_subj_lagoetal_wide, delta_dc <= 0.25 ) %>% .$subject
+df_lagoetal_attr_clean <- df_lagoetal_attr %>% subset(!subject %in% bad_subjects_lagoetal)
+df_merge_exp1 <- data_exp1_clean %>% ungroup() %>% 
+                      dplyr::select(source=experiment, 
+                                    grammatical, attractor_num,
+                                    # condition,
+                                    subject, item=Item,
+                                    ResponseYes, RT)
+df_merge_exp1$experiment <- "Experiment 1"
+df_merge_exp1$grammatical <- with(df_merge_exp1, 
+                                  ifelse(grammatical == "gram", 
+                                          "grammatical",
+                                          "ungrammatical"))
+df_merge_exp1$attractor_num <- with(df_merge_exp1, 
+                                    ifelse(attractor_num == "pl",
+                                           "plural", 
+                                           "singular"))
+df_merge_exp1$item %<>% as.integer()
+df_merge_exp1$subject %<>% as.character()
+#df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
+
+df_merge_lago <- df_lagoetal_attr_clean %>%
+                      ungroup() %>% 
+                      dplyr::select(grammatical, attractor_num,
+                                    subject, item, ResponseYes, RT)
+#df_merge_lago %<>% left_join(word_freq_lago, by = "item")
+df_merge_lago$experiment <- "Lago et al. (2018)" 
+df_merge_lago$source <- NA
+df_merge_lago$item %<>% add(1000)
+
+df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
+df_merged$subject %<>% as.factor()
+df_merged$item %<>% as.factor()
+
+df_exp1_na_nofillers <- subset(df_merge_exp1, is.na(ResponseYes) & source != "filler")
+df_merged %<>% subset( !is.na(ResponseYes) )
+
 @
+
 In Experiment 1, we tested whether speakers of Turkish make fewer errors when the local ambiguity in the head noun is resolved. Specifically, we have replicated the \citet{LagoEtAl:2018} study. However, instead of using their NP heads, we chose to use nouns that end in a vowel, thus resolving the ambiguity between the accusative and possessive. 
 
 \subsection{Participants} \label{sec:exp1:participants}
@@ -162,117 +275,92 @@ Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:
 %I did not know how to state (1+x*y|subjet)
 Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
 
-<<>>=
-
-# identify participants 
-bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
-
-#dataAvBySubj %>% subset(subject %in% bad_subjects) %>% ggplot(aes(grammatical, p_yes, group = paste(experiment,attracted), color = experiment )) + geom_point() + geom_line(aes(linetype =attracted)) + facet_wrap(~subject)
-
-data_clean <- data %>% subset(!subject %in% bad_subjects)
-
-
-word_freq <- readxl::read_excel("../Data/freq.xlsx", sheet = 1)
-word_freq$freq_percentage %<>% as.numeric()
-word_freq %<>% dplyr::select(-freq_standardized, -freq_percentage, -word)
-word_freq %<>% tidyr::spread(place, freq_count)
-
-word_freq %<>% dplyr::group_by(exp) %>% 
-               dplyr::mutate( cat_n1 = ifelse(n1 > median(n1), "high", "low"),
-                              cat_n2 = ifelse(n2 > median(n2), "high", "low"),
-                              freqlog_n1 = scale(log(n1)),
-                              freqlog_n2 = scale(log(n2)),
-                              freqlog_n1n2 = log(n1) - log(n2)
-                            ) %>% 
-                ungroup()
-word_freq$cat_n1 %<>% as.factor()
-word_freq$cat_n2 %<>% as.factor()
-
-word_freq_exp1 <- word_freq %>% 
-                    subset(exp == "up") %>% 
-                    dplyr::select(-exp)
-word_freq_lago <- word_freq %>% 
-                    subset(exp == "lago") %>% 
-                    dplyr::select(-exp)
-df_merge_exp1 <- data_clean %>% ungroup() %>% 
-                      dplyr::select(source=experiment, 
-                                    grammatical, attractor_num,
-                                    # condition,
-                                    subject, item=Item,
-                                    ResponseYes, RT)
-df_merge_exp1$experiment <- "Experiment 1"
-df_merge_exp1$grammatical <- with(df_merge_exp1, 
-                                  ifelse(grammatical == "gram", 
-                                          "grammatical",
-                                          "ungrammatical"))
-df_merge_exp1$attractor_num <- with(df_merge_exp1, 
-                                    ifelse(attractor_num == "pl",
-                                           "plural", 
-                                           "singular"))
-df_merge_exp1$item %<>% as.integer()
-df_merge_exp1$subject %<>% as.character()
-df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
-
-
-df_lagoetal_attr %<>% mutate(ResponseYes = (Response == "yes") )
-df_merge_lago <- df_lagoetal_attr %>% ungroup() %>% 
-                      dplyr::select(grammatical=Grammatical,
-                                    attractor_num=Attractor,
-                                    #condition=Condition, 
-                                    subject=Participant, 
-                                    item=Item,
-                                    ResponseYes, RT)
-df_merge_lago %<>% left_join(word_freq_lago, by = "item")
-df_merge_lago$experiment <- "Lago et al. (2018)" 
-df_merge_lago$source <- NA
-df_merge_lago$item %<>% add(1000)
-
-df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
-df_merged$subject %<>% as.factor()
-df_merged$item %<>% as.factor()
-avg_clean <- 
-  df_merged %>%
-     group_by(experiment, source, grammatical, attractor_num) %>%
-     summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
-
-avg_exp <- avg_clean %>% subset(is.na(source) | source != "filler")
-avg_fillers <- avg_clean %>% subset(source == "filler")
-
-p_avg_resp <- ggplot(avg_exp, 
-                     aes(grammatical, p_yes, #linetype = attractor_num, 
-                         color = attractor_num, group = attractor_num)) + 
-                geom_point() + geom_line() + 
-                facet_wrap(~experiment)
-
-p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + geom_point(data = avg_fillers)
-
-@
 
 
 \subsection{Results} \label{sec:exp1:results}
 
-<<label=fig1plot,include=FALSE>>=
-print(p_avg_resp)
-@
-
-\begin{figure}
-\begin{center}
-<<label=fig1,fig=TRUE,echo=FALSE>>=
-<<fig1plot>>
-@
-\end{center}
-\caption{Scatter Plot with Regression Line}
-\label{fig:one}
-\end{figure}
 
 \autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. It shows that ungrammatical sentences with plural attractors are rated as acceptable more often than their counterparts with singular attractors. In addition to ungrammatical conditions, accuracy rates within the grammatical conditions were comparable and high across conditions (mean = x\%, SE = x\%). As seen in \autoref{fig:exp1AvgResponse}, participants judged the sentences with plural attractor and singular verbs to be grammatical with the rate of X\%, which is in line with the findings reported in \citet{LagoEtAl:2018}.    
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp1AvgResponse-1.png}
-\caption{Percentage of ‘yes’ (acceptable) responses of Experiment 1 and \citet{LagoEtAl:2018}}
-\label{fig:exp1AvgResponse}
-\end{figure}
+
+<<exp1AvgResponse, fig.cap='Percentage of \\emph{yes} (acceptable) responses of Experiment 1 and \\citet{LagoEtAl:2018}', fig.height=3, fig.align='center'>>=
+
+df_merged %<>% mutate(ResponseCorrect = (ResponseYes == (grammatical == "grammatical") ) )
+df_merged_nonna <- df_merged %>% subset(!is.na(ResponseYes))
+
+# avg_clean <- 
+# df_merged %>% subset(experiment == "Lago et al. (2018)") %>%
+#      group_by(experiment, source, grammatical, attractor_num, subject) %>%
+#      summarize(p_yes = mean(ResponseYes, na.rm=T)) %>%
+#      summarize(p_yes = mean(p_yes))
+
+
+
+avg_clean <- list()
+avg_clean$resp <- df_merged_nonna %>% 
+              plyr::ddply(c("experiment"), function(df) {
+              df %>% se_cousineau(n_conditions = 4, subject, DV = ResponseYes, 
+                           group = c("experiment", "source", "grammatical", "attractor_num"), 
+                           is_proportion = TRUE)
+})
+
+avg_clean$rt <- df_merged_nonna %>%
+              plyr::ddply(c("experiment"), function(df) {
+              df %>% se_cousineau(n_conditions = 4, subject, DV = RT, 
+                           group = c("experiment", "source", "grammatical", "attractor_num"), 
+                           is_proportion = FALSE)
+})
+
+avg_clean$rt_correct <- df_merged_nonna %>% subset(ResponseCorrect) %>%
+              plyr::ddply(c("experiment"), function(df) {
+              df %>% se_cousineau(n_conditions = 4, subject, DV = RT, 
+                           group = c("experiment", "source", "grammatical", "attractor_num"), 
+                           is_proportion = FALSE)
+})
+
+avg_exp <- avg_clean %>% lapply(function(df) { df %>% subset(is.na(source) | source != "filler") })
+avg_fillers <- avg_clean %>% lapply(function(df) { df %>% subset(source == "filler") })
+
+p_avg_resp <- avg_exp$resp %>%
+              ggplot(aes(grammatical, M, #linetype = attractor_num, 
+                         color = attractor_num, group = attractor_num)) + 
+                geom_point() + geom_line() + 
+                facet_wrap(~experiment)
+
+p_avg_resp <- p_avg_resp + geom_errorbar(aes(ymin = M - 1.96*SE, ymax = M + 1.96*SE), width = 0.1)
+
+# p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + 
+#                             geom_point(data = avg_fillers) + 
+
+p_avg_resp <- p_avg_resp + theme( strip.background = element_rect(fill="white") ) +
+                           theme_bw() + xlab("") + ylab("Percentage 'acceptable'")
+p_avg_resp <- p_avg_resp + scale_y_continuous(labels=scales::percent)#, breaks = c(0, .25, .5, .75, 1))
+p_avg_resp <- p_avg_resp + theme_bw()
+p_avg_resp <- p_avg_resp + scale_color_discrete(name = "Attractor Number")
+print(p_avg_resp)
+
+if (exists("le_poster")) {
+  p_avg_resp <- avg_exp$resp %>% subset(experiment == "Experiment 1") %>%
+                ggplot(aes(grammatical, M, #linetype = attractor_num, 
+                           color = attractor_num, group = attractor_num)) + 
+                  geom_point() + geom_line() + theme( strip.background = element_rect(fill="white")) +
+                  facet_wrap(~experiment)
+  
+  p_avg_resp <- p_avg_resp + geom_errorbar(aes(ymin = M - 1.96*SE, ymax = M + 1.96*SE), width = 0.1)
+  
+  # p_avg_resp <- p_avg_resp + geom_line(data = avg_fillers) + 
+  #                             geom_point(data = avg_fillers) + 
+  
+  p_avg_resp <- p_avg_resp + theme( strip.background = element_rect(fill="white") ) +
+                             theme_bw() + xlab("") + ylab("Percentage 'acceptable'")
+  p_avg_resp <- p_avg_resp + scale_y_continuous(labels=scales::percent, limits = c(0,1))#, breaks = c(0, .25, .5, .75, 1))
+  p_avg_resp <- p_avg_resp + theme_bw()
+  p_avg_resp <- p_avg_resp + scale_color_discrete(name = "Attractor Number")
+  ggsave(filename = "./plots_le/exp1.jpeg", p_avg_resp, height = 2.5, width = 2.5*2)
+}
+
+
+@
 
 
 The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was XX in log-odds, and the interaction between the ungrammaticality and plural attractor was XX in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
@@ -281,14 +369,111 @@ The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} 
 %Moreover, this findings are also predicted by cue-based retrieval models \citep{engelmann2019effect, vasishth2019computational} and last rendition of marking and morphing theory by \citet{HammerlyEtAl:2019}. %does it tho? especially with regards to what sol lago says: gen and morphophonology gives clues. maybe we should take a look at speeded acceptability? 
 %maybe this is not the perfect place to write this.
 
+<<>>=
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp1ResponseModelPlot-1.png}
-\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1}
-% give details regarding encoding etc.
-\label{fig:exp1ResponseModel}
-\end{figure}
+df_merged %<>% within(., {
+  cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
+  cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
+  cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
+  cEndsInConsonant <- ifelse(experiment != "Experiment 1", .5, -.5)
+  #cFreqlog_n1n2 <- scale(freqlog_n1n2)
+  #cFreqlog_n1 <- scale(freqlog_n1)
+  #cFreqlog_n2 <- scale(freqlog_n2)
+})
+df_merged_nofillers <- df_merged %>% subset(is.na(source) | source != "filler")
+
+# ## test model parameterization using a simple GLM first
+# m <- glm(ResponseYes ~ (cFreqlog_n1 + cFreqlog_n2) *
+#            cEndsInConsonant * cUngrammatical * cAttractorPlural,
+#          data = df_merged_nofillers,
+#          family = binomial("probit"))
+# summary(m)
+
+n_chains <- 4
+n_cores <- 4
+n_iter <- 2000
+
+
+fname_exp1_responses <- "../workspace_exp1/model_responses"
+m_responses <- brm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers,
+                   family = bernoulli("probit"),
+                   file = fname_exp1_responses, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+
+fname_exp1_responses_minimal <- "../workspace_exp1/model_responses_minimal"
+m_responses_minimal <- brm(ResponseYes ~ (cEndsInConsonant + cUngrammatical + cAttractorPlural)^2 + 
+                                         (cUngrammatical * cAttractorPlural + 1| subject) +
+                                         (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers,
+                   family = bernoulli("probit"),
+                   file = fname_exp1_responses_minimal, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+
+fname_exp1_rts <- "../workspace_exp1/model_responses_rt"
+m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers,
+                   family = lognormal(),
+                   file = fname_exp1_rts,
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+if (exists("le_poster"))
+{
+  fname_exp1_responses <- "../workspace_exp1/model_responses_justexp1"
+  m_responses_exp1 <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers %>% subset(experiment == "Experiment 1"),
+                   family = bernoulli("probit"),
+                   file = fname_exp1_responses, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+}
+
+@
+
+
+<<exp1ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1', fig.height=3, fig.align='center'>>=
+contrast_names <- c("cUngrammatical" = "Ungrammaticality",
+                    "cAttractorPlural" = "Plural Attactor",
+                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
+                    "cEndsInConsonant" = "Ambiguity",
+                    "cEndsInConsonant:cUngrammatical" = "Ambiguity * Ungrammaticality",
+                    "cEndsInConsonant:cAttractorPlural" = "Ambiguity * Plural Attractor",
+                    "cEndsInConsonant:cUngrammatical:cAttractorPlural" = "Ambiguity * Ungrammaticality * Plural Attractor")
+
+p_m_response <- 
+  create_model_coefs_plot( m_responses, 
+        plot_stats = T, map_names = contrast_names,
+        expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1,
+        x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
+        xlab("Estimate (log-odds)")
+
+suppressWarnings({
+print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+})
+
+
+if (exists("le_poster"))
+{
+    p_m_response_exp1 <- 
+      create_model_coefs_plot( m_responses_exp1, 
+            plot_stats = T, map_names = contrast_names,
+            expand_right = 2.5, expand_top = 5, x_stat_adjust = 1.1,
+            x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
+            xlab("Estimate (log-odds)")
+    
+    p_m_response_exp1 <- p_m_response_exp1 + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment")
+
+    ggsave(filename = "./plots_le/m_exp1.jpeg", p_m_response_exp1, height = 1.5, width = 2.5*2)
+}
+@
 
 
 
@@ -367,6 +552,99 @@ trick-\Nmlz{}-\Poss{}  man pay-\Neg{}-\Nmlz{} dish for.hours clean-\Pst{}.\\
 
 \subsection{Procedure and Analysis} \label{sec:exp2:procedure_analysis}
 
+<<loadExperiment2Data>>=
+fname_data2 <- "../workspace_exp2/exp_data.rds"
+data_exp2 <- readRDS(file = fname_data2)
+
+# compute by-subject percentages of 'yes' responses, and average RTs 
+avg_by_subj2 <- data_exp2 %>%
+                group_by(subject, experiment, condition, 
+                         grammatical, verb_num, attractor_num) %>%
+                summarize(avRT = mean(RT), 
+                          p_yes = mean(ResponseYes, na.rm = T), 
+                          N = sum(!is.na(ResponseYes))  )
+
+# reformat by-subject averages to a wide format
+avg_by_subj_wide2 <- avg_by_subj2 %>% 
+                      mutate(expcond = paste(experiment, condition, sep="_")) %>% 
+                      ungroup() %>%
+                      dplyr::select(-experiment, -condition, -avRT, -N,
+                                    -grammatical, -verb_num, -attractor_num) %>%
+                      tidyr::spread(expcond, p_yes) %>% 
+                      mutate(delta_dc = AgrAttr_d - AgrAttr_c)
+
+@
+
+<<badSubjects2>>=
+# identify participants 
+bad_subjects2 <- subset(avg_by_subj_wide2, delta_dc <= 0.25 ) %>% .$subject
+
+data_exp2_clean <- data_exp2 %>% subset(!subject %in% bad_subjects)
+
+@
+
+<<mergeData2>>=
+
+df_merge_exp2 <- data_exp2_clean %>% ungroup() %>% 
+                      dplyr::select(source=experiment, grammatical, attractor_num, # condition,
+                                    subject, item=Item,
+                                    ResponseYes, RT)
+df_merge_exp2$experiment <- "Experiment 2"
+df_merge_exp2$grammatical <- with(df_merge_exp2, ifelse(grammatical == "gram", 
+                                                        "grammatical",
+                                                        "ungrammatical"))
+df_merge_exp2$attractor_num <- with(df_merge_exp2, ifelse(attractor_num == "pl", 
+                                                          "plural", 
+                                                          "singular"))
+df_merge_exp2$item %<>% as.integer()
+df_merge_exp2$subject %<>% as.character()
+
+df_exp2_na_nofillers <- subset(df_merge_exp2, is.na(ResponseYes))
+
+df_merged2 <- dplyr::bind_rows(df_merge_exp1, df_merge_exp2)
+df_merged2$subject %<>% as.factor()
+df_merged2$item %<>% as.factor()
+
+df_merged2_nonna <- df_merged2 %>% subset(!is.na(ResponseYes))
+@
+
+<<computeAverages2>>=
+
+# avg_clean2 <- df_merged2 %>%
+#                 group_by(experiment, source, grammatical, attractor_num) %>%
+#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
+# # XXX
+
+
+avg_clean2 <- list()
+avg_clean2$resp <- df_merged2_nonna %>% 
+              plyr::ddply(c("experiment"), function(df) {
+              df %>% se_cousineau(n_conditions = 4, subject, DV = ResponseYes, 
+                           group = c("experiment", "source", "grammatical", "attractor_num"), 
+                           is_proportion = TRUE)
+})
+
+avg_clean2$rt <- df_merged2_nonna %>%
+              plyr::ddply(c("experiment"), function(df) {
+              df %>% se_cousineau(n_conditions = 4, subject, DV = RT, 
+                           group = c("experiment", "source", "grammatical", "attractor_num"), 
+                           is_proportion = FALSE)
+})
+
+# TODO: Code ResponseCorrect and re-enable
+# avg_clean$rt_correct <- df_merged2_nonna %>% subset(ResponseCorrect) %>%
+#               plyr::ddply(c("experiment"), function(df) {
+#               df %>% se_cousineau(n_conditions = 4, subject, DV = RT, 
+#                            group = c("experiment", "source", "grammatical", "attractor_num"), 
+#                            is_proportion = FALSE)
+# })
+
+avg_exp2 <- avg_clean2 %>% lapply(function(df) { df %>% subset(is.na(source) | source != "filler") })
+#avg_fillers <- avg_clean %>% lapply(function(df) { df %>% subset(source == "filler") })
+
+
+@
+
 In Experiment 2, the same procedure as Experiment 1 has been followed with regards to how sentences are presented within the experiment. 
 
 We analyzed the percentages of 'yes' answers given by the participants in experimental conditions. In the analysis of this experiment, we have included experimental items from our Experiments 1 and 2 to check the interaction between experiments and quantify the difference between verbal and nominal plural markers. In Experiment 2 as well, we excluded participants (\textit{n=X}) who had more than 0.25 points of difference in accuracy between grammatical conditions, which implicates that they did not give enough attention to all conditions. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a 
@@ -379,24 +657,111 @@ part of the Bayesian hierarchical models. Data regarding our experiments and ana
 \subsection{Results} \label{sec:exp2:results}
 
 \autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (X, Y) regardless of the attractor's number.  
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp2AvgResponse-1.png}
-\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2}
-% give details regarding encoding etc.
-\label{fig:exp2AvgResponse}
-\end{figure}
+
+<<exp2AvgResponse, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2', fig.height=3, fig.align='center'>>=
+
+avg_exp2 <- avg_clean2$resp %>% subset(is.na(source) | source != "filler") %>% subset(experiment == "Experiment 2")
+avg_fillers2 <- avg_clean2$resp %>% subset(source == "filler") %>% subset(experiment == "Experiment 2")
+
+p_avg_resp2 <- ggplot(avg_exp2, aes(grammatical, M, #linetype = attractor_num, 
+                                    color = attractor_num, group = attractor_num)) + 
+                geom_point() + geom_line() + 
+                facet_wrap(~experiment) +
+                theme_bw() + theme( strip.background = element_rect(fill="white") ) +
+                xlab("") + ylab("Percentage 'acceptable'")
+
+p_avg_resp2 <- p_avg_resp2 + geom_errorbar(aes(ymin = M - 1.96*SE, ymax = M + 1.96*SE), width = 0.1)
+p_avg_resp2 <- p_avg_resp2 + scale_y_continuous(labels=scales::percent)
+p_avg_resp2 <- p_avg_resp2 + scale_color_discrete(name = "Attractor Number")
+
+print(p_avg_resp2)
+
+
+if (exists("le_poster")) {
+  
+  p_avg_resp2 <- p_avg_resp2 + scale_y_continuous(labels=scales::percent, limits = c(0, 1))
+  ggsave(filename = "./plots_le/exp2.jpeg", p_avg_resp2, height = 2.5, width = 2.5*2)
+}
+
+@
 
 The observations we made through \autoref{fig:exp2AvgResponse} also surfaces when we look at the estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp2ResponseModel}. As is visible from the figure, the model shows a negative three-way interaction between grammaticality, type of attractor (nominal vs. verbal), and attractor number, which entails a reduced effect of agreement attraction in Experiment 2 compared to Experiment 1. 
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp2ResponseModelPlot-1.png}
-\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 2}
-% give details regarding encoding etc.
-% similar to experiment1 model graph 
-\label{fig:exp2ResponseModel}
-\end{figure}
+<<Model>>=
+
+# to-do: Rename 'cVerbalPlural' to 'cVerbalAttractor'
+df_merged2 %<>% within(., {
+  cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
+  cUngrammatical <- ifelse(grammatical == "ungrammatical", .5, -.5)
+  cAttractorPlural <- ifelse(attractor_num == "plural", .5, -.5)
+  cVerbalPlural <- ifelse(experiment == "Experiment 2", .5, -.5)
+})
+df_merged_nofillers2 <- df_merged2 %>% subset(is.na(source) | source != "filler")
+
+# ## test model parameterization using a simple GLM first
+# m <- glm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorPlural,
+#          data = df_merged_nofillers,
+#          family = binomial("probit"))
+# summary(m)
+
+n_chains <- 4
+n_cores <- 4
+n_iter <- 2000
+
+fname_exp2_responses <- "../workspace_exp2/model_responses"
+
+library(brms)
+
+m_responses2 <- brm(ResponseYes ~ cVerbalPlural * cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers2,
+                   family = bernoulli("probit"),
+                   file = fname_exp2_responses, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+@
+
+
+<<exp2ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 2', fig.height=3, fig.align='center'>>=
+
+contrast_names2 <- c("cUngrammatical" = "Ungrammaticality",
+                    "cAttractorPlural" = "Plural Attactor",
+                    "cVerbalPlural" = "Verbal Attractor",
+                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
+                    "cVerbalPlural:cUngrammatical" = "Ungrammaticality * Verbal Attractor",
+                    "cVerbalPlural:cAttractorPlural" = "Verbal Attractor * Plural Attractor",
+                    "cVerbalPlural:cUngrammatical:cAttractorPlural" = "Verbal Attractor * Ungrammaticality * Plural Attractor")
+
+p_m_response2 <- create_model_coefs_plot(m_responses2, map_names = contrast_names2)
+p_m_response2 <- p_m_response2 + xlab("Estimate (log-odds)")
+print(p_m_response2 + annotate(x=-2, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+
+
+if (exists("le_poster"))
+{
+contrast_names2_le <- c("cUngrammatical" = "Ungrammaticality",
+                    "cAttractorPlural" = "Plural Attactor",
+                    "cVerbalPlural" = "Verbal Attractor",
+                    "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
+                    "cVerbalPlural:cUngrammatical" = "Ungrammaticality * Verbal Attractor",
+                    "cVerbalPlural:cAttractorPlural" = "Verbal Attractor * Plural Attractor",
+                    "cVerbalPlural:cUngrammatical:cAttractorPlural" = "Verbal Attractor * Ungrammaticality * Plural Attractor")
+
+    p_m_response_exp2 <- 
+      create_model_coefs_plot( m_responses2, 
+            plot_stats = T, map_names = contrast_names2_le,
+            expand_right = 4.5, expand_top = 1.5, x_stat_adjust = .75,
+            x_breaks = c(-3,-2,-1, 0, 1) ) + 
+            xlab("Estimate (log-odds)")
+    
+    p_m_response_exp2 <- p_m_response_exp2 + annotate(x=-3, xend=1, y=0, yend=0, lwd=0.25, geom="segment")
+
+    ggsave(filename = "./plots_le/m_exp2.jpeg", p_m_response_exp2, height = 2.5, width = 2.5*2)
+}
+
+
+@
 
 
 \subsection{Discussion} \label{sec:exp2:discussion}

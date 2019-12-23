@@ -1,15 +1,7 @@
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}
 
-\begin{center}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/fig1-1}
-
-\end{knitrout}
-\end{center}
-\caption{Scatter Plot with Regression Line}
-\label{fig:one}
+\includegraphics[width=\maxwidth]{figure/test-1} \caption[$2 \times 2$ is 4]{$2 \times 2$ is 4}\label{fig:test}
 \end{figure*}
 \begin{figure*}[hbt]
 \ifnextchar[{\eatarg}{}

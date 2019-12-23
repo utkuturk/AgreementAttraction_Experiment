@@ -1,4 +1,4 @@
-\documentclass[a4paper,man,natbib]{apa6}\usepackage[]{graphicx}\usepackage[]{color}
+\documentclass[doc,a4paper,man,natbib,floatsintext,noextraspace]{apa6}\usepackage[]{graphicx}\usepackage[]{color}
 % maxwidth is the original width if it is less than linewidth
 % otherwise use linewidth (to make sure the graphics do not exceed the margin)
 \makeatletter
@@ -55,7 +55,7 @@
 \usepackage{amsmath}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
-
+\usepackage[singlespacing]{setspace}
 
 \title{The Role of Shallow Processing in Agreement Attraction}
 \shorttitle{Your APA6-Style Manuscript}
@@ -67,6 +67,7 @@
 \input{settings.tex}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
+
 \maketitle
 
 
@@ -90,6 +91,7 @@ section{Introduction} \label{sec:Intro}
 
 
 \section{Experiment 1} \label{sec:exp1}
+
 
 In Experiment 1, we tested whether speakers of Turkish make fewer errors when the local ambiguity in the head noun is resolved. Specifically, we have replicated the \citet{LagoEtAl:2018} study. However, instead of using their NP heads, we chose to use nouns that end in a vowel, thus resolving the ambiguity between the accusative and possessive. 
 
@@ -148,31 +150,24 @@ Data regarding our experiments and analysis can be found in \texttt{link hidden 
 
 
 
-
 \subsection{Results} \label{sec:exp1:results}
 
 
-
-\begin{figure}
-\begin{center}
-\begin{knitrout}
-\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}
-\includegraphics[width=\maxwidth]{figure/fig1-1} 
-
-\end{knitrout}
-\end{center}
-\caption{Scatter Plot with Regression Line}
-\label{fig:one}
-\end{figure}
-
 \autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. It shows that ungrammatical sentences with plural attractors are rated as acceptable more often than their counterparts with singular attractors. In addition to ungrammatical conditions, accuracy rates within the grammatical conditions were comparable and high across conditions (mean = x\%, SE = x\%). As seen in \autoref{fig:exp1AvgResponse}, participants judged the sentences with plural attractor and singular verbs to be grammatical with the rate of X\%, which is in line with the findings reported in \citet{LagoEtAl:2018}.    
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp1AvgResponse-1.png}
-\caption{Percentage of ‘yes’ (acceptable) responses of Experiment 1 and \citet{LagoEtAl:2018}}
-\label{fig:exp1AvgResponse}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+
+{\centering \includegraphics[width=\maxwidth]{figure/exp1AvgResponse-1} 
+
+}
+
+\caption{Percentage of \emph{yes} (acceptable) responses of Experiment 1 and \citet{LagoEtAl:2018}}\label{fig:exp1AvgResponse}
 \end{figure}
+
+
+\end{knitrout}
 
 
 The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was XX in log-odds, and the interaction between the ungrammaticality and plural attractor was XX in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
