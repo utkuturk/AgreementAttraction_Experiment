@@ -10,6 +10,13 @@ knitr::opts_chunk$set(encoding = 'UTF-8',
                       warning = F)
 options("citation_format" = "pandoc")
 @
+
+<<setup, echo=FALSE, cache=FALSE>>=
+## numbers >= 10^5 will be denoted in scientific notation,
+## and rounded to 2 digits
+options(scipen = 1, digits = 2)
+@
+
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
@@ -71,6 +78,9 @@ section{Introduction} \label{sec:Intro}
 <<>>=
 fname_data <- "../workspace_exp1/exp_data.rds"
 data_exp1 <- readRDS(file = fname_data)
+fname_form <- "../workspace_exp1/exp_form.rds"
+form_exp1 <- readRDS(file = fname_form)
+form_exp1[106,2] = 18 # manually changed on sekiz to 18
 
 ### note: the low accuracy on fillers is not caused by a couple of items
 # filler_avgs <- 
@@ -224,7 +234,7 @@ In Experiment 1, we tested whether speakers of Turkish make fewer errors when th
 
 \subsection{Participants} \label{sec:exp1:participants}
 
-One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is \textit{Z}, ranging from \textit{Z1} to \textit{Z2}. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
+One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is \Sexpr{mean(as.numeric(as.character(form_exp1$Age)))} , ranging from \Sexpr{min(as.numeric(as.character(form_exp1$Age)))} to \Sexpr{max(as.numeric(as.character(form_exp1$Age)))}. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
 
 \subsection{Materials} \label{sec:exp1:materials}
 
@@ -271,7 +281,7 @@ Participants saw forty experimental and forty filler items. Experimental items w
 \subsection{Analysis} \label{sec:exp1:analysis}
 % Maybe leave it to Pavel?
 
-Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:2018}) is included in the analysis. Participants (\textit{n=X}) that exceeded the threshold of 0.25 difference in giving accurate answers to grammatical conditions \ref{item:exp1expitem-sgsg} and \ref{item:exp1expitem-sgpl} are excluded from the analysis. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models.
+Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:2018}) is included in the analysis. Participants (\Sexpr{length(bad_subjects)}) that exceeded the threshold of 0.25 difference in giving accurate answers to grammatical conditions \ref{item:exp1expitem-sgsg} and \ref{item:exp1expitem-sgpl} are excluded from the analysis. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models.
 %I did not know how to state (1+x*y|subjet)
 Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
 
