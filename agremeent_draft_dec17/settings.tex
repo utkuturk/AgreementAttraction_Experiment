@@ -5,10 +5,11 @@
 \usepackage{xyling} %for trees; the use of xyling with the CharisSIL font produces poor results in the branches. This problem does not arise with the packages qtree or forest.
 \usepackage[linguistics]{forest} %for nice trees!
   
-\usepackage{leipzig}
+\usepackage[block]{leipzig}
+% input glosses
 \makeglossaries
-\renewcommand{\glossarypreamble}{%
-  Abbreviations are as follows:{\ }}
+
+\newleipzig{aor}{aor}{aorist}
 
 \usepackage{linguex}
 \usepackage{hyperref}

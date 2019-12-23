@@ -48,7 +48,6 @@ output:
   papaja::apa6_pdf:
     includes:
         in_header: paper_draft_preamble.tex
-
 editor_options: 
   chunk_output_type: console
 keep_tex: TRUE

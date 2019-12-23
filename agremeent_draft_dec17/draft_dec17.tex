@@ -50,9 +50,13 @@
 
 \usepackage{alltt}
 
+
+
+
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[singlespacing]{setspace}
@@ -70,9 +74,10 @@
 
 \maketitle
 
+\printglossary[title=\MakeUppercase{glosses}, style=block,nonumberlist]
 
 section{Introduction} \label{sec:Intro}
-\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
+%\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
 \subsection{Agreement Attraction Thingy} \label{sec:Intro:literature}
 \subsubsection{Morphophonology} \label{sec:Intro:literature:morphophonology}
 %fill here accordingly to your results AFTER YOU WRITE THE RESULT.
@@ -91,13 +96,14 @@ section{Introduction} \label{sec:Intro}
 
 
 \section{Experiment 1} \label{sec:exp1}
+% do not do this in one chunk. differentiate the chunks and give them proper names.
 
 
 In Experiment 1, we tested whether speakers of Turkish make fewer errors when the local ambiguity in the head noun is resolved. Specifically, we have replicated the \citet{LagoEtAl:2018} study. However, instead of using their NP heads, we chose to use nouns that end in a vowel, thus resolving the ambiguity between the accusative and possessive. 
 
 \subsection{Participants} \label{sec:exp1:participants}
 
-One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is \textit{Z}, ranging from \textit{Z1} to \textit{Z2}. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
+One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is 20.14 , ranging from 18 to 32. Across participants, a total \sExpr{sum(is.na(df_exp1_na_nofillers$ResponseYes))} trials were not responded to before the 5 second deadline by 33 participants. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
 
 \subsection{Materials} \label{sec:exp1:materials}
 
@@ -144,7 +150,7 @@ Participants saw forty experimental and forty filler items. Experimental items w
 \subsection{Analysis} \label{sec:exp1:analysis}
 % Maybe leave it to Pavel?
 
-Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:2018}) is included in the analysis. Participants (\textit{n=X}) that exceeded the threshold of 0.25 difference in giving accurate answers to grammatical conditions \ref{item:exp1expitem-sgsg} and \ref{item:exp1expitem-sgpl} are excluded from the analysis. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models.
+Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:2018}) is included in the analysis. Participants (10) that exceeded the threshold of 0.25 difference in giving accurate answers to grammatical conditions \ref{item:exp1expitem-sgsg} and \ref{item:exp1expitem-sgpl} are excluded from the analysis. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models.
 %I did not know how to state (1+x*y|subjet)
 Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
 
@@ -177,13 +183,20 @@ The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} 
 %maybe this is not the perfect place to write this.
 
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp1ResponseModelPlot-1.png}
-\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1}
-% give details regarding encoding etc.
-\label{fig:exp1ResponseModel}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+
+{\centering \includegraphics[width=\maxwidth]{figure/exp1ResponseModel-1} 
+
+}
+
+\caption[Estimates and 95\% credible intervals for the regression coefficients for Experiment 1]{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1}\label{fig:exp1ResponseModel}
 \end{figure}
+
+
+\end{knitrout}
 
 
 
@@ -262,6 +275,14 @@ trick-\Nmlz{}-\Poss{}  man pay-\Neg{}-\Nmlz{} dish for.hours clean-\Pst{}.\\
 
 \subsection{Procedure and Analysis} \label{sec:exp2:procedure_analysis}
 
+
+
+
+
+
+
+
+
 In Experiment 2, the same procedure as Experiment 1 has been followed with regards to how sentences are presented within the experiment. 
 
 We analyzed the percentages of 'yes' answers given by the participants in experimental conditions. In the analysis of this experiment, we have included experimental items from our Experiments 1 and 2 to check the interaction between experiments and quantify the difference between verbal and nominal plural markers. In Experiment 2 as well, we excluded participants (\textit{n=X}) who had more than 0.25 points of difference in accuracy between grammatical conditions, which implicates that they did not give enough attention to all conditions. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a 
@@ -274,24 +295,37 @@ part of the Bayesian hierarchical models. Data regarding our experiments and ana
 \subsection{Results} \label{sec:exp2:results}
 
 \autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (X, Y) regardless of the attractor's number.  
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp2AvgResponse-1.png}
-\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2}
-% give details regarding encoding etc.
-\label{fig:exp2AvgResponse}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+
+{\centering \includegraphics[width=\maxwidth]{figure/exp2AvgResponse-1} 
+
+}
+
+\caption[Estimates and 95\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2]{Estimates and 95\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2}\label{fig:exp2AvgResponse}
 \end{figure}
+
+
+\end{knitrout}
 
 The observations we made through \autoref{fig:exp2AvgResponse} also surfaces when we look at the estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp2ResponseModel}. As is visible from the figure, the model shows a negative three-way interaction between grammaticality, type of attractor (nominal vs. verbal), and attractor number, which entails a reduced effect of agreement attraction in Experiment 2 compared to Experiment 1. 
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=\textwidth]{figures/exp2ResponseModelPlot-1.png}
-\caption{Estimates and 95\% credible intervals for the regression coefficients for Experiment 2}
-% give details regarding encoding etc.
-% similar to experiment1 model graph 
-\label{fig:exp2ResponseModel}
+
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
+
+{\centering \includegraphics[width=\maxwidth]{figure/exp2ResponseModel-1} 
+
+}
+
+\caption[Estimates and 95\% credible intervals for the regression coefficients for Experiment 2]{Estimates and 95\% credible intervals for the regression coefficients for Experiment 2}\label{fig:exp2ResponseModel}
 \end{figure}
+
+
+\end{knitrout}
 
 
 \subsection{Discussion} \label{sec:exp2:discussion}

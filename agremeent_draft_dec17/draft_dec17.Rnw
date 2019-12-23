@@ -20,11 +20,13 @@ options(scipen = 1, digits = 2)
 \usepackage[english]{babel}
 \usepackage[utf8x]{inputenc}
 \usepackage{amsmath}
+\usepackage{amsthm}
 \usepackage{graphicx}
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[singlespacing]{setspace}
 <<>>=
 # load packages
+library(patchSynctex)
 library(knitcitations)
 library(car, warn.conflicts = FALSE)
 library(MASS)
@@ -53,9 +55,10 @@ source("../scripts/misc.R")
 
 \maketitle
 
+\printglossary[title=\MakeUppercase{glosses}, style=block,nonumberlist]
 
 section{Introduction} \label{sec:Intro}
-\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
+%\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
 \subsection{Agreement Attraction Thingy} \label{sec:Intro:literature}
 \subsubsection{Morphophonology} \label{sec:Intro:literature:morphophonology}
 %fill here accordingly to your results AFTER YOU WRITE THE RESULT.
@@ -234,7 +237,7 @@ In Experiment 1, we tested whether speakers of Turkish make fewer errors when th
 
 \subsection{Participants} \label{sec:exp1:participants}
 
-One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is \Sexpr{mean(as.numeric(as.character(form_exp1$Age)))} , ranging from \Sexpr{min(as.numeric(as.character(form_exp1$Age)))} to \Sexpr{max(as.numeric(as.character(form_exp1$Age)))}. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
+One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is \Sexpr{mean(as.numeric(as.character(form_exp1$Age)))} , ranging from \Sexpr{min(as.numeric(as.character(form_exp1$Age)))} to \Sexpr{max(as.numeric(as.character(form_exp1$Age)))}. Across participants, a total \sExpr{sum(is.na(df_exp1_na_nofillers$ResponseYes))} trials were not responded to before the 5 second deadline by \Sexpr{length(unique(df_exp1_na_nofillers$subject))} participants. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
 
 \subsection{Materials} \label{sec:exp1:materials}
 
@@ -379,7 +382,7 @@ The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} 
 %Moreover, this findings are also predicted by cue-based retrieval models \citep{engelmann2019effect, vasishth2019computational} and last rendition of marking and morphing theory by \citet{HammerlyEtAl:2019}. %does it tho? especially with regards to what sol lago says: gen and morphophonology gives clues. maybe we should take a look at speeded acceptability? 
 %maybe this is not the perfect place to write this.
 
-<<>>=
+<<exp1models, include=FALSE>>=
 
 df_merged %<>% within(., {
   cGrammatical <- ifelse(grammatical == "grammatical", .5, -.5)
@@ -565,7 +568,7 @@ trick-\Nmlz{}-\Poss{}  man pay-\Neg{}-\Nmlz{} dish for.hours clean-\Pst{}.\\
 <<loadExperiment2Data>>=
 fname_data2 <- "../workspace_exp2/exp_data.rds"
 data_exp2 <- readRDS(file = fname_data2)
-
+### PUT FORM###
 # compute by-subject percentages of 'yes' responses, and average RTs 
 avg_by_subj2 <- data_exp2 %>%
                 group_by(subject, experiment, condition, 
@@ -697,7 +700,7 @@ if (exists("le_poster")) {
 
 The observations we made through \autoref{fig:exp2AvgResponse} also surfaces when we look at the estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp2ResponseModel}. As is visible from the figure, the model shows a negative three-way interaction between grammaticality, type of attractor (nominal vs. verbal), and attractor number, which entails a reduced effect of agreement attraction in Experiment 2 compared to Experiment 1. 
 
-<<Model>>=
+<<Model, include=FALSE>>=
 
 # to-do: Rename 'cVerbalPlural' to 'cVerbalAttractor'
 df_merged2 %<>% within(., {
