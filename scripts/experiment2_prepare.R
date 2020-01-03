@@ -7,6 +7,8 @@ library(ggplot2)
 
 fname_data <- "../Data/Experiment2/results/results"
 fname_data_out <- "../workspace_exp2/exp_data.rds"
+fname_form_out <- "../workspace_exp2/exp_form.rds"
+
 
 data <- read.csv(fname_data, 
                  header = F, 
@@ -78,3 +80,5 @@ data %<>% left_join(conditions_info)
 data %<>% subset(Type != "practice") %>% drop.levels()
 
 saveRDS(data, file = fname_data_out)
+saveRDS(FormPart, file = fname_form_out)
+

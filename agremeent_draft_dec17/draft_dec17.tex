@@ -68,24 +68,29 @@
 
 
 \abstract{We report the results of two speeded acceptability judgment experiments in Turkish. We hypothesized an alternative explanation for agreement attraction effects in Turkish that is based on shallow processing. Our findings contradict our hypothesized form-driven processing strategy and support an account of agreement attraction based on the use of abstract linguistic features, rather than mere form.}
+
 \input{settings.tex}
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \begin{document}
 
 \maketitle
 
-\printglossary[title=\MakeUppercase{glosses}, style=block,nonumberlist]
 
-section{Introduction} \label{sec:Intro}
+\section{Introduction} \label{sec:Intro}
+
 %\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
+
 \subsection{Agreement Attraction Thingy} \label{sec:Intro:literature}
+
 \subsubsection{Morphophonology} \label{sec:Intro:literature:morphophonology}
+
 %fill here accordingly to your results AFTER YOU WRITE THE RESULT.
 
 
 \subsubsection{related sub-sub-field studies} \label{sec:Intro:literature:others}
 
 \subsubsection{This work details} \label{sec:Intro:literature:thiswork}
+
 % \citet{LagoEtAl:2018} hypothesize that genitive NPs can trigger agreement attraction in Turkish, because Turkish makes heavy use of genitive subjects, which means genitives are a priori likely to function as agreement controllers. The underlying assumption is that agreement processes rely on, at least partially, the case of an NP to determine its fit for the role of an agreement controller. 
 % If that is so, their items are problematic %as in ... give an example
 % in that the marking on the head noun is ambiguous between possessive and accusative case, while only possessive-marked NPs qualify as agreement controllers. Therefore, if engaged in shallow processing, readers may be more likely to misidentify the genitive NP as the agreement controller when the head noun, which is the only other alternative, is ambiguous, compared to when it is not.
@@ -96,6 +101,7 @@ section{Introduction} \label{sec:Intro}
 
 
 \section{Experiment 1} \label{sec:exp1}
+
 % do not do this in one chunk. differentiate the chunks and give them proper names.
 
 
@@ -103,47 +109,47 @@ In Experiment 1, we tested whether speakers of Turkish make fewer errors when th
 
 \subsection{Participants} \label{sec:exp1:participants}
 
-One hundred seven native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is 20.14 , ranging from 18 to 32. Across participants, a total \sExpr{sum(is.na(df_exp1_na_nofillers$ResponseYes))} trials were not responded to before the 5 second deadline by 33 participants. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, 
+One hundred seven native speakers of Turkish in Experiment 1. The mean age is 20.14, ranging from 18 to 32. Across participants, a total 42 items were not responded to before the 5 second deadline by 33 different participants. These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform. 
 
 \subsection{Materials} \label{sec:exp1:materials}
 
-In Experiment 1, participants first saw sentences word by word in the middle of their screen. As in \citet{LagoEtAl:2018} study, we used 40 sets of item and manipulated the grammaticality of the sentences (\textit{grammatical} x \textit{ungrammatical}) and the number of the attractor noun (\textit{singular} x \textit{plural}). All experimental sentences followed the following template: \textit{Noun$_{\Gen}$-Noun$_{\Poss}$-Adverb-Verb}. The distribution of the verb types followed the same pattern as in \citet{LagoEtAl:2018}, namely twenty unergatives, eighteen unaccusatives, and two optionally transitive verbs. The matrix verb was marked with overt plural marker \textit{-lar} in the half of experimental items. Adverbials in our experimental sentences were always pre-verbal and contained 2-3 words consisting of 15 characters on average. The second noun phrase is the head noun of the subject in all of our experimental sentences whereas the first noun phrase is the genitive modifier of the head, thus \textit{the attractor}. Unlike \citet{LagoEtAl:2018}, our head nouns were vowel-ending, which enables us to distinguish between accusative (\textit{-yI}) and possessive (\textit{-sI}). This change was due to the morpho-phonologic nature of possessive suffix in Turkish, which spell-outs as (\textit{-I}) after a consonant same as the accusative. While all of the head nouns were singular, the attractor noun was in its plural form in the half of the experimental items. One example set of experimental items can be seen in \ref{item:exp1ExperimentalItems}.
+In Experiment 1, participants first saw sentences word by word in the middle of their screen. As in \citet{LagoEtAl:2018} study, we used 40 sets of item and manipulated the grammaticality of the sentences (\textit{grammatical} x \textit{ungrammatical}) and the number of the attractor noun (\textit{singular} x \textit{plural}). All experimental sentences followed the following template: \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{poss}}}$-Adverb-Verb}. The distribution of the verb types followed the same pattern as in \citet{LagoEtAl:2018}, namely twenty unergatives, eighteen unaccusatives, and two optionally transitive verbs. The matrix verb was marked with overt plural marker \textit{-lar} in the half of experimental items. Adverbials in our experimental sentences were always pre-verbal and contained 2-3 words consisting of 15 characters on average. The second noun phrase is the head noun of the subject in all of our experimental sentences whereas the first noun phrase is the genitive modifier of the head, thus \textit{the attractor}. Unlike \citet{LagoEtAl:2018}, our head nouns were vowel-ending, which enables us to distinguish between accusative (\textit{-yI}) and possessive (\textit{-sI}). This change was due to the morpho-phonologic nature of possessive suffix in Turkish, which spell-outs as (\textit{-I}) after a consonant same as the accusative. While all of the head nouns were singular, the attractor noun was in its plural form in the half of the experimental items. One example set of experimental items can be seen in \ref{item:exp1ExperimentalItems}.
 
 % there may be a better way of displaying items.
 \ex. \label{item:exp1ExperimentalItems}
 \a. \textit{Plural Attractor, Ungrammatical Verb} \label{item:exp1expitem-plpl}\\ 
 \gll *Yönetici-ler-in aşcı-sı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
-manager-\Pl{}-\Gen{}  cook-\Poss{} kitchen-\Loc{} non-stop  jump-\Prog{}-\Pl{}.\\
+manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
 \glt `The cooks of the manager were jumping in the kitchen non-stop.' 
 \b. \textit{Singular Attractor, Ungrammatical Verb} \label{item:exp1expitem-sgpl}\\ 
 \gll *Yönetici-nin aşcı-sı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
-manager-\Gen{}  cook-\Poss{} kitchen-\Loc{} non-stop  jump-\Prog{}-\Pl{}.\\
+manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
 \glt `The cook of the manager were jumping in the kitchen non-stop.'
 \c. \textit{Plural Attractor, Grammatical Verb} \label{item:exp1expitem-plsg}\\ 
 \gll Yönetici-ler-in aşcı-sı mutfak-ta sürekli zıpl-ıyor.\\ 
-manager-\Pl{}-\Gen{}  cook-\Poss{} kitchen-\Loc{} non-stop  jump-\Prog{}.\\
+manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
 \glt `The cooks of the manager was jumping in the kitchen non-stop.'
 \d. \textit{Singular Attractor, Grammatical Verb}\label{item:exp1expitem-sgsg}\\ 
 \gll Yönetici-nin aşcı-sı mutfak-ta sürekli zıpl-ıyor. \\ 
-manager-\Gen{}  cook-\Poss{} kitchen-\Loc{} non-stop  jump-\Prog{}.\\
+manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
 \glt `The cook of the manager was jumping in the kitchen non-stop.'
 
-As for the filler sentences, we have included forty sentences, half of which ends in singular and ungrammatical while the other half was plural and grammatical. These decisions were made due to the non-existence of such sentences in the experimental sentences. We wanted to rule out a possible task strategy where participants decide on the grammaticality of the sentence by merely checking the final plural marking. Even though filler items did not follow a strict template as the experimental items, they were created within a template of \textit{Noun$_{\Gen}$-Noun$_{\Poss}$-Converb-Noun-Adverb-Verb}. The ungrammaticality was created non-locally in the filler items to avoid task strategies. Example filler sentences can be seen in \ref{item:exp1FillerItems}.
+As for the filler sentences, we have included forty sentences, half of which ends in singular and ungrammatical while the other half was plural and grammatical. These decisions were made due to the non-existence of such sentences in the experimental sentences. We wanted to rule out a possible task strategy where participants decide on the grammaticality of the sentence by merely checking the final plural marking. Even though filler items did not follow a strict template as the experimental items, they were created within a template of \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{gen}}}$-Converb-Noun-Adverb-Verb}. The ungrammaticality was created non-locally in the filler items to avoid task strategies. Example filler sentences can be seen in \ref{item:exp1FillerItems}.
 
 
 \ex. \label{item:exp1FillerItems}
 \a. \textit{Plural Grammatical Verb}\\ 
 \gll Sosyolog-un öğrenci-si konuş-unca tutarsızlık açığ-a çıkar-dı-lar.\\ 
-sociolog-\Gen{}  student-\Poss{} speak-\Nmlz{} inconsistency  open-\Dat{} deduct-\Pst{}-\Pl{}.\\
+sociolog-\textsc{gen}  student-\textsc{poss} speak-\textsc{nmlz} inconsistency  open-\Dat{} deduct-\textsc{pst}-\textsc{pl}.\\
 \glt `When the sociolog's student talked, they exposed an inconsistency.' 
 \b. \textit{Singular Ungrammatical Verb}\\ 
 \gll *Dansöz-ün koca-sı var-ınca kapı sakince aç-tı.\\ 
-dancer-\Gen{}  husband-\Poss{} arrive-\Nmlz{} door slowly  open-\Pst{}.\\
+dancer-\textsc{gen}  husband-\textsc{poss} arrive-\textsc{nmlz} door slowly  open-\textsc{pst}.\\
 \glt Intended:`When the husband of the dancer came, the door opened slowly.'
 
 \subsection{Procedure} \label{sec:exp1:procedure}
 
-Prior to the experiments, participants gave information regarding themselves and consent to participate in the experiment. They read the instructions where we showed what they will see in the experiment, and where we informed them to give quick and accurate answers during the experiment. They are also informed regarding the that there will be a time-limit in answering the question. Every session started with a practice session where participants have been informed to be a bit faster when they were not. The sentences were presented in the middle of the screen word-by-word on a web-based platform Ibex Farm (\url{http://spellout.net/ibexfarm/}). Each word was displayed with XX font size and stayed on the screen for 300 ms, unlike \citet{LagoEtAl:2018} and \citet{WagersEtAl:2009} where words stayed for 500 ms in the screen. After the sentence is completed, participants were asked: "How did they find the sentence?" They were informed to press P on their keyboard for \textit{good} and Q for bad. Apart from the practice items, we did not provide any feedback regarding their answers. However, participants were instructed to be faster when they waited more than 5,000 ms to answer the acceptability question. 
+Prior to the experiments, participants gave information regarding themselves and consent to participate in the experiment. They read the instructions where we showed what they will see in the experiment, and where we informed them to give quick and accurate answers during the experiment. They are also informed regarding the that there will be a time-limit in answering the question. Every session started with a practice session where participants have been informed to be a bit faster when they were not. The sentences were presented in the middle of the screen word-by-word on a web-based platform Ibex Farm (\url{http://spellout.net/ibexfarm/}). Each word was displayed with 30 font size and stayed on the screen for 300 ms, unlike \citet{LagoEtAl:2018} and \citet{WagersEtAl:2009} where words stayed for 500 ms in the screen. After the sentence is completed, participants were asked: "How did they find the sentence?" They were informed to press P on their keyboard for \textit{good} and Q for bad. Apart from the practice items, we did not provide any feedback regarding their answers. However, participants were instructed to be faster when they waited more than 5,000 ms to answer the acceptability question. 
 
 Participants saw forty experimental and forty filler items. Experimental items were distributed among four different lists using Latin Square design. Every participant saw one version of the experiment with a specific list and one item per condition.   
 
@@ -159,7 +165,8 @@ Data regarding our experiments and analysis can be found in \texttt{link hidden 
 \subsection{Results} \label{sec:exp1:results}
 
 
-\autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. It shows that ungrammatical sentences with plural attractors are rated as acceptable more often than their counterparts with singular attractors. In addition to ungrammatical conditions, accuracy rates within the grammatical conditions were comparable and high across conditions (mean = x\%, SE = x\%). As seen in \autoref{fig:exp1AvgResponse}, participants judged the sentences with plural attractor and singular verbs to be grammatical with the rate of X\%, which is in line with the findings reported in \citet{LagoEtAl:2018}.    
+
+\autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. It shows that ungrammatical sentences with plural attractors are rated as acceptable more often (M = 0.22\%, SE = 0.01\%) than their counterparts with singular attractors (M=0.11\%, SE=0.01\%). In addition to ungrammatical conditions, accuracy rates within the grammatical conditions were comparable and high across conditions (M = 0.92\% and 0.93\%, SE = 0.01\% and 0.01\% for singular and plural attractors respectively). As seen in \autoref{fig:exp1AvgResponse}, participants judged the sentences with plural attractor and singular verbs to be grammatical with the rate of 0.1\%, which is in line with the findings reported in \citet{LagoEtAl:2018}.    
 
 
 \begin{knitrout}
@@ -176,12 +183,12 @@ Data regarding our experiments and analysis can be found in \texttt{link hidden 
 \end{knitrout}
 
 
-The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was XX in log-odds, and the interaction between the ungrammaticality and plural attractor was XX in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
+
+The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was -3.09[-3.34;-3.34] in log-odds, and the interaction between the ungrammaticality and plural attractor was 0.72[0.43;1.02] in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
 % we did not do any nested analysis, should we? Should it say anything different than figure 2? 
 
 %Moreover, this findings are also predicted by cue-based retrieval models \citep{engelmann2019effect, vasishth2019computational} and last rendition of marking and morphing theory by \citet{HammerlyEtAl:2019}. %does it tho? especially with regards to what sol lago says: gen and morphophonology gives clues. maybe we should take a look at speeded acceptability? 
 %maybe this is not the perfect place to write this.
-
 
 
 
@@ -214,7 +221,56 @@ We present our hypothesized decision tree in \autoref{fig:mptModel}
 
 \begin{figure}[h]
     \centering
-    \includegraphics[width=0.8\textwidth]{example-grid-100x100pt} 
+                      \begin{forest}
+                  for tree = {
+                  % nodes
+                      draw, 
+                      align=center,
+                      minimum height=5ex,
+                      minimum width=3em,
+                      font=\linespread{0.84}\selectfont,
+                  % tree
+                      grow'=0,
+                      parent anchor=east,
+                      child  anchor=west,
+                      s sep = 4mm,    
+                      l sep = 12mm, 
+                  % edge
+                      edge = {semithick},
+                  % level styles
+                  if level = 0{}{rounded corners=2ex},
+                  where n children=0{tier=level, sharp corners}{calign=edge midpoint},
+                  % edge labels
+                  EL/.style={edge label={node [pos=0.5, fill=white,
+                                               font=\scriptsize\sffamily,
+                                               inner sep=2pt] {$#1$}}
+                                      }
+                              }% end for tree
+                  [,coordinate
+                  [target\\ item,no edge
+                      [recolection\\ certainity, EL=r
+                          ["yes"]
+                      ]
+                      [recolection\\ uncertainity, EL=1-r,
+                          [guess "yes", tier=L1, EL=g,
+                              ["yes"]
+                          ]
+                          [guess "no", tier=L1, EL=1-g
+                              ["no"]
+                          ]
+                      ]
+                  ]
+                  [,coordinate, no edge]
+                  [target\\ item, no edge
+                      [guess "yes", tier=L1, EL=g,
+                              ["yes"]
+                      ]
+                      [guess "no", tier=L1, EL=1-g
+                          ["no"]
+                      ]
+                   ]
+                  ]
+                      \end{forest} 
     \caption{Proposed multinomial processing tree of how people judge sentences in an agreement attraction task}
     \label{fig:mptModel}
 \end{figure}
@@ -225,12 +281,19 @@ The aim of our second experiment was to test whether agreement attraction in Tur
 
 \section{Experiment 2} \label{sec:exp2}
 
+
+
+
+
+
+
 In Experiment 2, we wanted to rule out the possibility of \textit{form-driven processing strategy}, namely participants deciding on the acceptability of a sentence using a memory of plural morpheme in the sentence when they do not have sufficient information to rate sentences (un)acceptable. 
  
 
 \subsection{Participants} \label{sec:exp2:participants}
 
-Eighty native speakers of Turkish (\textit{X} male, \textit{Y} female) in Experiment 1. The mean age is \textit{Z}, ranging from \textit{Z1} to \textit{Z2}. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, % Find citation for using IbexFarm and online testing etc?
+Eighty native speakers of Turkish in Experiment 1. The mean age is 21.51, ranging from 18 to 31. Across participants, a total 55 items were not responded to before the 5 second deadline by 41 different participants. These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, % Find citation for using IbexFarm and online testing etc?
+
 
 \subsection{Materials} \label{sec:exp2:materials}
 
@@ -243,33 +306,33 @@ We have used the same verbs, and have not changed the distribution of verb types
 \ex. \label{item:exp2ExperimentalItems}
 \a. \textit{Plural Attractor, Ungrammatical Verb}\\ 
 \gll *Tut-tuk-lar-ı aşcı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
-hire-\Nmlz{}-\Pl{}-\Poss{}  cook kitchen-\Loc{} non-stop  jump-\Prog{}-\Pl{}.\\
+hire-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
 \glt `The cook that they hired were jumping in the kitchen non-stop.' 
 \b. \textit{Singular Attractor, Ungrammatical Verb}\\ 
 \gll *Tut-tuğ-u aşcı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
-hıre-\Nmlz{}-\Poss{}  cook kitchen-\Loc{} non-stop  jump-\Prog{}-\Pl{}.\\
+hıre-\textsc{nmlz}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
 \glt `The cook that they hired were jumping in the kitchen non-stop.'
 \c. \textit{Plural Attractor, Grammatical Verb}\\ 
 \gll Tut-tuk-lar-ı aşcı mutfak-ta sürekli zıpl-ıyor.\\ 
-hire-\Nmlz{}-\Pl{}-\Poss{}  cook kitchen-\Loc{} non-stop  jump-\Prog{}.\\
+hire-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
 \glt `The cook that they hired was jumping in the kitchen non-stop.'
 \d. \textit{Singular Attractor, Grammatical Verb}\\ 
 \gll Tut-tuğ-u aşcı mutfak-ta sürekli zıpl-ıyor.\\ 
-hıre-\Nmlz{}-\Poss{}  cook kitchen-\Loc{} non-stop  jump-\Prog{}.\\
+hıre-\textsc{nmlz}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
 \glt `The cook that they hired was jumping in the kitchen non-stop.'
 
-In our filler items for Experiment 2, we made sure that every sentence starts with an object relative clause. We used plural distractors with grammatical verbs and singular distractors with ungrammatical verbs. In all of our filler sentences, the dependency between the first NP subject and its verb resolved in an adverbial embedded sentence. Grammatical filler items in Experiment 2 all had a template of \textit{RC$_{\Pl{}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\Pl{}}$}, whereas ungrammatical filler items used a template of \textit{RC$_{\Sg{}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\Sg{}}$}
+In our filler items for Experiment 2, we made sure that every sentence starts with an object relative clause. We used plural distractors with grammatical verbs and singular distractors with ungrammatical verbs. In all of our filler sentences, the dependency between the first NP subject and its verb resolved in an adverbial embedded sentence. Grammatical filler items in Experiment 2 all had a template of \textit{RC$_{\textsc{pl}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\textsc{pl}}$}, whereas ungrammatical filler items used a template of \textit{RC$_{\Sg{}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\Sg{}}$}
 
 Again, to avoid a possible strategy where participants use plural ending as a direct indication of ungrammaticality, half of our fillers were with an overt plural marking on a grammatical verb while the other half were without an overt plural marking on an ungrammatical verb. We used Turkish pro-drop characteristics which enable participants to form a dependency between the matrix verb and the null subject. Example filler sentences can be seen in \ref{item:exp2FillerItems} 
 
 \ex. \label{item:exp2FillerItems}
 \a. \textit{Plural Grammatical Verb}\\ 
 \gll Oku-t-tuk-lar-ı öğrenci başarılı ol-unca mutlu ol-du-lar.\\ 
-read-\Caus{}-\Nmlz{}-\Pl{}-\Poss{}  student successful be-\Nmlz{} happy be-\Pst{}-\Pl{}.\\
+read-\Caus{}-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  student successful be-\textsc{nmlz} happy be-\textsc{pst}-\textsc{pl}.\\
 \glt `When the student they sponsored become successful, they became happy.' 
 \b. \textit{Singular Ungrammatical Verb}\\ 
 \gll *Kandır-dığ-ı adam öde-me-yince bulaşık saatlerce yıka-dı.\\ 
-trick-\Nmlz{}-\Poss{}  man pay-\Neg{}-\Nmlz{} dish for.hours clean-\Pst{}.\\
+trick-\textsc{nmlz}-\textsc{poss}  man pay-\Neg{}-\textsc{nmlz} dish for.hours clean-\textsc{pst}.\\
 \glt Intended:`When the man he tricked did not pay, he cleaned dishes for hours.'
 
 
@@ -279,13 +342,9 @@ trick-\Nmlz{}-\Poss{}  man pay-\Neg{}-\Nmlz{} dish for.hours clean-\Pst{}.\\
 
 
 
-
-
-
-
 In Experiment 2, the same procedure as Experiment 1 has been followed with regards to how sentences are presented within the experiment. 
 
-We analyzed the percentages of 'yes' answers given by the participants in experimental conditions. In the analysis of this experiment, we have included experimental items from our Experiments 1 and 2 to check the interaction between experiments and quantify the difference between verbal and nominal plural markers. In Experiment 2 as well, we excluded participants (\textit{n=X}) who had more than 0.25 points of difference in accuracy between grammatical conditions, which implicates that they did not give enough attention to all conditions. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a 
+We analyzed the percentages of 'yes' answers given by the participants in experimental conditions. In the analysis of this experiment, we have included experimental items from our Experiments 1 and 2 to check the interaction between experiments and quantify the difference between verbal and nominal plural markers. In Experiment 2 as well, we excluded participants (1) who had more than 0.25 points of difference in accuracy between grammatical conditions, which implicates that they did not give enough attention to all conditions. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a 
 part of the Bayesian hierarchical models. Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
 
 
@@ -294,7 +353,9 @@ part of the Bayesian hierarchical models. Data regarding our experiments and ana
 
 \subsection{Results} \label{sec:exp2:results}
 
-\autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (X, Y) regardless of the attractor's number.  
+\autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (0.07 and 0.07 for plural and singular attractors respeectively) regardless of the attractor's number.  
+
+
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}
