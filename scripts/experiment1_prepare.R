@@ -40,6 +40,7 @@ lenForm <- length(levels(factor(FormPart$Timestamp)))
 timestampForm <- levels(factor(FormPart$Timestamp))
 timeform_subject <- data.frame("Timestamp" = timestampForm, "subject" = sprintf("S[%s]",seq(lenForm)))
 FormPart <- merge(FormPart,timeform_subject, all = T)
+FormPart$Age %<>% as.character() %>% gsub("on sekiz", "18", .) %>% as.integer()
 
 data$Timestamp %<>% as.character()
 timeform_subject$Timestamp %<>% as.character()

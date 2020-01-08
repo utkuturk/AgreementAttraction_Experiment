@@ -61,6 +61,7 @@
 \usepackage[colorinlistoftodos]{todonotes}
 \usepackage[singlespacing]{setspace}
 
+
 \title{The Role of Shallow Processing in Agreement Attraction}
 \shorttitle{Your APA6-Style Manuscript}
 \author{Utku Türk, Pavel Loga\v{c}ev}
@@ -78,18 +79,18 @@
 
 \section{Introduction} \label{sec:Intro}
 
-%\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
-
-\subsection{Agreement Attraction Thingy} \label{sec:Intro:literature}
-
-\subsubsection{Morphophonology} \label{sec:Intro:literature:morphophonology}
-
-%fill here accordingly to your results AFTER YOU WRITE THE RESULT.
-
-
-\subsubsection{related sub-sub-field studies} \label{sec:Intro:literature:others}
-
-\subsubsection{This work details} \label{sec:Intro:literature:thiswork}
+% %\footnote{\printglossaries}. % add this to somewhere in the first page I suppose
+% 
+% \subsection{Agreement Attraction Thingy} \label{sec:Intro:literature}
+% 
+% \subsubsection{Morphophonology} \label{sec:Intro:literature:morphophonology}
+% 
+% %fill here accordingly to your results AFTER YOU WRITE THE RESULT.
+% 
+% 
+% \subsubsection{related sub-sub-field studies} \label{sec:Intro:literature:others}
+% 
+% \subsubsection{This work details} \label{sec:Intro:literature:thiswork}
 
 % \citet{LagoEtAl:2018} hypothesize that genitive NPs can trigger agreement attraction in Turkish, because Turkish makes heavy use of genitive subjects, which means genitives are a priori likely to function as agreement controllers. The underlying assumption is that agreement processes rely on, at least partially, the case of an NP to determine its fit for the role of an agreement controller. 
 % If that is so, their items are problematic %as in ... give an example
@@ -115,37 +116,44 @@ One hundred seven native speakers of Turkish in Experiment 1. The mean age is 20
 
 In Experiment 1, participants first saw sentences word by word in the middle of their screen. As in \citet{LagoEtAl:2018} study, we used 40 sets of item and manipulated the grammaticality of the sentences (\textit{grammatical} x \textit{ungrammatical}) and the number of the attractor noun (\textit{singular} x \textit{plural}). All experimental sentences followed the following template: \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{poss}}}$-Adverb-Verb}. The distribution of the verb types followed the same pattern as in \citet{LagoEtAl:2018}, namely twenty unergatives, eighteen unaccusatives, and two optionally transitive verbs. The matrix verb was marked with overt plural marker \textit{-lar} in the half of experimental items. Adverbials in our experimental sentences were always pre-verbal and contained 2-3 words consisting of 15 characters on average. The second noun phrase is the head noun of the subject in all of our experimental sentences whereas the first noun phrase is the genitive modifier of the head, thus \textit{the attractor}. Unlike \citet{LagoEtAl:2018}, our head nouns were vowel-ending, which enables us to distinguish between accusative (\textit{-yI}) and possessive (\textit{-sI}). This change was due to the morpho-phonologic nature of possessive suffix in Turkish, which spell-outs as (\textit{-I}) after a consonant same as the accusative. While all of the head nouns were singular, the attractor noun was in its plural form in the half of the experimental items. One example set of experimental items can be seen in \ref{item:exp1ExperimentalItems}.
 
+% to-do: Why are all sentences in aorist instead of past (as they are in the actual items)?
 % there may be a better way of displaying items.
 \ex. \label{item:exp1ExperimentalItems}
-\a. \textit{Plural Attractor, Ungrammatical Verb} \label{item:exp1expitem-plpl}\\ 
-\gll *Yönetici-ler-in aşcı-sı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
-manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
-\glt `The cooks of the manager were jumping in the kitchen non-stop.' 
-\b. \textit{Singular Attractor, Ungrammatical Verb} \label{item:exp1expitem-sgpl}\\ 
-\gll *Yönetici-nin aşcı-sı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
-manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
-\glt `The cook of the manager were jumping in the kitchen non-stop.'
-\c. \textit{Plural Attractor, Grammatical Verb} \label{item:exp1expitem-plsg}\\ 
-\gll Yönetici-ler-in aşcı-sı mutfak-ta sürekli zıpl-ıyor.\\ 
-manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
-\glt `The cooks of the manager was jumping in the kitchen non-stop.'
-\d. \textit{Singular Attractor, Grammatical Verb}\label{item:exp1expitem-sgsg}\\ 
-\gll Yönetici-nin aşcı-sı mutfak-ta sürekli zıpl-ıyor. \\ 
-manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
-\glt `The cook of the manager was jumping in the kitchen non-stop.'
+%
+\a. \textsc{Plural Attractor, Plural Verb} \label{item:exp1expitem-plpl}\\ 
+  \gll *[Yönetici-ler-in \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor-lar}.\\ 
+  manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
+  \glt \textit{`The cooks of the manager were jumping in the kitchen non-stop.'}
+%
+\b. \textsc{Plural Attractor, Singular Verb} \label{item:exp1expitem-plsg}\\ 
+  \gll [Yönetici-ler-in \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor}.\\ 
+  manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
+  \glt \textit{`The cooks of the manager was jumping in the kitchen non-stop.'}
+%
+\c. \textsc{Singular Attractor, Plural Verb} \label{item:exp1expitem-sgpl}\\ 
+  \gll *[Yönetici-nin \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor-lar}.\\ 
+  manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
+  \glt \textit{`The cook of the manager were jumping in the kitchen non-stop.'}
+%
+\d. \textsc{Singular Attractor, Singular Verb}\label{item:exp1expitem-sgsg}\\ 
+  \gll [Yönetici-nin \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor}. \\ 
+  manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
+  \glt \textit{`The cook of the manager was jumping in the kitchen non-stop.'}
 
 As for the filler sentences, we have included forty sentences, half of which ends in singular and ungrammatical while the other half was plural and grammatical. These decisions were made due to the non-existence of such sentences in the experimental sentences. We wanted to rule out a possible task strategy where participants decide on the grammaticality of the sentence by merely checking the final plural marking. Even though filler items did not follow a strict template as the experimental items, they were created within a template of \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{gen}}}$-Converb-Noun-Adverb-Verb}. The ungrammaticality was created non-locally in the filler items to avoid task strategies. Example filler sentences can be seen in \ref{item:exp1FillerItems}.
 
 
 \ex. \label{item:exp1FillerItems}
-\a. \textit{Plural Grammatical Verb}\\ 
-\gll Sosyolog-un öğrenci-si konuş-unca tutarsızlık açığ-a çıkar-dı-lar.\\ 
+%
+\a. \textit{Grammatical, Plural Verb}\\ 
+\gll [Sosyolog-un öğrenci-si] konuş-unca tutarsızlık açığ-a çıkar-dı-lar.\\ 
 sociolog-\textsc{gen}  student-\textsc{poss} speak-\textsc{nmlz} inconsistency  open-\Dat{} deduct-\textsc{pst}-\textsc{pl}.\\
-\glt `When the sociolog's student talked, they exposed an inconsistency.' 
-\b. \textit{Singular Ungrammatical Verb}\\ 
-\gll *Dansöz-ün koca-sı var-ınca kapı sakince aç-tı.\\ 
+\glt \textit{`When the sociolog's student talked, they exposed an inconsistency.'}
+%
+\b. \textit{Ungrammatical, Singular Verb}\\ 
+\gll *[Dansöz-ün koca-sı] var-ınca kapı sakince aç-tı.\\ 
 dancer-\textsc{gen}  husband-\textsc{poss} arrive-\textsc{nmlz} door slowly  open-\textsc{pst}.\\
-\glt Intended:`When the husband of the dancer came, the door opened slowly.'
+\glt \textit{Intended:`When the husband of the dancer came, the door opened slowly.'}
 
 \subsection{Procedure} \label{sec:exp1:procedure}
 
@@ -184,7 +192,7 @@ Data regarding our experiments and analysis can be found in \texttt{link hidden 
 
 
 
-The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was -3.09[-3.34;-3.34] in log-odds, and the interaction between the ungrammaticality and plural attractor was 0.72[0.43;1.02] in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
+The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was -3.09[-3.35;-3.35] in log-odds, and the interaction between the ungrammaticality and plural attractor was 0.72[0.42;1.02] in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
 % we did not do any nested analysis, should we? Should it say anything different than figure 2? 
 
 %Moreover, this findings are also predicted by cue-based retrieval models \citep{engelmann2019effect, vasishth2019computational} and last rendition of marking and morphing theory by \citet{HammerlyEtAl:2019}. %does it tho? especially with regards to what sol lago says: gen and morphophonology gives clues. maybe we should take a look at speeded acceptability? 
@@ -292,7 +300,7 @@ In Experiment 2, we wanted to rule out the possibility of \textit{form-driven pr
 
 \subsection{Participants} \label{sec:exp2:participants}
 
-Eighty native speakers of Turkish in Experiment 1. The mean age is 21.51, ranging from 18 to 31. Across participants, a total 55 items were not responded to before the 5 second deadline by 41 different participants. These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, % Find citation for using IbexFarm and online testing etc?
+Eighty native speakers of Turkish in Experiment 1. The mean age is 21.22, ranging from 0 to 31. Across participants, a total 55 items were not responded to before the 5 second deadline by 41 different participants. These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, % Find citation for using IbexFarm and online testing etc?
 
 
 \subsection{Materials} \label{sec:exp2:materials}
