@@ -152,6 +152,7 @@ model_summary <- function(m, include_pp_below_zero = T)
     
   }
   
+  rownames(tbl) <- tbl$coef
   tbl
 }
 
@@ -286,3 +287,15 @@ create_model_coefs_plot <- function(m,
   
   return (p)
 }
+
+
+print_estimate_with_ci <- function(model, contr_name, fmt = "%0.2f") {
+  full_fmt <- sprintf("$\\hat{\\beta}=%s;$ $CI=[%s; %s];$ $P(\\beta<0)%s$", fmt, fmt, fmt, "%s")
+  est <- fixef(model, summary = T, robust = F) %>% .[contr_name,]
+  post_prob <- model_summary(model) %>% .[contr_name,]
+  post_prob %<>% mutate( is_extreme = post_prob[['PBelowZero']] < .001 | post_prob[['PBelowZero']] > .999 )
+  post_prob %<>% mutate( PBelowZeroStr = ifelse(is_extreme, as.character(PBelowZeroStr), paste("=", PBelowZeroStr) ) )
+  sprintf(full_fmt, est[['Estimate']], est[['Q2.5']], est[['Q97.5']], post_prob[['PBelowZeroStr']])
+}
+
+

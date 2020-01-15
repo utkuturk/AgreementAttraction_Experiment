@@ -87,6 +87,7 @@ source("../scripts/misc.R")
 
 % do not do this in one chunk. differentiate the chunks and give them proper names.
 <<>>=
+
 fname_data <- "../workspace_exp1/exp_data.rds"
 data_exp1 <- readRDS(fname_data)
 fname_form <- "../workspace_exp1/exp_form.rds"
@@ -239,51 +240,70 @@ df_merged %<>% subset( !is.na(ResponseYes) )
 
 @
 
-In Experiment 1, we tested whether speakers of Turkish make fewer errors when the local ambiguity in the head noun is resolved. Specifically, we have replicated the \citet{LagoEtAl:2018} study. However, instead of using their NP heads, we chose to use nouns that end in a vowel, thus resolving the ambiguity between the accusative and possessive. 
+In Experiment 1, we tested whether speakers of Turkish make fewer agreement attraction errors when the local ambiguity in the head noun is resolved. 
+Specifically, we tried to replicate \citet{LagoEtAl:2018} study. However, instead of using morphologically ambiguous head nouns, we uses nouns ending in a vowel, thus resolving the ambiguity between the accusative and possessive. 
 
 \subsection{Participants} \label{sec:exp1:participants}
 
-One hundred seven native speakers of Turkish in Experiment 1. The mean age is \Sexpr{mean(as.numeric(as.character(form_exp1$Age)))}, ranging from \Sexpr{min(as.numeric(as.character(form_exp1$Age)))} to \Sexpr{max(as.numeric(as.character(form_exp1$Age)))}. Across participants, a total \Sexpr{sum(is.na(df_exp1_na_nofillers$ResponseYes))} items were not responded to before the 5 second deadline by \Sexpr{length(unique(df_exp1_na_nofillers$subject))} different participants. These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform. 
+We recruited 118 undergraduate students to participate in Experiment 1 in exchange for course credit. All participants were native speakers of Turkish, with an average age of \Sexpr{round(mean(form_exp1$Age))} (range: \Sexpr{min(form_exp1$Age)} -- \Sexpr{max(form_exp1$Age)}). 
+These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics at research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm. 
+%to-do: cite ibexfarm
 
 \subsection{Materials} \label{sec:exp1:materials}
 
-In Experiment 1, participants first saw sentences word by word in the middle of their screen. As in \citet{LagoEtAl:2018} study, we used 40 sets of item and manipulated the grammaticality of the sentences (\textit{grammatical} x \textit{ungrammatical}) and the number of the attractor noun (\textit{singular} x \textit{plural}). All experimental sentences followed the following template: \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{poss}}}$-Adverb-Verb}. The distribution of the verb types followed the same pattern as in \citet{LagoEtAl:2018}, namely twenty unergatives, eighteen unaccusatives, and two optionally transitive verbs. The matrix verb was marked with overt plural marker \textit{-lar} in the half of experimental items. Adverbials in our experimental sentences were always pre-verbal and contained 2-3 words consisting of 15 characters on average. The second noun phrase is the head noun of the subject in all of our experimental sentences whereas the first noun phrase is the genitive modifier of the head, thus \textit{the attractor}. Unlike \citet{LagoEtAl:2018}, our head nouns were vowel-ending, which enables us to distinguish between accusative (\textit{-yI}) and possessive (\textit{-sI}). This change was due to the morpho-phonologic nature of possessive suffix in Turkish, which spell-outs as (\textit{-I}) after a consonant same as the accusative. While all of the head nouns were singular, the attractor noun was in its plural form in the half of the experimental items. One example set of experimental items can be seen in \ref{item:exp1ExperimentalItems}.
+We used 40 sets of sentences like (\ref{item:exp1ExperimentalItems}), in which we manipulated 
+(i) the number of the attractor noun, and
+(ii) the number agreement on the verb. 
+Plural number and plural agreement were both marked with the affix \textit{-ler/-lar}, while singular number and singular agreement were marked with its absence. 
+%
+All sentences started with a complex subject NP like \textit{`the manager's cook'} (\textit{yöneticinin aşcısı}), in which the possessor, which functioned as the attractor, carried genitive case, and the head noun cassied possessive case. Because the head noun was singular in all conditions, sentences with plural verb agreement were ungrammatical.
+% to-do: Didn't we use Lago's items as a base?? If so, we need to say this here, and also how much we've changed, and how much remained.
+Unlike the \citet{LagoEtAl:2018} sentences, our head nouns were vowel-ending, and therefore not ambiguous between accusative case, for which the case suffix is \textit{-yI}, and possessive case, for which the suffix is \textit{-sI}. 
+
+% to-do: This all needs to go up, to the description of the potential confound in Lago et al.'s study.
+%This change was due to the morpho-phonologic nature of possessive suffix in Turkish, which spell-outs as (\textit{-I}) after a consonant same as the accusative. 
+The distribution of the verb types followed the same pattern as in \citet{LagoEtAl:2018}, namely twenty unergatives, eighteen unaccusatives, and two optionally transitive verbs. 
+%
+The pre-verbal adverbials preceding the verb in our experimental sentences consisted of 2-3 words (15 characters on average). 
 
 % to-do: Why are all sentences in aorist instead of past (as they are in the actual items)?
-% there may be a better way of displaying items.
 \ex. \label{item:exp1ExperimentalItems}
 %
-\a. \textsc{Plural Attractor, Plural Verb} \label{item:exp1expitem-plpl}\\ 
+\a. \textsc{Plural Attractor, Ungrammatical (Plural Verb)} \label{item:exp1expitem-plpl}\\ 
   \gll *[Yönetici-ler-in \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor-lar}.\\ 
   manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
   \glt \textit{`The cooks of the manager were jumping in the kitchen non-stop.'}
 %
-\b. \textsc{Plural Attractor, Singular Verb} \label{item:exp1expitem-plsg}\\ 
+\b. \textsc{Plural Attractor, Grammatical (Singular Verb)} \label{item:exp1expitem-plsg}\\ 
   \gll [Yönetici-ler-in \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor}.\\ 
   manager-\textsc{pl}-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
   \glt \textit{`The cooks of the manager was jumping in the kitchen non-stop.'}
 %
-\c. \textsc{Singular Attractor, Plural Verb} \label{item:exp1expitem-sgpl}\\ 
+\c. \textsc{Singular Attractor, Ungrammatical (Plural Verb)} \label{item:exp1expitem-sgpl}\\ 
   \gll *[Yönetici-nin \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor-lar}.\\ 
   manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
   \glt \textit{`The cook of the manager were jumping in the kitchen non-stop.'}
 %
-\d. \textsc{Singular Attractor, Singular Verb}\label{item:exp1expitem-sgsg}\\ 
+\d. \textsc{Singular Attractor, Grammatical (Singular Verb)}\label{item:exp1expitem-sgsg}\\ 
   \gll [Yönetici-nin \textbf{aşcı-sı}] mutfak-ta sürekli \textbf{zıpl-ıyor}. \\ 
   manager-\textsc{gen}  cook-\textsc{poss} kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
   \glt \textit{`The cook of the manager was jumping in the kitchen non-stop.'}
 
-As for the filler sentences, we have included forty sentences, half of which ends in singular and ungrammatical while the other half was plural and grammatical. These decisions were made due to the non-existence of such sentences in the experimental sentences. We wanted to rule out a possible task strategy where participants decide on the grammaticality of the sentence by merely checking the final plural marking. Even though filler items did not follow a strict template as the experimental items, they were created within a template of \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{gen}}}$-Converb-Noun-Adverb-Verb}. The ungrammaticality was created non-locally in the filler items to avoid task strategies. Example filler sentences can be seen in \ref{item:exp1FillerItems}.
+We intermixed our experimental sentences with 40 filler sentences of two types, as illustrated in (\ref{item:exp1FillerItems}). To compensate for the fact that among experimental sentences, all ungrammatical sentences ended in a plural-agreeing verb, while all grammatical sentences ended in a singular-agreeing verb, we included 20 grammatical sentences with plural verbs, and 20 ungrammatical sentences with singular agreement. This was done in order to discourage participants from using a strategy based on verb number. 
+
+%Even though filler items did not follow a strict template as the experimental items, they were created within a template of \textit{Noun$_{{\textsc{gen}}}$-Noun$_{{\textsc{gen}}}$-Converb-Noun-Adverb-Verb}. The ungrammaticality was created non-locally in the filler items to avoid task strategies. Example filler sentences can be seen in \ref{item:exp1FillerItems}.
 
 
 \ex. \label{item:exp1FillerItems}
 %
-\a. \textsc{Grammatical, Plural Verb}\\ 
-\gll [Sosyolog-un \textbf{öğrenci-si}] konuş-unca tutarsızlık açığ-a \textbf{çıkar-dı-lar}.\\ 
-sociolog-\textsc{gen}  student-\textsc{poss} speak-\textsc{nmlz} inconsistency  open-\Dat{} deduct-\textsc{pst}-\textsc{pl}.\\
-\glt \textit{`When the sociolog's student talked, they exposed an inconsistency.'}
+\a. \textsc{Grammatical Filler (Plural Verb)}\\ 
+  \gll [Sosyolog-un \textbf{öğrenci-si}] konuş-unca tutarsızlık açığ-a \textbf{çıkar-dı-lar}.\\ 
+  sociolog-\textsc{gen}  student-\textsc{poss} speak-\textsc{nmlz} inconsistency  open-\textsc{dat} deduct-\textsc{pst}-\textsc{pl}.\\
+  \glt \textit{`When the sociologist's student talked, they exposed an inconsistency.'}
+%to-do: Translation above doesn't make sense.
 %
-\b. \textsc{Ungrammatical, Singular Verb}\\ 
+%
+\b. \textsc{Ungrammatical Filler (Singular Verb)}\\ 
 \gll *[Dansöz-ün \textbf{koca-sı}] var-ınca kapı sakince \textbf{aç-tı}.\\ 
 dancer-\textsc{gen}  husband-\textsc{poss} arrive-\textsc{nmlz} door slowly  open-\textsc{pst}.\\
 \glt \textit{Intended:`When the husband of the dancer came, the door opened slowly.'}
@@ -291,18 +311,28 @@ dancer-\textsc{gen}  husband-\textsc{poss} arrive-\textsc{nmlz} door slowly  ope
 
 \subsection{Procedure} \label{sec:exp1:procedure}
 
-Prior to the start of the experiment, participants provided demographic information, as well as informed consent to participate in the experiment.
-They read the instructions where we showed what they will see in the experiment, and where we informed them to give quick and accurate answers during the experiment. They are also informed regarding the that there will be a time-limit in answering the question. Every session started with a practice session where participants have been informed to be a bit faster when they were not. The sentences were presented in the middle of the screen word-by-word on a web-based platform Ibex Farm (\url{http://spellout.net/ibexfarm/}). Each word was displayed with 30 font size and stayed on the screen for 300 ms, unlike \citet{LagoEtAl:2018} and \citet{WagersEtAl:2009} where words stayed for 500 ms in the screen. After the sentence is completed, participants were asked: "How did they find the sentence?" They were informed to press P on their keyboard for \textit{good} and Q for bad. Apart from the practice items, we did not provide any feedback regarding their answers. However, participants were instructed to be faster when they waited more than 5,000 ms to answer the acceptability question. 
+The experiment was run online, using the web-based platform Ibex Farm (\url{http://spellout.net/ibexfarm/}). Each experimental session took approximately XXX minutes to complete.
+% to-do: How much time did it take?
+%
+Prior to the start of the experiment, participants provided demographic information, as well as informed consent to participate in the experiment. They read the instructions, and were given 9 practice trials before the experiment began.
+%
+Each trial began with a blank screen for 600 ms, followed by a word-by-word RSVP presentation of the sentence in the center of the screen, followed by an acceptability judgment. 
+Sentences were presented word-by-word in 30pt font size, and at a rate of 400 ms per word. Participants pressed the key 'P' for \textit{'acceptable'} and 'Q' for \textit{'unacceptable'}. They were instructed to provide an acceptability rating before the 5,000 ms deadline. During the experiment, they were reminded to respond faster if they responded too slowly. 
 
-Participants saw forty experimental and forty filler items. Experimental items were distributed among four different lists using Latin Square design. Every participant saw one version of the experiment with a specific list and one item per condition.   
+Participants saw 40 experimental and 40 filler sentences. Experimental sentences were distributed among four different lists according to a Latin-square design. Every participant saw one version of the experiment with a specific list and one item per condition.   
 
 \subsection{Analysis} \label{sec:exp1:analysis}
-% Maybe leave it to Pavel?
 
-Every experimental item from both experiments (Experiment 1 and \citet{LagoEtAl:2018}) is included in the analysis. Participants (\Sexpr{length(bad_subjects)}) that exceeded the threshold of 0.25 difference in giving accurate answers to grammatical conditions \ref{item:exp1expitem-sgsg} and \ref{item:exp1expitem-sgpl} are excluded from the analysis. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a part of the Bayesian hierarchical models.
-%I did not know how to state (1+x*y|subjet)
-Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
+Since our aim was to test whether the morphological ambiguity present in the \citet{LagoEtAl:2018} items affected the presence or magnitude of the agreement attraction effect, statistically, we needed to test for the presence of an interaction between (i) the presence of the morphological ambiguity on the head noun, and (ii) the agreement attraction effect. In order to do so, we decided to analyze the data from the present experiment together with Lago et al.'s data, using experiment as an additional factor in the analysis.
 
+%All experimental trials from both experiments (Experiment 1 and Lago et al.'s study) was included in the analysis. 
+
+Prior to analysis we removed the data for all participants who failed to show sufficient sentitivity to the effect of grammaticality in singular attractor conditions, i.e., when no agreement attraction was expected. Specifically, we removed all participants for whom the difference in the percentage of `yes' responses between the grammatical condition \ref{item:exp1expitem-sgsg} and the ungrammatical condition \ref{item:exp1expitem-sgpl} was below the threshold of 25 percentage points. As a result, we excluded \Sexpr{length(bad_subjects)} participants from experiment 1, and \Sexpr{stopifnot(length(bad_subjects_lagoetal) == 1)} one participant from the Lago et al. experiment.
+
+We used the R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep[e.g.,]{GelmanHill:2007}. We analyzed only experimental sentences, and used (i) grammaticality of the sentence, (ii) attractor number, and (iii) presence of morphological ambiguity (i.e., experiment), as well as all their interactions as predictors. Moreover, we used by-participant and by-item intercepts and slopes for all predictors.
+
+Data for experiment 1, along with our analysis scripts can be found \texttt{link hidden due to blind review}.
+% to-do: Please create a repo where we can put all of this, or specify the github URL. I'm not aware of any blind reviews.
 
 
 \subsection{Results} \label{sec:exp1:results}
@@ -342,7 +372,9 @@ avg_clean$rt_correct <- df_merged_nonna %>% subset(ResponseCorrect) %>%
 
 avg_exp <- avg_clean %>% lapply(function(df) { df %>% subset(is.na(source) | source != "filler") })
 avg_fillers <- avg_clean %>% lapply(function(df) { df %>% subset(source == "filler") })
-pd <- position_dodge(0.1)
+
+
+pd <- position_dodge(0.0)
 p_avg_resp <- avg_exp$resp %>%
               ggplot(aes(grammatical, M, #linetype = attractor_num, 
                          color = attractor_num, group = attractor_num)) + 
@@ -362,10 +394,38 @@ p_avg_resp <- p_avg_resp + scale_color_discrete(name = "Attractor Number")
 
 @
 
-\autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. It shows that ungrammatical sentences with plural attractors are rated as acceptable more often (M = \Sexpr{avg_exp$resp$M[3]}\%, SE = \Sexpr{avg_exp$resp$SE[3]}\%) than their counterparts with singular attractors (M=\Sexpr{avg_exp$resp$M[4]}\%, SE=\Sexpr{avg_exp$resp$SE[4]}\%). In addition to ungrammatical conditions, accuracy rates within the grammatical conditions were comparable and high across conditions (M = \Sexpr{avg_exp$resp$M[1]}\% and \Sexpr{avg_exp$resp$M[2]}\%, SE = \Sexpr{avg_exp$resp$SE[1]}\% and \Sexpr{avg_exp$resp$SE[2]}\% for singular and plural attractors respectively). As seen in \autoref{fig:exp1AvgResponse}, participants judged the sentences with plural attractor and singular verbs to be grammatical with the rate of \Sexpr{avg_exp$resp$M[3]-avg_exp$resp$M[4]}\%, which is in line with the findings reported in \citet{LagoEtAl:2018}.    
+
+<<>>=
+avg_exp_resp_exp1 <- avg_exp$resp %>% subset(experiment == "Experiment 1")
+avg_exp_resp_lagoetal <- avg_exp$resp %>% subset(experiment == "Lago et al. (2018)")
+
+@
+
+\autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. 
+\Sexpr{ 
+cur_entry1 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "plural");
+cur_entry2 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "singular") }%
+It shows that ungrammatical sentences with plural attractors are rated as acceptable more often
+(M = \Sexpr{cur_entry1$M}, 
+SE = \Sexpr{cur_entry1$SE}) 
+than their counterparts with singular attractors 
+(M=\Sexpr{cur_entry2$M}, 
+SE=\Sexpr{cur_entry2$SE}).
+%
+\Sexpr{ 
+cur_entry1lago = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "plural");
+cur_entry2lago = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "singular") }%
+%This means that ungrammatical sentences with plural attractors were classified as acceptable more often than their counterparts with singular attractors. 
+The magnitude of the effect (\Sexpr{sprintf("%0.2f", cur_entry1$M-cur_entry2$M)}) was in line with the findings reported in \citet{LagoEtAl:2018}, where the difference was \Sexpr{sprintf("%0.2f", cur_entry1lago$M-cur_entry2lago$M)}.
+%
+Accuracy rates for grammatical conditions were nearly equal
+\Sexpr{ 
+cur_entry3 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "singular");
+cur_entry4 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "plural"); }%
+(M = \Sexpr{cur_entry3$M} and \Sexpr{cur_entry4$M}, SE = \Sexpr{cur_entry3$SE} and \Sexpr{cur_entry4$SE}, for singular and plural attractors respectively). 
 
 
-<<exp1AvgResponse, fig.cap='Percentage of \\emph{yes} (acceptable) responses of Experiment 1 and \\citet{LagoEtAl:2018}', fig.height=3, fig.align='center'>>=
+<<exp1AvgResponse, fig.cap='Average percentages of `acceptable\' responses in Experiment 1 and \\citet{LagoEtAl:2018}. Within-subject 95\\% confidence intervals in brackets \\cite{Cousineau:2005,Morey:2008}.', fig.height=3, fig.align='center'>>=
 print(p_avg_resp)
 
 @
@@ -403,20 +463,6 @@ m_responses <- brm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorP
                    chains = n_chains, cores = n_cores, iter = n_iter,
                    file = fname_exp1_responses)
 
-
-# fname_exp1_responses_minimal <- "../workspace_exp1/model_responses_minimal"
-# m_responses_minimal <- brm(ResponseYes ~ (cEndsInConsonant + cUngrammatical + cAttractorPlural)^2 + 
-#                                          (cUngrammatical * cAttractorPlural + 1| subject) +
-#                                          (cUngrammatical * cAttractorPlural + 1| item),  
-#! *Utku* Can we omit this one out? We do not have every condition for every item from each subject? It goes to minus infinity.
-#! *PL* Are you talking about the starting values?
-#                    data = df_merged_nofillers,
-#                    family = bernoulli("probit"),
-#                    file = fname_exp1_responses_minimal, 
-#                    chains = n_chains, cores = n_cores, iter = n_iter)
-
-
-
 fname_exp1_rts <- "../workspace_exp1/fit_responses_rt"
 m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
                                  (cUngrammatical * cAttractorPlural + 1| subject) +
@@ -427,18 +473,25 @@ m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
                    file = fname_exp1_rts)
 
 model_results_table <- fixef(m_responses, summary = T, robust = F) %>% 
-  as.data.frame() %>% tibble::rownames_to_column("variables")
+  as.data.frame() #%>% tibble::rownames_to_column("variables")
+
 @
 
-The estimates and 95\% CIs of a Bayesian GLM in \autoref{fig:exp1ResponseModel} confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. The main effect of ungrammaticality was \Sexpr{model_results_table[3,2]}[\Sexpr{model_results_table[3,4]};\Sexpr{model_results_table[3,4]}] in log-odds, and the interaction between the ungrammaticality and plural attractor was \Sexpr{model_results_table[7,2]}[\Sexpr{model_results_table[7,4]};\Sexpr{model_results_table[7,5]}] in log-odds. Since other estimates' credible intervals range over zero, we conclude that they were not informative. %maybe speak with p values? 
-% we did not do any nested analysis, should we? Should it say anything different than figure 2? 
+A Bayesian GLM assuming a Bernoulli distribution with a probit-link function was fit to participants' `acceptable' responses. The model's estimates and 95\% credible intervals are shown in \autoref{fig:exp1ResponseModel}. 
+%
+%They confirm the observations we stated above: the positive interaction between sentence grammaticality and attractor number is in line with a larger effect of attractor number in ungrammatical sentences. 
+%
+The main effect of \textit{ungrammaticality} (\Sexpr{print_estimate_with_ci( m_responses, 'cUngrammatical' )}) indicates that, on average, participants were quite good at distinguishing between grammatical and ungrammatical sentences. Meanwhile, the positive interaction between \textit{ungrammaticality} and \textit{attractor number} (\Sexpr{print_estimate_with_ci( m_responses, 'cUngrammatical:cAttractorPlural')}) indicated a larger effect of attractor number in ungrammatical conditions, and thus a number agreement attraction effect.
+Importantly, there was no evidence for a three-way interaction between \textit{the presence of ambiguity}, \textit{ungrammaticality} and \textit{attractor number} (\Sexpr{print_estimate_with_ci( m_responses, 'cEndsInConsonant:cUngrammatical:cAttractorPlural')}).
+
+% to-do:
+% Importantly, even if there was an interaction with experiment, it's relatively small, so it wouldn't reduce the other interaction to 0. 
 
 %Moreover, this findings are also predicted by cue-based retrieval models \citep{engelmann2019effect, vasishth2019computational} and last rendition of marking and morphing theory by \citet{HammerlyEtAl:2019}. %does it tho? especially with regards to what sol lago says: gen and morphophonology gives clues. maybe we should take a look at speeded acceptability? 
 %maybe this is not the perfect place to write this.
 
 
-
-<<exp1ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1', fig.height=3, fig.align='center'>>=
+<<exp1ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1.', fig.height=3, fig.align='center'>>=
 contrast_names <- c("cUngrammatical" = "Ungrammaticality",
                     "cAttractorPlural" = "Plural Attactor",
                     "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
@@ -452,7 +505,7 @@ p_m_response <-
         plot_stats = T, map_names = contrast_names,
         expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1,
         x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
-        xlab("Estimate (log-odds)")
+        xlab("Estimate (probit)")
 
 suppressWarnings({
 print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
@@ -638,19 +691,26 @@ We have used the same verbs, and have not changed the distribution of verb types
   hıre-\textsc{nmlz}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
   \glt \textit{`The cook that they hired was jumping in the kitchen non-stop.'}
 
-In our filler items for Experiment 2, we made sure that every sentence starts with an object relative clause. We used plural distractors with grammatical verbs and singular distractors with ungrammatical verbs. In all of our filler sentences, the dependency between the first NP subject and its verb resolved in an adverbial embedded sentence. Grammatical filler items in Experiment 2 all had a template of \textit{RC$_{\textsc{pl}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\textsc{pl}}$}, whereas ungrammatical filler items used a template of \textit{RC$_{\Sg{}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\Sg{}}$}
+In our filler items for Experiment 2, we made sure that every sentence starts with an object relative clause. We used plural distractors with grammatical verbs and singular distractors with ungrammatical verbs. In all of our filler sentences, the dependency between the first NP subject and its verb resolved in an adverbial embedded sentence. Grammatical filler items in Experiment 2 all had a template of
+XXX
+%\textit{RC$_{\textsc{pl}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\textsc{pl}}$}, 
+whereas ungrammatical filler items used a template of 
+XXX
+%\textit{RC$_{\textsc{sg}}$-Bare Noun-Adverb-Converb-Noun-Adverb-Verb$_{\textsc{sg}$}
 
 Again, to avoid a possible strategy where participants use plural ending as a direct indication of ungrammaticality, half of our fillers were with an overt plural marking on a grammatical verb while the other half were without an overt plural marking on an ungrammatical verb. We used Turkish pro-drop characteristics which enable participants to form a dependency between the matrix verb and the null subject. Example filler sentences can be seen in \ref{item:exp2FillerItems} 
 
 \ex. \label{item:exp2FillerItems}
+%
 \a. \textit{Plural Grammatical Verb}\\ 
-\gll Oku-t-tuk-lar-ı öğrenci başarılı ol-unca mutlu ol-du-lar.\\ 
-read-\Caus{}-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  student successful be-\textsc{nmlz} happy be-\textsc{pst}-\textsc{pl}.\\
-\glt `When the student they sponsored become successful, they became happy.' 
+  \gll Oku-t-tuk-lar-ı öğrenci başarılı ol-unca mutlu ol-du-lar.\\ 
+  read-\textsc{caus}-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  student successful be-\textsc{nmlz} happy be-\textsc{pst}-\textsc{pl}.\\
+  \glt `When the student they sponsored become successful, they became happy.' 
+%
 \b. \textit{Singular Ungrammatical Verb}\\ 
-\gll *Kandır-dığ-ı adam öde-me-yince bulaşık saatlerce yıka-dı.\\ 
-trick-\textsc{nmlz}-\textsc{poss}  man pay-\Neg{}-\textsc{nmlz} dish for.hours clean-\textsc{pst}.\\
-\glt Intended:`When the man he tricked did not pay, he cleaned dishes for hours.'
+  \gll *Kandır-dığ-ı adam öde-me-yince bulaşık saatlerce yıka-dı.\\ 
+  trick-\textsc{nmlz}-\textsc{poss}  man pay-\textsc{neg}-\textsc{nmlz} dish for.hours clean-\textsc{pst}.\\
+  \glt Intended:`When the man he tricked did not pay, he cleaned dishes for hours.'
 
 
 \subsection{Procedure and Analysis} \label{sec:exp2:procedure_analysis}
@@ -707,9 +767,7 @@ part of the Bayesian hierarchical models. Data regarding our experiments and ana
 
 \autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (\Sexpr{avg_exp2$resp$M[7]} and \Sexpr{avg_exp2$resp$M[8]} for plural and singular attractors respeectively) regardless of the attractor's number.  
 
-
-
-<<exp2AvgResponse, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2', fig.height=3, fig.align='center'>>=
+<<exp2AvgResponse, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1 and Experiment 2.  Within-subject 95\\% confidence intervals in brackets \\cite{Cousineau:2005,Morey:2008}.', fig.height=3, fig.align='center'>>=
 
 avg_exp2 <- avg_clean2$resp %>% subset(is.na(source) | source != "filler") %>% subset(experiment == "Experiment 2")
 avg_fillers2 <- avg_clean2$resp %>% subset(source == "filler") %>% subset(experiment == "Experiment 2")
@@ -808,7 +866,7 @@ As for the marking and morphing theories, the results of Experiment 2 are comple
 
 
 
-\bibliography{library,new-references}
+\bibliography{new-references,library}
 
 \end{document}
 
