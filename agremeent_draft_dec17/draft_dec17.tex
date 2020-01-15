@@ -248,6 +248,9 @@ A Bayesian GLM assuming a Bernoulli distribution with a probit-link function was
 The main effect of \textit{ungrammaticality} ($\hat{\beta}=-3.09;$ $CI=[-3.35; -2.84];$ $P(\beta<0)> .999$) indicates that, on average, participants were quite good at distinguishing between grammatical and ungrammatical sentences. Meanwhile, the positive interaction between \textit{ungrammaticality} and \textit{attractor number} ($\hat{\beta}=0.72;$ $CI=[0.42; 1.02];$ $P(\beta<0)< .001$) indicated a larger effect of attractor number in ungrammatical conditions, and thus a number agreement attraction effect.
 Importantly, there was no evidence for a three-way interaction between \textit{the presence of ambiguity}, \textit{ungrammaticality} and \textit{attractor number} ($\hat{\beta}=0.30;$ $CI=[-0.20; 0.79];$ $P(\beta<0)=    .12$).
 
+% to-do:
+% Importantly, even if there was an interaction with experiment, it's relatively small, so it wouldn't reduce the other interaction to 0. 
+
 %Moreover, this findings are also predicted by cue-based retrieval models \citep{engelmann2019effect, vasishth2019computational} and last rendition of marking and morphing theory by \citet{HammerlyEtAl:2019}. %does it tho? especially with regards to what sol lago says: gen and morphophonology gives clues. maybe we should take a look at speeded acceptability? 
 %maybe this is not the perfect place to write this.
 
@@ -352,7 +355,10 @@ In Experiment 2, we wanted to rule out the possibility of \textit{form-driven pr
 
 \subsection{Participants} \label{sec:exp2:participants}
 
-Eighty native speakers of Turkish in Experiment 1. The mean age is 21.22, ranging from 0 to 31. Across participants, a total 55 items were not responded to before the 5 second deadline by 41 different participants. These items were not included in the analysis. Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, % Find citation for using IbexFarm and online testing etc?
+We recruited 79 native speakers of Turkish to participate in Experiment 2. Their average age was 21, ranging from 18 to 31. 
+
+
+Experiments in this paper were carried out following the Declaration of Helsinki and the regulations concerning ethics in research in Bo\u{g}azi\c{c}i University. All participants provided informed consent. They were tested online, on IbexFarm, using their preferred platform, % Find citation for using IbexFarm and online testing etc?
 
 
 \subsection{Materials} \label{sec:exp2:materials}
@@ -365,22 +371,22 @@ We have used the same verbs, and have not changed the distribution of verb types
 
 \ex. \label{item:exp2ExperimentalItems}
 %
-\a. \textit{Plural Attractor, Plural Verb}\label{item:exp2expitem-plpl}\\ 
+\a. \textsc{Plural Attractor, Ungrammatical (Plural Verb)}\label{item:exp2expitem-plpl}\\ 
   \gll *Tut-tuk-lar-ı aşcı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
   hire-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
   \glt \textit{`The cook that they hired were jumping in the kitchen non-stop.'}
 %
-\b. \textit{Plural Attractor, Singular Verb}\label{item:exp2expitem-plsg}\\ 
+\b. \textit{Plural Attractor, Grammatical (Singular Verb)}\label{item:exp2expitem-plsg}\\ 
   \gll Tut-tuk-lar-ı aşcı mutfak-ta sürekli zıpl-ıyor.\\ 
   hire-\textsc{nmlz}-\textsc{pl}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
   \glt \textit{`The cook that they hired was jumping in the kitchen non-stop.'}
 %
-\c. \textit{Singular Attractor, Plural Verb}\label{item:exp2expitem-sgpl}\\
+\c. \textit{Singular Attractor, Ungrammatical (Plural Verb)}\label{item:exp2expitem-sgpl}\\
   \gll *Tut-tuğ-u aşcı mutfak-ta sürekli zıpl-ıyor-lar.\\ 
   hıre-\textsc{nmlz}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}-\textsc{pl}.\\
   \glt \textit{`The cook that they hired were jumping in the kitchen non-stop.'}
 %
-\d. \textit{Singular Attractor, Singular Verb}\label{item:exp2expitem-sgsg}\\ 
+\d. \textit{Singular Attractor, Grammatical (Singular Verb)}\label{item:exp2expitem-sgsg}\\ 
   \gll Tut-tuğ-u aşcı mutfak-ta sürekli zıpl-ıyor.\\ 
   hıre-\textsc{nmlz}-\textsc{poss}  cook kitchen-\textsc{loc} non-stop  jump-\textsc{prog}.\\
   \glt \textit{`The cook that they hired was jumping in the kitchen non-stop.'}
@@ -413,18 +419,20 @@ Again, to avoid a possible strategy where participants use plural ending as a di
 
 
 
-In Experiment 2, the same procedure as Experiment 1 has been followed with regards to how sentences are presented within the experiment. 
+% to-do: some more details.
+% In Experiment 2, the same procedure as Experiment 1 has been followed with regards to how sentences are presented within the experiment. 
 
 We analyzed the percentages of 'yes' answers given by the participants in experimental conditions. In the analysis of this experiment, we have included experimental items from our Experiments 1 and 2 to check the interaction between experiments and quantify the difference between verbal and nominal plural markers. In Experiment 2 as well, we excluded participants (1) who had more than 0.25 points of difference in accuracy between grammatical conditions, which implicates that they did not give enough attention to all conditions. We used R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep{GelmanHill:2007}. We added our independent variables, i.e. grammaticality of the sentence and the overt number information on the distractors, and random variable experiment as a factor. Analyses by items and participants are also conducted as a 
 part of the Bayesian hierarchical models. Data regarding our experiments and analysis can be found in \texttt{link hidden due to blind review}.
 
+Across participants, a total 55 items were not responded to before the 5 second deadline by 45 different participants. These items were not included in the analysis. 
 
 % Should I rephrase these parts?
 %Prior the experiments, participant gave information regarding themselves and a consent to start to the experiment. They read the instructions where we showed what they will see in the experiment, what will be going to ask to participants, and where we informed them to be fast and accurate during the experiment. Every session started with practice session where participants have been informed being a bit faster when they were not. The sentences were presented in the middle of the screen word-by-word on a web-based platform Ibex Farm (\url{http://spellout.net/ibexfarm/}). Each word stayed on the screen for 300 ms, unlike \citet{LagoEtAl:2018} and \citet{WagersEtAl:2009} where words stayed for 500 ms in the screen. After the sentence is completed, participants were asked "How did they find the sentence?" They were informed to press P on their keyboard for \textit{good} and Q for bad. Apart from the practice items, we did not provide any feedback regarding their answer. However, participants were asked to be faster when they waited more than 5000 ms to answer the acceptability question.
 
 \subsection{Results} \label{sec:exp2:results}
 
-\autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (0.07 and 0.07 for plural and singular attractors respeectively) regardless of the attractor's number.  
+\autoref{fig:exp2AvgResponse} shows the average proportions of 'acceptable' responses by experimental conditions for both Experiment 1 and Experiment 2. We see that there is no effect resembling agreement attraction in the ungrammatical conditions of Experiment 2. Ungrammatical conditions showed comparable effects (0.05 and 0.06 for plural and singular attractors respeectively) regardless of the attractor's number.  
 
 \begin{knitrout}
 \definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{figure}

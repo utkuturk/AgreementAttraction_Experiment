@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.1.11)  15 JAN 2020 02:12
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (MiKTeX 2.9.7250 64-bit) (preloaded format=pdflatex 2020.1.11)  15 JAN 2020 16:44
 entering extended mode
 **./draft_dec17.tex
 (draft_dec17.tex
@@ -1747,48 +1747,51 @@ Package natbib Warning: Citation `Morey:2008' on page 4 undefined on input line
  236.
 
 
-Package xcolor Warning: Incompatible color definition on input line 256.
+Package xcolor Warning: Incompatible color definition on input line 259.
 
 <figure/exp1ResponseModel-1.pdf, id=96, 505.89pt x 216.81pt>
 File: figure/exp1ResponseModel-1.pdf Graphic file (type pdf)
 <use figure/exp1ResponseModel-1.pdf>
-Package pdftex.def Info: figure/exp1ResponseModel-1.pdf  used on input line 258
+Package pdftex.def Info: figure/exp1ResponseModel-1.pdf  used on input line 261
 .
 (pdftex.def)             Requested size: 433.62pt x 185.84093pt.
 [4 <./figure/exp1AvgResponse-1.pdf>] [5 <./figure/exp1ResponseModel-1.pdf>]
 LaTeX Font Info:    Trying to load font information for T1+lmss on input line 3
-33.
+36.
 
 ("C:\Program Files\MiKTeX 2.9\tex/latex/lm\t1lmss.fd"
 File: t1lmss.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 333.
- [6] [7] [8]
+(Font)              <5> on input line 336.
+ [6] [7]
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
-Package xcolor Warning: Incompatible color definition on input line 430.
+ [8]
+
+Package xcolor Warning: Incompatible color definition on input line 438.
 
 <figure/exp2AvgResponse-1.pdf, id=190, 505.89pt x 216.81pt>
 File: figure/exp2AvgResponse-1.pdf Graphic file (type pdf)
 <use figure/exp2AvgResponse-1.pdf>
-Package pdftex.def Info: figure/exp2AvgResponse-1.pdf  used on input line 432.
+Package pdftex.def Info: figure/exp2AvgResponse-1.pdf  used on input line 440.
 (pdftex.def)             Requested size: 433.62pt x 185.84093pt.
 
 Package natbib Warning: Citation `Cousineau:2005' on page 9 undefined on input 
-line 436.
+line 444.
 
 
 Package natbib Warning: Citation `Morey:2008' on page 9 undefined on input line
- 436.
+ 444.
 
 [9 <./figure/exp2AvgResponse-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 448.
+Package xcolor Warning: Incompatible color definition on input line 456.
 
 <figure/exp2ResponseModel-1.pdf, id=206, 505.89pt x 216.81pt>
 File: figure/exp2ResponseModel-1.pdf Graphic file (type pdf)
 <use figure/exp2ResponseModel-1.pdf>
-Package pdftex.def Info: figure/exp2ResponseModel-1.pdf  used on input line 450
+Package pdftex.def Info: figure/exp2ResponseModel-1.pdf  used on input line 458
 .
 (pdftex.def)             Requested size: 433.62pt x 185.84093pt.
 [10 <./figure/exp2ResponseModel-1.pdf>] (draft_dec17.bbl [11]
@@ -1801,11 +1804,11 @@ Package natbib Warning: There were undefined citations.
 AED endfloat: Processing end Figures and Tables [12
 
 ]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 479.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 479.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 487.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 487.
  (draft_dec17.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 479.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 479.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 487.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 487.
 
 
 Package rerunfilecheck Warning: File `draft_dec17.out' has changed.
@@ -1822,11 +1825,11 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 Here is how much of TeX's memory you used:
  48986 strings out of 492449
  984019 string characters out of 3129731
- 1096179 words of memory out of 3000000
+ 1096180 words of memory out of 3000000
  52532 multiletter control sequences out of 15000+200000
  606778 words of font info for 79 fonts, out of 3000000 for 9000
  1141 hyphenation exceptions out of 8191
- 151i,12n,185p,1610b,2299s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 151i,11n,185p,1610b,2299s stack positions out of 5000i,500n,10000p,200000b,50000s
 {C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-ec.enc}{C:/Program Files/M
 iKTeX 2.9/fonts/enc/dvips/lm/lm-mathsy.enc}{C:/Program Files/MiKTeX 2.9/fonts/e
 nc/dvips/lm/lm-rm.enc}{C:/Program Files/MiKTeX 2.9/fonts/enc/dvips/lm/lm-mathit
@@ -1841,7 +1844,7 @@ e1/public/lm/lmr8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmri10
 Files/MiKTeX 2.9/fonts/type1/public/lm/lmsy10.pfb><C:/Program Files/MiKTeX 2.9/
 fonts/type1/public/lm/lmsy8.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public
 /lm/lmtt10.pfb><C:/Program Files/MiKTeX 2.9/fonts/type1/public/lm/lmtt12.pfb>
-Output written on draft_dec17.pdf (12 pages, 353711 bytes).
+Output written on draft_dec17.pdf (12 pages, 354083 bytes).
 PDF statistics:
  299 PDF objects out of 1000 (max. 8388607)
  59 named destinations out of 1000 (max. 500000)
