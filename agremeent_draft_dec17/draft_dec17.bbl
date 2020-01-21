@@ -27,6 +27,34 @@ Bürkner, P\BHBI C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Cousineau%
+}{%
+Cousineau%
+}{%
+{\protect \APACyear {2005}}%
+}]{%
+Cousineau:2005}
+\APACinsertmetastar {%
+Cousineau:2005}%
+\begin{APACrefauthors}%
+Cousineau, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Confidence intervals in within-subject designs: A
+  simpler solution to Loftus and Masson's method}} {{Confidence intervals in
+  within-subject designs: A simpler solution to Loftus and Masson's
+  method}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Tutorials in Quantitative Methods for
+  Psychology}{1}{1}{2--5}.
+\newblock
+\begin{APACrefDOI} \doi{no DOI found} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Gelman%
 \ \BBA {} Hill%
 }{%
@@ -171,6 +199,31 @@ Lewis, R\BPBI L.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Morey%
+}{%
+Morey%
+}{%
+{\protect \APACyear {2008}}%
+}]{%
+Morey:2008}
+\APACinsertmetastar {%
+Morey:2008}%
+\begin{APACrefauthors}%
+Morey, R\BPBI D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Confidence intervals from normalized data: A correction
+  to Cousineau (2005)}} {{Confidence intervals from normalized data: A
+  correction to Cousineau (2005)}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Tutorial in Quantitative Methods for
+  Psychology}{4}{2}{61--64}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Nicol%
 , Barss%
 \BCBL {}\ \BBA {} Barker%
@@ -221,36 +274,6 @@ R-stan}%
 \begin{APACrefURL} \url{http://mc-stan.org/} \end{APACrefURL}
 \newblock
 \APACrefnote{R package version 2.19.1}
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
-Wagers%
-, Lau%
-\BCBL {}\ \BBA {} Phillips%
-}{%
-Wagers%
-\ \protect \BOthers {.}}{%
-{\protect \APACyear {2009}}%
-}]{%
-WagersEtAl:2009}
-\APACinsertmetastar {%
-WagersEtAl:2009}%
-\begin{APACrefauthors}%
-Wagers, M\BPBI W.%
-, Lau, E\BPBI F.%
-\BCBL {}\ \BBA {} Phillips, C.%
-\end{APACrefauthors}%
-\unskip\
-\newblock
-\APACrefYearMonthDay{2009}{}{}.
-\newblock
-{\BBOQ}\APACrefatitle {{Agreement attraction in comprehension: Representations
-  and processes}} {{Agreement attraction in comprehension: Representations and
-  processes}}.{\BBCQ}
-\newblock
-\APACjournalVolNumPages{Journal of Memory and Language}{61}{2}{206--237}.
-\newblock
-\begin{APACrefDOI} \doi{10.1016/j.jml.2009.04.002} \end{APACrefDOI}
 \PrintBackRefs{\CurrentBib}
 
 \end{thebibliography}
