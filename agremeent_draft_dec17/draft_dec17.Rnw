@@ -473,6 +473,24 @@ m_responses <- brm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorP
                    chains = n_chains, cores = n_cores, iter = n_iter,
                    file = fname_exp1_responses)
 
+fname_exp1_responses_exp1only <- "../workspace_exp1/fit_responses_exp1only"
+m_responses_exp1only <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) + 
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers %>% subset(experiment == "Experiment 1"),
+                   family = bernoulli("probit"), 
+                   chains = n_chains, cores = n_cores, iter = n_iter,
+                   file = fname_exp1_responses_exp1only)
+
+fname_exp1_responses_Lagoonly <- "../workspace_exp1/fit_responses_Lagoonly"
+m_responses_Lagoonly <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) + 
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers %>% subset(experiment != "Experiment 1"),
+                   family = bernoulli("probit"), 
+                   chains = n_chains, cores = n_cores, iter = n_iter,
+                   file = fname_exp1_responses_Lagoonly)
+
 fname_exp1_rts <- "../workspace_exp1/fit_responses_rt"
 m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
                                  (cUngrammatical * cAttractorPlural + 1| subject) +
@@ -501,7 +519,7 @@ Importantly, there was no evidence for a three-way interaction between \textit{t
 %maybe this is not the perfect place to write this.
 
 
-<<exp1ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1.', fig.height=3, fig.align='center'>>=
+<<exp1ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for the model of Experiment 1 and Lago et al. (2018).', fig.height=3, fig.align='center'>>=
 contrast_names <- c("cUngrammatical" = "Ungrammaticality",
                     "cAttractorPlural" = "Plural Attactor",
                     "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
@@ -523,6 +541,45 @@ print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment
 
 @
 
+
+
+<<exp1ResponseModelSepExp1, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1.', fig.height=1.5, fig.align='center'>>=
+contrast_names_exp1 <- c("cUngrammatical" = "Experiment 1: Ungrammaticality",
+                         "cAttractorPlural" = "Experiment 1: Plural Attactor",
+                         "cUngrammatical:cAttractorPlural" = "Experiment 1: Ungrammaticality * Plural Attractor"
+                        )
+
+p_m_response_exp1 <- 
+  create_model_coefs_plot( m_responses_exp1only, 
+        plot_stats = T, map_names = contrast_names_exp1,
+        expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1,
+        x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
+        xlab("Estimate (probit)")
+
+suppressWarnings({
+print(p_m_response_exp1 + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+})
+
+contrast_names_lago <- c("cUngrammatical" = "Lago et al.: Ungrammaticality",
+                         "cAttractorPlural" = "Lago et al.: Plural Attactor",
+                         "cUngrammatical:cAttractorPlural" = "Lago et al.: Ungrammaticality * Plural Attractor"
+                        )
+
+@
+
+<<exp1ResponseModelSepExp2, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Lago et al. (2018).', fig.height=1.5, fig.align='center'>>=
+p_m_response_lago <- 
+  create_model_coefs_plot( m_responses_Lagoonly, 
+        plot_stats = T, map_names = contrast_names_lago,
+        expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1,
+        x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
+        xlab("Estimate (probit)")
+
+suppressWarnings({
+print(p_m_response_lago + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+})
+
+@
 
 
 \subsection{Discussion} \label{sec:exp1:discussion}
@@ -736,12 +793,6 @@ Participants saw 40 experimental and 40 filler sentences. Experimental sentences
 
 <<computeAverages2>>=
 
-# avg_clean2 <- df_merged2 %>%
-#                 group_by(experiment, source, grammatical, attractor_num) %>%
-#                 summarize(avgRT = mean(RT), p_yes = mean(ResponseYes, na.rm = T))
-# # XXX
-
-
 avg_clean2 <- list()
 avg_clean2$resp <- df_merged2_nonna %>% 
               plyr::ddply(c("experiment"), function(df) {
@@ -829,7 +880,6 @@ p_avg_resp2 <- p_avg_resp2 + scale_color_discrete(name = "Attractor Number")
 
 print(p_avg_resp2)
 
-
 @
 
 
@@ -855,17 +905,27 @@ n_chains <- 4
 n_cores <- 4
 n_iter <- 2000
 
-fname_exp2_responses <- "../workspace_exp2/fit_responses"
 
 library(brms)
 
-# TODO: Data seems to contain NAs in relevant columns; fix it
+fname_exp2_responses <- "../workspace_exp2/fit_responses"
 m_responses2 <- brm(ResponseYes ~ cVerbalAttractor * cUngrammatical * cAttractorPlural + 
                                  (cUngrammatical * cAttractorPlural + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers2 %>% subset(!is.na(ResponseYes)),
                    family = bernoulli("probit"),
                    file = fname_exp2_responses, 
+                   chains = n_chains, cores = n_cores, iter = n_iter)
+
+fname_exp2only_responses <- "../workspace_exp2/fit_responses_exp2only"
+m_responses2_exp2only <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural + 
+                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+                                 (cUngrammatical * cAttractorPlural + 1| item),
+                   data = df_merged_nofillers2 %>% 
+                              subset(!is.na(ResponseYes)) %>% 
+                              subset(experiment == "Experiment 2"),
+                   family = bernoulli("probit"),
+                   file = fname_exp2only_responses, 
                    chains = n_chains, cores = n_cores, iter = n_iter)
 
 
@@ -887,7 +947,7 @@ Importantly, the negative effect between \textit{the presence of the verbal plur
 
 
 
-<<exp2ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 2', fig.height=3, fig.align='center'>>=
+<<exp2ResponseModel, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for a model of Experiment 1 and Experiment 2.', fig.height=3, fig.align='center'>>=
 
 contrast_names2_le <- c("cUngrammatical" = "Ungrammaticality",
                     "cAttractorPlural" = "Plural Attactor",
@@ -906,8 +966,24 @@ p_m_response_exp2 <-
     
 p_m_response_exp2 <- p_m_response_exp2 + annotate(x=-3, xend=1, y=0, yend=0, lwd=0.25, geom="segment")
 print(p_m_response_exp2)
+@
+
+
+
+<<exp2ResponseModelExp2Only, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 2.', fig.height=1.5, fig.align='center'>>=
+
+p_m_response_exp2_exp2only <- 
+  create_model_coefs_plot( m_responses2_exp2only, 
+        plot_stats = T, map_names = contrast_names2_le,
+        expand_right = 4.5, expand_top = 1.5, x_stat_adjust = .75,
+        x_breaks = c(-3,-2,-1, 0, 1) ) + 
+        xlab("Estimate (probit)")
+    
+p_m_response_exp2only <- p_m_response_exp2_exp2only + annotate(x=-3, xend=1, y=0, yend=0, lwd=0.25, geom="segment")
+print(p_m_response_exp2only)
 
 @
+
 
 
 \subsection{Discussion} \label{sec:exp2:discussion}
