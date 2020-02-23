@@ -42,6 +42,7 @@ library(magrittr)
 library(ggplot2)
 theme_set(theme_bw())
 
+# to-do: check that the CI-computation code is up-to-date
 source("../scripts/misc.R")
 
 @
@@ -97,6 +98,7 @@ fname_form <- "../workspace_exp1/exp_form.rds"
 form_exp1 <- readRDS(file = fname_form)
 
 ### note: the low accuracy on fillers is not caused by a couple of items
+###       -> see below
 # filler_avgs <- 
 # data_exp1 %>% subset(Type == "filler") %>% group_by(Item, condition) %>% 
 #               summarize(M = mean(ResponseYes, na.rm = T)) %>%
@@ -154,50 +156,27 @@ df_lagoetal_attr %<>% ungroup() %>%
                                     RT)
 
 # map to our condition labels
-lagoetal_condition_mapping <- data.frame(
-    condition = c("a", "b", "c", "d"),
-    lagoetal_condition = c("d", "b", "c", "a"), 
-    stringsAsFactors = F)
-
+lagoetal_condition_mapping <- data.frame( condition = c("a", "b", "c", "d"),
+                                          lagoetal_condition = c("d", "b", "c", "a"), 
+                                          stringsAsFactors = F)
 df_lagoetal_attr %<>% left_join( lagoetal_condition_mapping, by = "lagoetal_condition" )
 
 # compute by-subject percentages of 'yes' responses, and average RTs 
 avg_by_subj_lagoetal <- df_lagoetal_attr %>%
-            group_by(subject, experiment, condition, grammatical, attractor_num) %>%
-            summarize(avRT = mean(RT), 
-                      p_yes = mean(ResponseYes, na.rm = T), 
-                      N = sum(!is.na(ResponseYes))  )
+                            group_by(subject, experiment, condition, grammatical, attractor_num) %>%
+                            summarize(avRT = mean(RT), 
+                                      p_yes = mean(ResponseYes, na.rm = T), 
+                                      N = sum(!is.na(ResponseYes))  )
 
 # reformat by-subject averages to a wide format
 avg_by_subj_lagoetal_wide <- avg_by_subj_lagoetal %>% 
-            mutate(expcond = paste(experiment, condition, sep="_")) %>% 
-            ungroup() %>%
-            dplyr::select(-experiment, -condition, -avRT, -N,
-                          -grammatical, -attractor_num) %>%
-            tidyr::spread(expcond, p_yes) %>% 
-            mutate(delta_dc = online_d - online_c)
-word_freq <- readxl::read_excel("../Data/frequencies_exp1_and_lago.xlsx", sheet = 1)
-word_freq$freq_percentage %<>% as.numeric()
-word_freq %<>% dplyr::select(-freq_standardized, -freq_percentage, -word)
-word_freq %<>% tidyr::spread(place, freq_count)
+                                    mutate(expcond = paste(experiment, condition, sep="_")) %>% 
+                                    ungroup() %>%
+                                    dplyr::select(-experiment, -condition, -avRT, -N,
+                                                  -grammatical, -attractor_num) %>%
+                                    tidyr::spread(expcond, p_yes) %>% 
+                                    mutate(delta_dc = online_d - online_c)
 
-word_freq %<>% dplyr::group_by(exp) %>% 
-               dplyr::mutate( cat_n1 = ifelse(n1 > median(n1), "high", "low"),
-                              cat_n2 = ifelse(n2 > median(n2), "high", "low"),
-                              freqlog_n1 = scale(log(n1)),
-                              freqlog_n2 = scale(log(n2)),
-                              freqlog_n1n2 = log(n1) - log(n2)
-                            ) %>% 
-                ungroup()
-word_freq$cat_n1 %<>% as.factor()
-word_freq$cat_n2 %<>% as.factor()
-
-word_freq_exp1 <- word_freq %>% 
-                    subset(exp == "up") %>% 
-                    dplyr::select(-exp)
-word_freq_lago <- word_freq %>% 
-                    subset(exp == "lago") %>% 
-                    dplyr::select(-exp)
 
 # identify bad participants 
 bad_subjects <- subset(avg_by_subj_wide, delta_dc <= 0.25 ) %>% .$subject
@@ -206,32 +185,58 @@ data_exp1_clean <- data_exp1 %>% subset(!subject %in% bad_subjects)
 # identify bad participants 
 bad_subjects_lagoetal <- subset(avg_by_subj_lagoetal_wide, delta_dc <= 0.25 ) %>% .$subject
 df_lagoetal_attr_clean <- df_lagoetal_attr %>% subset(!subject %in% bad_subjects_lagoetal)
+
+# merge both datasets
 df_merge_exp1 <- data_exp1_clean %>% ungroup() %>% 
                       dplyr::select(source=experiment, 
-                                    grammatical, attractor_num,
+                                    grammatical, 
+                                    attractor_num,
                                     # condition,
-                                    subject, item=Item,
-                                    ResponseYes, RT)
+                                    subject, 
+                                    item=Item,
+                                    ResponseYes, 
+                                    RT)
 df_merge_exp1$experiment <- "Experiment 1"
-df_merge_exp1$grammatical <- with(df_merge_exp1, 
-                                  ifelse(grammatical == "gram", 
-                                          "grammatical",
-                                          "ungrammatical"))
-df_merge_exp1$attractor_num <- with(df_merge_exp1, 
-                                    ifelse(attractor_num == "pl",
-                                           "plural", 
-                                           "singular"))
+df_merge_exp1$grammatical %<>% dplyr::recode(gram="grammatical", ungram="ungrammatical")
+df_merge_exp1$attractor_num %<>% dplyr::recode(pl="plural", sg="singular")
+
 df_merge_exp1$item %<>% as.integer()
 df_merge_exp1$subject %<>% as.character()
-#df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
+
+
 
 df_merge_lago <- df_lagoetal_attr_clean %>%
                       ungroup() %>% 
                       dplyr::select(grammatical, attractor_num,
                                     subject, item, ResponseYes, RT)
-#df_merge_lago %<>% left_join(word_freq_lago, by = "item")
 df_merge_lago$experiment <- "Lago et al. (2018)" 
 df_merge_lago$source <- NA
+
+
+
+
+word_freq <- readxl::read_excel("../Data/frequencies_exp1_and_lago.xlsx", sheet = 1)
+word_freq$freq_percentage %<>% as.numeric()
+word_freq %<>% dplyr::select(-freq_standardized, -freq_percentage, -word)
+word_freq %<>% tidyr::spread(place, freq_count)
+
+word_freq %<>% dplyr::group_by(exp) %>% 
+               dplyr::mutate( freq_cat_n1 = ifelse(n1 > median(n1), "high", "low"),
+                              freq_cat_n2 = ifelse(n2 > median(n2), "high", "low"),
+                              freqlog_n1 = scale(log(n1)),
+                              freqlog_n2 = scale(log(n2)),
+                              freqlog_n1n2 = log(n1) - log(n2)
+                            ) %>% 
+                ungroup()
+# word_freq$freq_cat_n1 %<>% as.factor()
+# word_freq$freq_cat_n2 %<>% as.factor()
+
+
+word_freq_exp1 <- word_freq %>% subset(exp == "exp1") %>% dplyr::select(-exp)
+df_merge_exp1 %<>% left_join(word_freq_exp1, by = "item")
+
+word_freq_lago <- word_freq %>% subset(exp == "lagoetal") %>% dplyr::select(-exp)
+df_merge_lago %<>% left_join(word_freq_lago, by = "item")
 df_merge_lago$item %<>% add(1000)
 
 df_merged <- dplyr::bind_rows(df_merge_exp1, df_merge_lago)
@@ -335,7 +340,7 @@ In order to do so, we decided to analyze the data from the present experiment to
 
 %All experimental trials from both experiments (Experiment 1 and  Lago et al.'s study) was included in the analysis. 
 
-Prior to analysis we removed the data for all participants who failed to show sufficient sentitivity to the effect of grammaticality in singular attractor conditions, i.e., when no agreement attraction was expected. Specifically, we removed all participants for whom the difference in the percentage of `yes' responses between the grammatical condition \ref{item:exp1expitem-sgsg} and the ungrammatical condition \ref{item:exp1expitem-sgpl} was below the threshold of 25 percentage points. As a result, we excluded \Sexpr{length(bad_subjects)} participants from experiment 1, and \Sexpr{stopifnot(length(bad_subjects_lagoetal) == 1)} one participant from the Lago et al. experiment.
+Prior to analysis we removed the data for all participants who failed to show sufficient sentitivity to the effect of grammaticality in singular attractor conditions, i.e., when no agreement attraction was expected. Specifically, we removed all participants for whom the difference in the percentage of `yes' responses between the grammatical condition \ref{item:exp1expitem-sgsg} and the ungrammatical condition \ref{item:exp1expitem-sgpl} was below the threshold of 25 percentage points. As a result, we excluded \Sexpr{length(bad_subjects)} participants from experiment 1, and \Sexpr{stopifnot(length(bad_subjects_lagoetal) == 1)} one participant from the Lago et al. data
 
 We used the R packages brms \citep{R-brms_b} and rstan \citep{R-stan} to fit Bayesian hierarchical models \citep[e.g.,][]{GelmanHill:2007}. We analyzed only experimental sentences, and used 
 (i) grammaticality of the sentence, 
@@ -474,26 +479,27 @@ m_responses <- brm(ResponseYes ~ cEndsInConsonant * cUngrammatical * cAttractorP
                    file = fname_exp1_responses)
 
 fname_exp1_responses_exp1only <- "../workspace_exp1/fit_responses_exp1only"
-m_responses_exp1only <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural + 
-                                 (cUngrammatical * cAttractorPlural + 1| subject) + 
+m_responses_exp1only <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural * freqlog_n1n2 + 
+                                 (cUngrammatical * cAttractorPlural * freqlog_n1n2 + 1| subject) + 
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers %>% subset(experiment == "Experiment 1"),
                    family = bernoulli("probit"), 
-                   chains = n_chains, cores = n_cores, iter = n_iter,
-                   file = fname_exp1_responses_exp1only)
+                   chains = n_chains, cores = n_cores, iter = n_iter, init_r = .1,
+                   file = fname_exp1_responses_exp1only
+                   )
 
-fname_exp1_responses_Lagoonly <- "../workspace_exp1/fit_responses_Lagoonly"
-m_responses_Lagoonly <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural + 
-                                 (cUngrammatical * cAttractorPlural + 1| subject) + 
+fname_exp1_responses_Lagoonly <- "../workspace_exp1/fit_responses_lagoonly"
+m_responses_Lagoonly <- brm(ResponseYes ~ cUngrammatical * cAttractorPlural * freqlog_n1n2 + 
+                                 (cUngrammatical * cAttractorPlural * freqlog_n1n2 + 1| subject) + 
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers %>% subset(experiment != "Experiment 1"),
                    family = bernoulli("probit"), 
-                   chains = n_chains, cores = n_cores, iter = n_iter,
+                   chains = n_chains, cores = n_cores, iter = n_iter, init_r = .1,
                    file = fname_exp1_responses_Lagoonly)
 
 fname_exp1_rts <- "../workspace_exp1/fit_responses_rt"
-m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural +
-                                 (cUngrammatical * cAttractorPlural + 1| subject) +
+m_rts <- brm(RT ~ cEndsInConsonant * cUngrammatical * cAttractorPlural * freqlog_n1n2 +
+                                 (cUngrammatical * cAttractorPlural * freqlog_n1n2 + 1| subject) +
                                  (cUngrammatical * cAttractorPlural + 1| item),
                    data = df_merged_nofillers,
                    family = lognormal(),
@@ -536,17 +542,21 @@ p_m_response <-
         xlab("Estimate (probit)")
 
 suppressWarnings({
-print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+print(p_m_response + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment") + facet_wrap(~"Experiment 1 and Lago et al. (2018)"))
 })
 
 @
 
 
+<<exp1ResponseModelSepExp1AndLago, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment1 and Lago et al. (2018).', fig.height=5, fig.align='center'>>=
 
-<<exp1ResponseModelSepExp1, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Experiment 1.', fig.height=1.5, fig.align='center'>>=
-contrast_names_exp1 <- c("cUngrammatical" = "Experiment 1: Ungrammaticality",
-                         "cAttractorPlural" = "Experiment 1: Plural Attactor",
-                         "cUngrammatical:cAttractorPlural" = "Experiment 1: Ungrammaticality * Plural Attractor"
+contrast_names_exp1 <- c("cUngrammatical" = "Ungrammaticality",
+                         "cAttractorPlural" = "Plural Attactor",
+                         "freqlog_n1n2"="log Frequency: N1-N2",
+                         "cUngrammatical:freqlog_n1n2" = "Ungrammaticality * log Frequency: N1-N2",
+                         "cAttractorPlural:freqlog_n1n2" = "Plural Attactor * log Frequency: N1-N2",
+                         "cUngrammatical:cAttractorPlural" = "Ungrammaticality * Plural Attractor",
+                         "cUngrammatical:cAttractorPlural:freqlog_n1n2" = "Ungrammaticality * Plural Attractor * log Frequency: N1-N2"
                         )
 
 p_m_response_exp1 <- 
@@ -556,27 +566,21 @@ p_m_response_exp1 <-
         x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
         xlab("Estimate (probit)")
 
-suppressWarnings({
-print(p_m_response_exp1 + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
-})
+p_m_response_exp1 <- p_m_response_exp1 + facet_wrap(~"Experiment 1") + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment")
 
-contrast_names_lago <- c("cUngrammatical" = "Lago et al.: Ungrammaticality",
-                         "cAttractorPlural" = "Lago et al.: Plural Attactor",
-                         "cUngrammatical:cAttractorPlural" = "Lago et al.: Ungrammaticality * Plural Attractor"
-                        )
-
-@
-
-<<exp1ResponseModelSepExp2, fig.cap='Estimates and 95\\% credible intervals for the regression coefficients for Lago et al. (2018).', fig.height=1.5, fig.align='center'>>=
 p_m_response_lago <- 
   create_model_coefs_plot( m_responses_Lagoonly, 
-        plot_stats = T, map_names = contrast_names_lago,
+        plot_stats = T, map_names = contrast_names_exp1,
         expand_right = 2.5, expand_top = 2, x_stat_adjust = 1.1,
         x_breaks = c(-3,-2,-1, 0,1, 2) ) + 
         xlab("Estimate (probit)")
 
+p_m_response_lago <- p_m_response_lago + facet_wrap(~"Lago et al. (2018)") + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment")
+
+p_m_response_exp1_and_lago <- ggarrange(p_m_response_exp1, p_m_response_lago, ncol = 1)
+
 suppressWarnings({
-print(p_m_response_lago + annotate(x=-3, xend=2, y=0, yend=0, lwd=0.25, geom="segment"))
+print(p_m_response_exp1_and_lago)
 })
 
 @
