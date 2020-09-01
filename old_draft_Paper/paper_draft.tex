@@ -1,105 +1,73 @@
-\documentclass[doc]{apa6}
-\usepackage{lmodern}
-\usepackage{amssymb,amsmath}
-\usepackage{ifxetex,ifluatex}
-\usepackage{fixltx2e} % provides \textsubscript
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[T1]{fontenc}
-  \usepackage[utf8]{inputenc}
-\else % if luatex or xelatex
-  \ifxetex
-    \usepackage{mathspec}
-  \else
-    \usepackage{fontspec}
-  \fi
-  \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
-\fi
-% use upquote if available, for straight quotes in verbatim environments
-\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
-% use microtype if available
-\IfFileExists{microtype.sty}{%
-\usepackage{microtype}
-\UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
-}{}
-\usepackage{hyperref}
-\hypersetup{unicode=true,
-            pdftitle={Agreement Attraction in Turkish: Who let the -lAr out?},
-            pdfauthor={Utku Türk~\& Pavel Logačev},
-            pdfkeywords={keywords},
-            pdfborder={0 0 0},
-            breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
-\usepackage{graphicx,grffile}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\IfFileExists{parskip.sty}{%
-\usepackage{parskip}
-}{% else
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{6pt plus 2pt minus 1pt}
-}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{0}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-\let\oldparagraph\paragraph
-\renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-\let\oldsubparagraph\subparagraph
-\renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
+\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[english,doc]{apa6}
 
-%%% Use protect on footnotes to avoid problems with footnotes in titles
-\let\rmarkdownfootnote\footnote%
-\def\footnote{\protect\rmarkdownfootnote}
-
-
-  \title{Agreement Attraction in Turkish: Who let the -lAr out?}
-    \author{Utku Türk\textsuperscript{1}~\& Pavel Logačev\textsuperscript{1}}
-    \date{}
-  
-\usepackage[utf8]{inputenc}
- \usepackage[T1]{fontenc}
- \usepackage{xcolor}
- \usepackage{hhline}
- \usepackage{mathtools}
- \linespread{1}
- \usepackage{gb4e}
- \noautomath
- \usepackage{setspace}
- \makeatletter
- \apptocmd{\@exe}{\singlespacing}{}{}
- \makeatother
- \usepackage{sectsty}
- \allsectionsfont{\large}
- \usepackage{color}
- \usepackage{hyperref}
- \hypersetup{colorlinks = true, linkcolor = blue, citecolor = blue, urlcolor = blue} 
- \usepackage[english]{babel}
- \addto\extrasenglish{\renewcommand{\itemautorefname}{Item}}
-\usepackage{tikz}
- \usepackage{tikz-qtree}
- \let\eachwordone=\textit
- \usepackage{geometry}
  \geometry{margin=2cm}
  \usepackage{libertine}
  \usepackage{libertinust1math}
  \usepackage[T1]{fontenc}
  \usepackage{fancyhdr}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
 
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\begin{center}\begin{threeparttable}}
+%   {\end{threeparttable}\end{center}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\begin{center}\begin{ThreePartTable}}{\end{ThreePartTable}\end{center}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\makeatother
+\shorttitle{Agreement Attraction in Turkish}
+\author{Utku Ttürk\textsuperscript{1}\ \& Pavel Logačev\textsuperscript{1}}
+\affiliation{
+\vspace{0.5cm}
+\textsuperscript{1} Boğaziçi University University, Istanbul, Turkey}
 \authornote{Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
 Enter author note here.
 
-Correspondence concerning this article should be addressed to Utku Türk, Postal address. E-mail: \href{mailto:utku.turk@boun.edu.tr}{\nolinkurl{utku.turk@boun.edu.tr}}}
+
+Correspondence concerning this article should be addressed to Utku Ttürk, Postal address. E-mail: utku.turk@boun.edu.tr}
+\keywords{keywords\newline\indent Word count: X}
+\usepackage{csquotes}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[shorthands=off,main=english]{babel}
+\else
+  % load polyglossia as late as possible as it *could* call bidi if RTL lang (e.g. Hebrew or Arabic)
+  \usepackage{polyglossia}
+  \setmainlanguage[]{english}
+\fi
+
+\title{Agreement Attraction in Turkish: Who can write a better title?}
+
+\date{}
 
 \abstract{
 One or two sentences providing a \textbf{basic introduction} to the field, comprehensible to a scientist in any discipline.
@@ -115,8 +83,6 @@ Two or three sentences explaining what the \textbf{main result} reveals in direc
 One or two sentences to put the results into a more \textbf{general context}.
 
 Two or three sentences to provide a \textbf{broader perspective}, readily comprehensible to a scientist in any discipline.
-
-
 }
 
 \begin{document}
@@ -194,7 +160,7 @@ Turkish (Lago et al., 2018)
 \section{Agreement attraction in Turkish}\label{agreement-attraction-in-turkish}}
 
 Recently, Lago et al. (2018) demonstrated agreement attraction in Turkish. In a speeded acceptability judgement study, they presented sentences like (\ref{Lagoitem}) to participants.
-Lago et al. (2018) makes use of genitive-possessive structures in the subject position, in which the possessive-marked head of the complex noun phrase \emph{`the singer's vocalist'} acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor.
+Lago et al. (2018) makes use of genitive-possessive structures in the subject position, in which the possessive-marked head of the complex noun phrase \emph{\enquote{the singer's vocalist}} acts as the grammatical agreement controller, and the genitive noun serves as a potential attractor.
 
 \begin{exe}
 \ex \label{Lagoitem}
@@ -238,7 +204,7 @@ Like Lago et al., we keept the semantic relation between the head noun and the c
 
 Example (\ref{exp1_item}) shows one full set of experimental sentences. \ldots now explain the design again (yes, it's necessary) \ldots 
 
-As seen in example (\ref{exp1_item}), unlike Lago et al. (2018)'s experimental sentences, the head nouns in our experiment are consonant-final and are therefore unambigously marked for posessive case -- the accusative form of \emph{`yardımcı'} is \emph{`XXX'}.
+As seen in example (\ref{exp1_item}), unlike Lago et al. (2018)'s experimental sentences, the head nouns in our experiment are consonant-final and are therefore unambigously marked for posessive case -- the accusative form of \emph{\enquote{yardımcı}} is \emph{\enquote{XXX}}.
 
 \begin{exe}
 \ex \label{exp1_item}
@@ -270,7 +236,7 @@ As seen in example (\ref{exp1_item}), unlike Lago et al. (2018)'s experimental s
 We used two types of filler sentences: grammatical sentences in which the verb bears plural agreement, such as sentence (\ref{fillera}), and ungrammatical sentences with verbs without plural agreement, such as sentence (\ref{fillerb}).
 \ldots Were the fillers templatic like the experimental items, or not? If not, how did they vary? \ldots
 
-The purpose of using such filler sentences was to prevent participants from a adopting a response strategy of responding `no' to sentences with verbs with plural agreement and `yes' to verbs without plural agreement, while ignoring other words in the sentence.
+The purpose of using such filler sentences was to prevent participants from a adopting a response strategy of responding \enquote{no} to sentences with verbs with plural agreement and \enquote{yes} to verbs without plural agreement, while ignoring other words in the sentence.
 
 \begin{exe}
 \ex
@@ -295,7 +261,7 @@ In the experiments, participants were asked to judge the acceptability of Turkis
 The experiment was run on \emph{Ibex Farm}, a web-based experiment platform (\url{http://spellout.net/ibexfarm}). All experimental stimuli, data, and documentation can be found on \url{https://github.com/utkuturk/AgreementAttraction_Experiment}.
 
 Participants were instructed to quickly classify sentences as acceptable or unacceptable based on their intuition. They were further informed about the \(XXXX ms\) time limit for answering. At the start of the experiment, they were given 4 practice trials, and received feedback on their response. Each trial after the practice items started with a blank screen, followed by a word-by-word RSVP presentaion of the sentence in the center of the screen. After the sentence presentation, they were asked for a grammaticality judgment. More specifically, they were asked:
-\emph{`Was the sentence you read was natural to you?'}
+\emph{\enquote{Was the sentence you read was natural to you?}}
 Participants responded Q for \emph{yes}, and P for \emph{no}.
 
 The 40 experimental items were automatically divided into four lists according to a Latin-square design, and were intermixed with filler sentences, such that each participant saw 40 experimental items and 40 fillers in random order over the course of the experiment.
@@ -308,7 +274,7 @@ together with the data from Lago et al. (2018).
 Participants for whom the difference in the percentage of \texttt{yes} responses between grammatical and ungrammatical conditions without attraction (conditions c and d) was below \(0.25\) were deemed to not have performed the task as instructed, and their data was excluded from further analysis. In consequence, the data for 10 participants from experiment 1, and one participant from Lago et al.'s experiment was excluded from further analysis.
 Across participants, a total 42 trials were not responded to before the deadline by 33 participants. The data from these trials was not used in the analysis of responses or reaction times.
 
-We used \texttt{R} ({\textbf{???}}) and the \emph{tidyverse} R packages ({\textbf{???}}) for data processing and plotting, and the R packages \emph{brms} ({\textbf{???}}; {\textbf{???}}) and \emph{rstan} ({\textbf{???}}) to fit Bayesian hierarchical models (e.g., Gelman \& Hill, 2007; Gelman et al., 2014; McElreath, 2016).
+We used \texttt{R} ({\textbf{???}}) and the \emph{tidyverse} R packages ({\textbf{???}}) for data processing and plotting, and the R packages \emph{brms} ({\textbf{???}} ``urkner\_2017; @B''urkner\_2018) and \emph{rstan} ({\textbf{???}}) to fit Bayesian hierarchical models (e.g., Gelman \& Hill, 2007; Gelman et al., 2014; McElreath, 2016).
 Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link.
 Response times were modeled assuming lognormally distributed errors.
 Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
@@ -320,13 +286,13 @@ head noun ambiguity, attractor number, grammaticality, their interactions, as we
 \begin{figure}
 \centering
 \includegraphics{paper_draft_files/figure-latex/exp1AvgResponse-1.pdf}
-\caption{\label{fig:exp1AvgResponse}Estimates and 95\% credible intervals for the analysis of the probability of a `yes' response.}
+\caption{\label{fig:exp1AvgResponse}Estimates and 95\% credible intervals for the analysis of the probability of a \enquote{yes} response.}
 \end{figure}
 
-Figure \ref{fig:exp1AvgResponse} shows the percentages of ``acceptable'' answers for experiment 1 as well as the Lago et al.~data as a function of sentence grammaticality and the grammatical of number the attractor noun phrase. In our data, while ungrammatical sentences with a plural attractor were found acceptable in 22\% of the cases, the accepability rate was only 11\% when the attractor was singular.
-This observed agreement attraction effect of 10\%, as well as the condition averages were fairly close to Lago et al.'s attraction effect of 11\%.
+Figure \ref{fig:exp1AvgResponse} shows the percentages of \enquote{acceptable} answers for experiment 1 as well as the Lago et al.~data as a function of sentence grammaticality and the grammatical of number the attractor noun phrase. In our data, while ungrammatical sentences with a plural attractor were found acceptable in \% of the cases, the accepability rate was only \% when the attractor was singular.
+This observed agreement attraction effect of \%, as well as the condition averages were fairly close to Lago et al.'s attraction effect of \%.
 
-Figure \ref{fig:exp1ResponseModelPlot} shows the estimates of the fixed effects of a Bayesian hierarchical model. It shows that ungrammatical sentences were judged as acceptable far less often than grammatical sentences (CI = {[}XXX{]}). It also shows that sentences with plural attractors were considered acceptable a little bit better than sentences (CI = {[}XXX{]}) with singular attractors. Importantly, we found an interaction between these two factors, such that plural attractors increased the likelihood of `acceptable' responses disproportionately more in ungrammatical sentences (CI = {[}XXX{]}).
+Figure \ref{fig:exp1ResponseModelPlot} shows the estimates of the fixed effects of a Bayesian hierarchical model. It shows that ungrammatical sentences were judged as acceptable far less often than grammatical sentences (CI = {[}XXX{]}). It also shows that sentences with plural attractors were considered acceptable a little bit better than sentences (CI = {[}XXX{]}) with singular attractors. Importantly, we found an interaction between these two factors, such that plural attractors increased the likelihood of \enquote{acceptable} responses disproportionately more in ungrammatical sentences (CI = {[}XXX{]}).
 
 We found a small positive effect \ldots
 evidence that the ambiguity of the head noun affects the effect of attractor number on ungrammaticality (CI = {[}XXX{]}).
@@ -335,48 +301,33 @@ evidence that the ambiguity of the head noun affects the effect of attractor num
 I see that the vowel ending is not significant even though it has a negative effect.
 Thus, I may say that differentiating between the accusative case and the possessive suffix has caused a reduction in the effect of the agreement attraction. The results also show that when the attractor is plural, people have a high tendency to find the sentence grammatical.
 
+\begin{verbatim}
+## Warning: `expand_scale()` is deprecated; use `expansion()` instead.
+
+## Warning: `expand_scale()` is deprecated; use `expansion()` instead.
+\end{verbatim}
+
 \begin{figure}
 \centering
 \includegraphics{paper_draft_files/figure-latex/exp1ResponseModelPlot-1.pdf}
 \caption{\label{fig:exp1ResponseModelPlot}Estimates and 95\% credible intervals for the regression coefficients in accuracy (log-odds units).}
 \end{figure}
 
-Figure \ref{fig:exp1AvgRTs} shows higher
-
-, I see that average response times are significantly higher than the those of Lago et al. (2018). I also see it in \ref{exp1ResponseTimeModelPlot}, since \textbf{b\_cEndsinVowel} indicates whether or not it is Experiment 1 or Experiment from Lago et al. (2018), i.e.~distractors in items in Lago et al. (2018) ends with a consonant, while ours ends in a vowel. Again, these results show the effect of disambiguation of the possessive suffix from the accusative case has surfaced as the difficulty in response and memory retrieval time.
-
-\begin{figure}
-\centering
-\includegraphics{paper_draft_files/figure-latex/exp1AvgRTs-1.pdf}
-\caption{\label{fig:exp1AvgRTs}Average response times for experiment 1 and Lago et. al. (2018)}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics{paper_draft_files/figure-latex/exp1ResponseTimeModelPlot-1.pdf}
-\caption{\label{fig:exp1ResponseTimeModelPlot}Estimates and 95\% credible intervals for the regression coefficients in response times (log units).}
-\end{figure}
-
 \hypertarget{discussion}{%
 \subsubsection{Discussion}\label{discussion}}
 
-Experiment 1 found number attraction effects, like also attested in Lago et al. (2018), and also found a significant effect of form ambiguity of possessive and an interaction of plural attractor with ungrammaticality in response times. Illusionary agreement of the verb with the plural attractor was more than the singular attractor. In addition to what has been discussed by Avetisyan et al. (n.d.). this results also show that not only the case itself but also the form of the case can affect the response times.
+We replicated the number agreement attraction effect found by Lago et al. (2018), albeit with a larger sample size and while controlling for potential confound of head noun ambiguity. This finding suggests that the agreement attraction in Turkish is largely unaffected by the ambiguity of case marking of the head noun.
+\ldots The small difference between the two experiments that we do find is quite likely due to the shorter response deadline in the Lago et al.~experiment. As a result of this short deadline, what we found in RT, they found in responses - i.e., in a slightly bigger agreement attraction effect
+\ldots this finding has some relationship to the findings in Avetisyan et al. (n.d.)
+\ldots however, Avetisyan et al. (n.d.)'s findings as such have more predictions -- for example, they predict that Lago et al.'s speculation about the role of genitive case in this attraction effect is likely wrong.
 
-In the previous sections, I have predicted that with an assumed mechanism where people do take the clues from the form of the plural morpheme itself and have a strategy based on matching the plural morphemes, I would expect no change with regards to the agreement attraction effects. I also should not expect increasing response times when an irrelevant morpheme for the mechanism I assume.
+\ldots discuss the effect in fillers: the most likely explanation for this finding is that we messed up the fillers by not checking their accuracy. \ldots discuss
+\ldots an alternative explanation is that we our fillers were ok, but the experiment design heavily biased participants towards \enquote{no} answers \ldots this appears unlikely since we got pretty much the same numbers as Lago et al., who didn't have such fillers (as far as I am aware) \ldots however, in case that is what happened, this does not change the interpretation of our finding, because \ldots
 
-However, I see that response times have changed drastically when the suffixes are dismabiguated. It is clear from the Figure \ref{fig:exp1AvgRTs}, when people are prompted to judge the sentence, they have difficulty in resolving and back-tracking the dependencies of the sentence even though nothing relevant to the plural morpheme and its host word has changed.
+\hypertarget{section}{%
+\subsection{}\label{section}}
 
-The results follow from what a cue-based model would predict: slightly lower agreement attraction and increased response time. Due to the disambiguation between the accusative case and the possessive suffix, I speculated that the features related to the \emph{non-subjecthood} of the head of the subject would not surface falsely in my replication. With more clearly formed genitive-possessive structures, participants do not have an easy time to partially match the cues with the phrases. This situation stems from the idea proposed by Lago et al. (2018) with regards to the effects of the cases on numeral agreement attraction. She argues that the frequency of the case being used in the subject position affects the agreement attraction effects in a positive manner. Since the accusative case is rarely used in Turkish, I have argued that it may give \emph{wrong} clues an enable the distractors to even distract more. Yet, with clearly marked possessive suffix, I see that these enabling nature of the genitive possessive structure is eliminated, which is also shown in Avetisyan et al. (n.d.).
-
-However, these results can also be a result of badly formed filler sentences which are shown with a purple line. Participants may be biased towards saying no since most of the experimental items being ungrammatical. However, this can also be statistical \emph{miss} since I may accidentally have a group such as this one. However, the visible effect of vowel ending and response time suggest that people do indeed care more than only the retrieval of plural morpheme \emph{-lar} and its place.
-
-These results go against what I have predicted for the Marking and Morphing model as well. Due to the no extreme semantic change in the experimental (\emph{Marking}) and no change in the structural relations among the genitive-possessive constructions (\emph{Morphing}), there should be no difference in agreement attraction.
-
-However, the existence of an extremely close degree of agreement attraction effects and non-significant nature of the effect of the vowel ending indicates that I cannot readily discard other explanations. Another reason for not jumping to the conclusion with percolation models can be related to the number of participants Lago et al. (2018) have included in their study (see Vasishth, Mertzen, Jäger, \& Gelman, 2018).
-
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
-
-Within the shallow processing model, I would also expect a no change in the status of agreement attraction. In my account of shallow processing, I argue that when the comprehenders reach the verb and saw plural morpheme, they engage in a matching mechanism where they try to match the verbal plural morpheme with a previous nominal plural morpheme. An agreement attraction, then, is not a result of a partial matching or a representational error of number feature; instead, it is the result of a state of memory in which comprehenders misremember either the existence of the nominal plural morpheme or the place of the nominal plural morpheme as stated in the MPT model of the agreement attraction within shallow processor within \autoref{model1}, \autoref{model2}, \autoref{model3}\footnote{Author here wishes he knew more latex to do the MPT tree more neat.}.
+Now that we replicated Lago et al.'s findings, it seems like all is good -- there is a number attraction effect in Turkish.
 
 In my second experiment, I investigate the predictions made from my model using a verbal plural morpheme within a distractor relative clause. As mentioned earlier, the verbal plural morpheme in Turkish is exactly the same as the nominal plural with regards to its stress, its behavior, and its form: \emph{-lAr}. Since Turkish relative clauses are essentially nominals due to the nominalization process, they behave exactly like other nominals within the sentence (Erguvanlı-Taylan, 2015; Göksel \& Kerslake, 2004). They can be marked with cases, plural agreement and they can have postpositions that any nominal also can. This syntactic formation enables us to question how shallow people process, how much syntactic information is relevant, or how perfectly people encode the features of the elements of the sentence. In my experiment 2, I have used items in which the referential head noun of the subject is modified with a single-word relative clause as in \autoref{ouritem1}.
 
@@ -389,11 +340,11 @@ In my second experiment, I investigate the predictions made from my model using 
 
 Within the framework of percolation theories, I expect a harsh decline in the agreement attraction effects\footnote{Discussion with regards to how and where relative clauses adjoined is omitted due to the scope of the paper. However, it should be clear that a late insertion analysis where the relative clauses are actually above the head noun would yield different results. In this paper, I assume that modifiers like relative clauses are within the noun phrase, which deems them \textit{syntactically} deeper placed in the hierarchical three than the possessee.}. The reason for this expected decline is the fact that relative clauses being relative \emph{deeper} in the hierarchical structure than the possessee of genitive-possessive structure.
 
-As for cue-based retrieval models, I would expect an agreement attraction quite similar to the one that I originally have in Lago et al. (2018). The reason for this expected agreement attraction is the fact that apart from having a verbal root, the relative clauses and nominals behave exactly the same in terms of \emph{nounness}. Like nominals, nominalized structures first marked with plural and then with the case or possessive suffix. From this perspective, it seems like there should be no difference. However, one may argue that the features related to the verbal and nominal can be encoded differently. Thus, there will no partial match at any time given due to the fact that verbal plural morpheme at the main verb does specify cues for a specific type of plural marking. One other question that may arise from this structure is that whether or not the parts of already-formed dependencies can feed the following dependency resolution. In other words, the verbal plural morpheme \emph{-lar} on \emph{dövdükleri} in \autoref{ouritem1} is already a trigger of a cue retrieval process. And, when it is merged with the nominal head \emph{çocuk}, there is a formed semantic meaning that is ``a group of people has beaten a kid.'' However, this \emph{suggestion} assumes that relative clauses are formed at the very moment. Moreover, I also need to assume that after forming a relative clause they are unreachable, meaning that they do not contribute to the processing of the sentence, anymore.
+As for cue-based retrieval models, I would expect an agreement attraction quite similar to the one that I originally have in Lago et al. (2018). The reason for this expected agreement attraction is the fact that apart from having a verbal root, the relative clauses and nominals behave exactly the same in terms of \emph{nounness}. Like nominals, nominalized structures first marked with plural and then with the case or possessive suffix. From this perspective, it seems like there should be no difference. However, one may argue that the features related to the verbal and nominal can be encoded differently. Thus, there will no partial match at any time given due to the fact that verbal plural morpheme at the main verb does specify cues for a specific type of plural marking. One other question that may arise from this structure is that whether or not the parts of already-formed dependencies can feed the following dependency resolution. In other words, the verbal plural morpheme \emph{-lar} on \emph{dövdükleri} in \autoref{ouritem1} is already a trigger of a cue retrieval process. And, when it is merged with the nominal head \emph{çocuk}, there is a formed semantic meaning that is \enquote{a group of people has beaten a kid.} However, this \emph{suggestion} assumes that relative clauses are formed at the very moment. Moreover, I also need to assume that after forming a relative clause they are unreachable, meaning that they do not contribute to the processing of the sentence, anymore.
 
 Lastly, in my extremely shallow processing model, I would expect a significant effect of agreement attraction. Due to one of the writers' inability to \emph{run the numbers} and \emph{form the mpt trees in time}, this part---unfortunately---does not go beyond than a verbal argumentation. The reason I expect a significant effect of the agreement attraction is due to the fact that upon the agreement process is driven by the faulty memory of the place of the plural morpheme and uneducated guessing. Since the parsing is shallow, comprehenders do not engage in perfect attribution of the features, thus having a somewhat blurry representation behind. I expect this behavior to be omnipresent in other agreement attraction phenomenon that has been shown, as well as in Lago et al. (2018) and in my replication of it. Therefore, there is no reason to have anything to be different in experiment 2.
 
-\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
 
 \hypertarget{experiment-2}{%
 \subsection{Experiment 2}\label{experiment-2}}
@@ -453,9 +404,9 @@ Eighty Turkish speakers were recruited from Bogazici University in İstanbul. Th
 Every experimental item from both experiments (this experiment and Experiment (1) is included in the analysis.
 Participants for whom the difference between grammatical and ungrammatical sentences with no potential for agreement attraction (conditions c and d) did not exceed a threshold of \(0.25\) were deemed not to have performed the task as instructed, and their data was excluded from further analysis. In consequence, 1 participants' data was excluded.
 
-Across participants, 30 trials were not responded to before the deadline (by 24 participants). The data from these trials was not used in the analysis of responses or reaction times.
+Across participants, 31 trials were not responded to before the deadline (by 25 participants). The data from these trials was not used in the analysis of responses or reaction times.
 
-We used \texttt{R} ({\textbf{???}}) and the \emph{tidyverse} R packages ({\textbf{???}}) for data processing and plotting, and the R packages \emph{brms} ({\textbf{???}}; {\textbf{???}}) and \emph{rstan} ({\textbf{???}}) to fit Bayesian hierarchical models (e.g., Gelman \& Hill, 2007; Gelman et al., 2014; McElreath, 2016).
+We used \texttt{R} ({\textbf{???}}) and the \emph{tidyverse} R packages ({\textbf{???}}) for data processing and plotting, and the R packages \emph{brms} ({\textbf{???}} ``urkner\_2017; @B''urkner\_2018) and \emph{rstan} ({\textbf{???}}) to fit Bayesian hierarchical models (e.g., Gelman \& Hill, 2007; Gelman et al., 2014; McElreath, 2016).
 
 Participants' responses were analyzed using Bayesian hierarchical generalized linear models using a Bernoulli distribution with a probit link. Models of response times were fit using the lognormal distribution. Both models were fit with the predictors
 \ldots predictors \ldots
@@ -466,10 +417,10 @@ Participants' responses were analyzed using Bayesian hierarchical generalized li
 \begin{figure}
 \centering
 \includegraphics{paper_draft_files/figure-latex/exp2AvgResponse-1.pdf}
-\caption{\label{fig:exp2AvgResponse}Estimates and 95\% credible intervals for the analysis of the probability of a `yes' response.}
+\caption{\label{fig:exp2AvgResponse}Estimates and 95\% credible intervals for the analysis of the probability of a \enquote{yes} response.}
 \end{figure}
 
-It is clear from Figure \ref{fig:exp2AvgResponse} that in the condition (c) where I expect an agreement attraction, participants find as unacceptable as the condition (d) with singular attractor, singular head noun, and plural matrix verb. While I do not see any agreement attraction (0.08\%), I also see a more firm analysis of the ungrammatical sentence with singular matrix verb ((0.08\%)).
+It is clear from Figure \ref{fig:exp2AvgResponse} that in the condition (c) where I expect an agreement attraction, participants find as unacceptable as the condition (d) with singular attractor, singular head noun, and plural matrix verb. While I do not see any agreement attraction (NA\%), I also see a more firm analysis of the ungrammatical sentence with singular matrix verb ((NA\%)).
 
 As for the estimates of coefficients in \ref{fig:exp2ResponseModelPlot}, I can conclude that there is a significant negative effect of plural morpheme on the relative clause, which means that it does not cause any agreement affects. Again, the effect of ungrammaticality that stems from the existence of plural morpheme on the matrix verb is visible. The interaction between the plural morpheme on the attractor RC and the matrix verb is even higher than the sole effect of plural morpheme on the attractor RC.
 
@@ -479,13 +430,7 @@ As for the estimates of coefficients in \ref{fig:exp2ResponseModelPlot}, I can c
 \caption{\label{fig:exp2ResponseModelPlot}log-odd Estimates and 95\% credible intervals for the regression coefficients.}
 \end{figure}
 
-\begin{figure}
-\centering
-\includegraphics{paper_draft_files/figure-latex/exp2AvgRTs-1.pdf}
-\caption{\label{fig:exp2AvgRTs}Average response times for experiment 1 and experiment 2.}
-\end{figure}
-
-Finally, the response times of Experiment 2 is significantly lower than the Experiment 1 as seen from Figure \ref{fig:exp2AvgRTs}. The even lower response time in ungrammatical plural (condition c) shows that participants were extremely confident with their decision and did not have any issue with the dependency resolution.
+Finally, the response times of Experiment 2 is significantly lower than the Experiment 1 as seen from Figure FIX The even lower response time in ungrammatical plural (condition c) shows that participants were extremely confident with their decision and did not have any issue with the dependency resolution.
 
 \hypertarget{discussion-1}{%
 \subsubsection{Discussion}\label{discussion-1}}
@@ -507,7 +452,7 @@ Another take on the results may follow from the redefinition of the \emph{shallo
 
 \hypertarget{refs}{}
 \leavevmode\hypertarget{ref-AvetisyanEtAl:2019}{}%
-Avetisyan, S., Lago, S., \& Vasishth, S. (n.d.). Does case marking affect agreement attraction in comprehension? doi:\href{https://doi.org/10.31234/OSF.IO/KMBGY}{10.31234/OSF.IO/KMBGY}
+Avetisyan, S., Lago, S., \& Vasishth, S. (n.d.). Does case marking affect agreement attraction in comprehension? \url{https://doi.org/10.31234/OSF.IO/KMBGY}
 
 \leavevmode\hypertarget{ref-BadeckerKuminiak:2007}{}%
 Badecker, W., \& Kuminiak, F. (2007). Morphology, agreement and working memory retrieval in sentence production: Evidence from gender and case in Slovak. \emph{Journal of Memory and Language}, \emph{56}(1), 65--85.
@@ -528,7 +473,7 @@ Dillon, B., Mishler, A., Sloggett, S., \& Phillips, C. (2013). Contrasting intru
 Eberhard, K. M., Cutting, J. C., \& Bock, K. (2005). Making syntax of sense: Number agreement in sentence production. \emph{Psychological Review}, \emph{112}(3), 531.
 
 \leavevmode\hypertarget{ref-EnochsonCulbertson:2015}{}%
-Enochson, K., \& Culbertson, J. (2015). Collecting psycholinguistic response time data using Amazon Mechanical Turk. \emph{PLoS ONE}, \emph{10}(3), 1--17. doi:\href{https://doi.org/10.1371/journal.pone.0116946}{10.1371/journal.pone.0116946}
+Enochson, K., \& Culbertson, J. (2015). Collecting psycholinguistic response time data using Amazon Mechanical Turk. \emph{PLoS ONE}, \emph{10}(3), 1--17. \url{https://doi.org/10.1371/journal.pone.0116946}
 
 \leavevmode\hypertarget{ref-Taylan2015}{}%
 Erguvanlı-Taylan, E. (2015). \emph{The phonology and morphology of turkish}. Boğaziçi Üniversitesi.
@@ -549,7 +494,7 @@ Gelman, A., \& Hill, J. (2007). \emph{Data Analysis Using Regression and Multile
 Göksel, A., \& Kerslake, C. (2004). \emph{Turkish: A comprehensive grammar}. Routledge.
 
 \leavevmode\hypertarget{ref-HammerlyEtAl:2019}{}%
-Hammerly, C., Staub, A., \& Dillon, B. (2019). The grammaticality asymmetry in agreement attraction reflects response bias: Experimental and modeling evidence. \emph{Cognitive Psychology}, \emph{110}(January), 70--104. doi:\href{https://doi.org/10.1016/j.cogpsych.2019.01.001}{10.1016/j.cogpsych.2019.01.001}
+Hammerly, C., Staub, A., \& Dillon, B. (2019). The grammaticality asymmetry in agreement attraction reflects response bias: Experimental and modeling evidence. \emph{Cognitive Psychology}, \emph{110}(January), 70--104. \url{https://doi.org/10.1016/j.cogpsych.2019.01.001}
 
 \leavevmode\hypertarget{ref-Hartsuiker2001}{}%
 Hartsuiker, R. J., Antón-Méndez, I., \& Van Zee, M. (2001). Object attraction in subject-verb agreement construction. \emph{Journal of Memory and Language}, \emph{45}(4), 546--572.
@@ -558,13 +503,13 @@ Hartsuiker, R. J., Antón-Méndez, I., \& Van Zee, M. (2001). Object attraction 
 Kimball, J., \& Aissen, J. (1971). I think, you think, he think. \emph{Linguistic Inquiry}, \emph{2}(2), 241--246.
 
 \leavevmode\hypertarget{ref-KwonSturt:2016}{}%
-Kwon, N., \& Sturt, P. (2016). Attraction Effects in Honorific Agreement in Korean. \emph{Frontiers in Psychology}, \emph{7}(August), 1--13. doi:\href{https://doi.org/10.3389/fpsyg.2016.01302}{10.3389/fpsyg.2016.01302}
+Kwon, N., \& Sturt, P. (2016). Attraction Effects in Honorific Agreement in Korean. \emph{Frontiers in Psychology}, \emph{7}(August), 1--13. \url{https://doi.org/10.3389/fpsyg.2016.01302}
 
 \leavevmode\hypertarget{ref-LagoEtAl:2018}{}%
-Lago, S., Felser, C., Gračanin-Yuksek, M., Demir, O., Kırkıcı, B., \& Şafak, D. F. (2018). Straight from the horse's mouth: Agreement attraction effects with Turkish possessors. \emph{Linguistic Approaches to Bilingualism}, \emph{12}(1), 1--29. doi:\href{https://doi.org/10.1075/lab.17019.lag}{10.1075/lab.17019.lag}
+Lago, S., Felser, C., Gračanin-Yuksek, M., Demir, O., Kırkıcı, B., \& Şafak, D. F. (2018). Straight from the horse's mouth: Agreement attraction effects with Turkish possessors. \emph{Linguistic Approaches to Bilingualism}, \emph{12}(1), 1--29. \url{https://doi.org/10.1075/lab.17019.lag}
 
 \leavevmode\hypertarget{ref-LagoEtAl:2015}{}%
-Lago, S., Shalom, D. E., Sigman, M., Lau, E. F., \& Phillips, C. (2015). Agreement attraction in Spanish comprehension. \emph{Journal of Memory and Language}, \emph{82}, 133--149. doi:\href{https://doi.org/10.1016/j.jml.2015.02.002}{10.1016/j.jml.2015.02.002}
+Lago, S., Shalom, D. E., Sigman, M., Lau, E. F., \& Phillips, C. (2015). Agreement attraction in Spanish comprehension. \emph{Journal of Memory and Language}, \emph{82}, 133--149. \url{https://doi.org/10.1016/j.jml.2015.02.002}
 
 \leavevmode\hypertarget{ref-Lewis2005}{}%
 Lewis, R. L., \& Vasishth, S. (2005). An activation-based model of sentence processing as skilled memory retrieval. \emph{Cognitive Science}, \emph{29}(3), 375--419.
@@ -576,28 +521,24 @@ Lewis, R. L., Vasishth, S., \& Van Dyke, J. A. (2006). Computational principles 
 McElreath, R. (2016). \emph{Statistical rethinking: A bayesian course with examples in R and Stan.} Boca Raton: CRC Press.
 
 \leavevmode\hypertarget{ref-NicolEtAl:2016}{}%
-Nicol, J. L., Barss, A., \& Barker, J. E. (2016). Minimal interference from possessor phrases in the production of subject-verb agreement. \emph{Frontiers in Psychology}, \emph{7}(MAY), 1--12. doi:\href{https://doi.org/10.3389/fpsyg.2016.00548}{10.3389/fpsyg.2016.00548}
+Nicol, J. L., Barss, A., \& Barker, J. E. (2016). Minimal interference from possessor phrases in the production of subject-verb agreement. \emph{Frontiers in Psychology}, \emph{7}(MAY), 1--12. \url{https://doi.org/10.3389/fpsyg.2016.00548}
 
 \leavevmode\hypertarget{ref-PatsonHusband:2015}{}%
-Patson, N. D., \& Husband, E. M. (2015). Misinterpretations in agreement and agreement attraction. \emph{Quarterly Journal of Experimental Psychology}, \emph{0218}(February), 1--22. doi:\href{https://doi.org/10.1080/17470218.2014.992445}{10.1080/17470218.2014.992445}
+Patson, N. D., \& Husband, E. M. (2015). Misinterpretations in agreement and agreement attraction. \emph{Quarterly Journal of Experimental Psychology}, \emph{0218}(February), 1--22. \url{https://doi.org/10.1080/17470218.2014.992445}
 
 \leavevmode\hypertarget{ref-ReifegersteEtAl:2016}{}%
-Reifegerste, J., Hauer, F., \& Felser, C. (2016). Agreement processing and attraction errors in aging: evidence from subject-verb agreement in German. \emph{Aging, Neuropsychology, and Cognition}, \emph{00}(00), 1--31. doi:\href{https://doi.org/10.1080/13825585.2016.1251550}{10.1080/13825585.2016.1251550}
+Reifegerste, J., Hauer, F., \& Felser, C. (2016). Agreement processing and attraction errors in aging: evidence from subject-verb agreement in German. \emph{Aging, Neuropsychology, and Cognition}, \emph{00}(00), 1--31. \url{https://doi.org/10.1080/13825585.2016.1251550}
 
 \leavevmode\hypertarget{ref-SlioussarMalko:2016}{}%
-Slioussar, N., \& Malko, A. (2016). Gender agreement attraction in Russian: production and comprehension evidence, \emph{7}(November), 1--20. doi:\href{https://doi.org/10.3389/fpsyg.2016.01651}{10.3389/fpsyg.2016.01651}
+Slioussar, N., \& Malko, A. (2016). Gender agreement attraction in Russian: production and comprehension evidence, \emph{7}(November), 1--20. \url{https://doi.org/10.3389/fpsyg.2016.01651}
 
 \leavevmode\hypertarget{ref-TannerEtAl:2014}{}%
-Tanner, D., Nicol, J., \& Brehm, L. (2014). The time-course of feature interference in agreement comprehension: Multiple mechanisms and asymmetrical attraction. \emph{Journal of Memory and Language}, \emph{76}, 195--215. doi:\href{https://doi.org/10.1016/j.jml.2014.07.003}{10.1016/j.jml.2014.07.003}
+Tanner, D., Nicol, J., \& Brehm, L. (2014). The time-course of feature interference in agreement comprehension: Multiple mechanisms and asymmetrical attraction. \emph{Journal of Memory and Language}, \emph{76}, 195--215. \url{https://doi.org/10.1016/j.jml.2014.07.003}
 
 \leavevmode\hypertarget{ref-TuckerEtAl:2015}{}%
-Tucker, M. A., Idrissi, A., \& Almeida, D. (2015). Representing number in the real-time processing of agreement: Self-paced reading evidence from Arabic. \emph{Frontiers in Psychology}, \emph{6}(MAR), 1--21. doi:\href{https://doi.org/10.3389/fpsyg.2015.00347}{10.3389/fpsyg.2015.00347}
-
-\leavevmode\hypertarget{ref-Vasishth2018}{}%
-Vasishth, S., Mertzen, D., Jäger, L. A., \& Gelman, A. (2018). The statistical significance filter leads to overoptimistic expectations of replicability. \emph{Journal of Memory and Language}, \emph{103}, 151--175.
+Tucker, M. A., Idrissi, A., \& Almeida, D. (2015). Representing number in the real-time processing of agreement: Self-paced reading evidence from Arabic. \emph{Frontiers in Psychology}, \emph{6}(MAR), 1--21. \url{https://doi.org/10.3389/fpsyg.2015.00347}
 
 \leavevmode\hypertarget{ref-WagersEtAl:2009}{}%
-Wagers, M. W., Lau, E. F., \& Phillips, C. (2009). Agreement attraction in comprehension: Representations and processes. \emph{Journal of Memory and Language}, \emph{61}(2), 206--237. doi:\href{https://doi.org/10.1016/j.jml.2009.04.002}{10.1016/j.jml.2009.04.002}
-
+Wagers, M. W., Lau, E. F., \& Phillips, C. (2009). Agreement attraction in comprehension: Representations and processes. \emph{Journal of Memory and Language}, \emph{61}(2), 206--237. \url{https://doi.org/10.1016/j.jml.2009.04.002}
 
 \end{document}

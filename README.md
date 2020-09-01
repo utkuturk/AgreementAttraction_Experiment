@@ -1,36 +1,118 @@
-# AgreementAttraction_Experiment
 
-This is an number attraction experiment done on ibexfarm. It is a replication of Lago et al. (2018). 
+[![Contributors][contributors-shield]][contributors-url] [![Forks][forks-shield]][forks-url] [![Stargazers][stars-shield]][stars-url]
+<br />
+<p align="center">
+  <h3 align="center">Agreement Attraction in Turkish 
+  
+  a shallow processing approach</h3>
 
-In the Experiments folder, you can find our files from the ibexfarm website. In addition to that, in the raw_stimuli subfolder, you can find our ibexfarm item generator in R and csv file of experimental and filler items.
+  <p align="center">
+    IbexFarm Experiment and Bayesian Models
+  </p>
+</p>
 
-In the Results and Analysis folder, there are raw results from the ibexfarm and results logs. Also, an R file in which we have scraped and analyzed the results.
 
-In the Paper folder, you can find the necessary files of the paper that is still in the making. You can either work on the .tex file or .Rmd file. .Rmd file also includes the necessary code of analysis and graphs.
 
-To be able to use .Rmd file, following softwares needs to be present in your computer: 
+<!-- TABLE OF CONTENTS -->
+## Table of Contents
 
-R, 
+- [Table of Contents](#table-of-contents)
+- [Folder Structure](#folder-structure)
+- [About The Project](#about-the-project)
+  - [Prerequisites](#prerequisites)
+- [Contact](#contact)
+- [References](#references)
 
-Rstudio, 
+## Folder Structure
 
-LaTeX. 
-For running the paper, you will need the following list of packages:
+    .
+    ├── Data                         # All experimental raw data
+    ├── old_draft_paper              # 1st iteration of paper with comments from Pavel
+    ├── scripts                      # R scripts for processing experimental raw data
+    ├── text                         # 2nd iteration of the paper without intro and discussion.
+    ├── ongoing_draft                # The most recent draft as of August 2020
+    ├── workspace_exp1               # Rds files for experiments and data wrangling for exp1
+    ├── workspace_exp2               # Rds files for experiments and data wrangling for exp2
+    └── README.md
 
-rmarkdown
 
-knitr
 
-citr
+<!-- ABOUT THE PROJECT -->
+## About The Project
+This is a repo for our two experiments investigating the role of shallow processing in agreement attraction. 
 
-tidyverse
 
-formatR
 
-knitcitations
+### Prerequisites
 
-*also their dependencies*
+This is the list of things you need to replicate our paper and models
+* LaTeX
+* R
+* Rstudio
+* Rstan
+* and following R packages
+  * papaja
+  * knitcitations
+  * tidyverse
+  * magrittr
+  * ggplot2
+  * car 
+  * MASS
+  * brms
+  * xtable
+  * ggpubr
+  * languageR
+  * gdata
 
-The template for the paper is from the R package rmdTemplates.
 
-You can contact me about your questions from this e-mail: utku.turk@boun.edu.tr
+
+
+
+<!-- CONTACT -->
+## Contact
+
+[@theutkuturk](https://twitter.com/theutkuturk) & [@pavellogacev](https://twitter.com/pavellogacev)
+
+Project Link: [https://github.com/utkuturk/AgreementAttraction_Experiment](https://github.com/utkuturk/AgreementAttraction_Experiment)
+OSF Link: [https://osf.io/x9pv7/](https://osf.io/x9pv7/)
+Experiment1-ibexfarmFiles: [https://github.com/utkuturk/replication_lagoetal2018](https://github.com/utkuturk/replication_lagoetal2018)
+Experiment2-ibexfarmFiles: [https://github.com/utkuturk/orc-attractor_numberattraction](https://github.com/utkuturk/orc-attractor_numberattraction)
+
+## References
+For CUNY2020 Poster:
+```
+@unpublished{TurkLogacev:2020:CUNY,
+title= {The Role of Shallow Processing in Agreement Attraction},
+author = {T\"{u}rk, Utku and Loga\v{c}ev, Pavel},
+date = {2020},
+month = {March},
+day = {19-21},
+note= {Poster presented at 33rd Annual CUNY Conference on Human Sentence Processing},
+address = {Amherst, MA},
+organization = {University of Massachusetts},
+URL= {https://osf.io/x9pv7/},
+}
+```
+For LE2020 Talk:
+```
+@unpublished{TurkLogacev:2020:LE,
+title= {The Role of Shallow Processing in Agreement Attraction},
+author = {T\"{u}rk, Utku and Loga\v{c}ev, Pavel},
+date = {2020},
+month = {February},
+day = {13-15},
+note= {Talk given at Linguistic Evidence 2020},
+address = {Tübingen, Germany},
+organization = {Universität Tübingen},
+URL= {https://uni-tuebingen.de/en/research/core-research/collaborative-research-centers/crc-833/linguistic-evidence-2020/le-2020-programme/},
+}
+```
+
+<!-- MARKDOWN LINKS & IMAGES -->
+<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
+[contributors-shield]: https://img.shields.io/github/contributors/utkuturk/AgreementAttraction_Experiment.svg?style=flat-square
+[contributors-url]: https://github.com/utkuturk/AgreementAttraction_Experiment/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/utkuturk/AgreementAttraction_Experiment.svg?style=flat-square
+[forks-url]: https://github.com/utkuturk/AgreementAttraction_Experiment/network/members
+[stars-shield]: https://img.shields.io/github/stars/utkuturk/AgreementAttraction_Experiment.svg?style=flat-square
+[stars-url]: https://github.com/utkuturk/AgreementAttraction_Experiment/stargazers
