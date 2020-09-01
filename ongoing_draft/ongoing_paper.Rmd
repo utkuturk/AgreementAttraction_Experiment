@@ -36,8 +36,8 @@ output:
         in_header: paper_draft_preamble.tex
 editor_options: 
   chunk_output_type: console
-keep_tex: FALSE
-keep_md: FALSE
+keep_tex: TRUE
+keep_md: TRUE
 ---
 
 ```{r setup, eval =T, include = FALSE, message=FALSE, warning=FALSE}
@@ -48,7 +48,7 @@ library(magrittr)
 library(ggplot2)
 theme_set(theme_bw())
 
-library(car, warn.conflicts = FALE)
+library(car, warn.conflicts = FALSE)
 library(MASS)
 library(brms)
 library(xtable)
