@@ -57,6 +57,7 @@ source("../scripts/misc.R")
 \input{settings.tex}
 
 \begin{document}
+\SweaveOpts{concordance=TRUE}
 
 \maketitle
 
@@ -416,28 +417,40 @@ avg_exp_resp_lagoetal <- avg_exp$resp %>% subset(experiment == "Lago et al. (201
 
 @
 
+<<curEntries1>>=
+
+
+exp1_cur_entry1 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "plural")
+exp1_cur_entry2 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "singular")
+
+exp1_cur_entry3 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "singular")
+exp1_cur_entry4 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "plural")
+
+lago_cur_entry1 = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "plural")
+lago_cur_entry2 = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "singular")
+@
 \autoref{fig:exp1AvgResponse} shows the average proportions of ‘acceptable’ responses by experimental condition for both the original experiment in \citet{LagoEtAl:2018} and our replication with unambiguous possessive marking. 
-\Sexpr{ 
-cur_entry1 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "plural");
-cur_entry2 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "singular") }%
+%\Sexpr{ 
+%cur_entry1 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "plural");
+%cur_entry2 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "ungrammatical", attractor_num == "singular") }%
 It shows that ungrammatical sentences with plural attractors are rated as acceptable more often
-(M = \Sexpr{cur_entry1$M}, 
-SE = \Sexpr{cur_entry1$SE}) 
+(M = \Sexpr{exp1_cur_entry1$M}, 
+SE = \Sexpr{exp1_cur_entry1$SE}) 
 than their counterparts with singular attractors 
-(M=\Sexpr{cur_entry2$M}, 
-SE=\Sexpr{cur_entry2$SE}).
+(M=\Sexpr{exp1_cur_entry2$M}, 
+SE=\Sexpr{exp1_cur_entry2$SE}).
 %
-\Sexpr{ 
-cur_entry1lago = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "plural");
-cur_entry2lago = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "singular") }%
+%\Sexpr{ 
+%cur_entry1lago = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "plural");
+%cur_entry2lago = avg_exp$resp %>% filter(experiment == "Lago et al. (2018)", grammatical == "ungrammatical", attractor_num == "singular") }%
 %This means that ungrammatical sentences with plural attractors were classified as acceptable more often than their counterparts with singular attractors. 
-The magnitude of the effect (\Sexpr{sprintf("%0.2f", cur_entry1$M-cur_entry2$M)}) was in line with the findings reported in \citet{LagoEtAl:2018}, where the difference was \Sexpr{sprintf("%0.2f", cur_entry1lago$M-cur_entry2lago$M)}.
+The magnitude of the effect (\Sexpr{sprintf("%0.2f", exp1_cur_entry1$M-exp1_cur_entry2$M)}) was in line with the findings reported in \citet{LagoEtAl:2018}, where the difference was \Sexpr{sprintf("%0.2f", lago_cur_entry1$M-lago_cur_entry2$M)}.
 % 
 Accuracy rates for grammatical conditions were nearly equal
-\Sexpr{ 
-cur_entry3 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "singular");
-cur_entry4 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "plural"); }%
-(M = \Sexpr{cur_entry3$M} and \Sexpr{cur_entry4$M}, SE = \Sexpr{cur_entry3$SE} and \Sexpr{cur_entry4$SE}, for singular and plural attractors respectively). 
+%\Sexpr{ 
+%cur_entry3 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "singular");
+%cur_entry4 = avg_exp$resp %>% filter(experiment == "Experiment 1", grammatical == "grammatical", attractor_num == "plural"); }%
+(M = \Sexpr{exp1_cur_entry3$M} and \Sexpr{exp1_cur_entry4$M}, SE = \Sexpr{exp1_cur_entry3$SE} and \Sexpr{exp1_cur_entry4$SE}, for singular and plural attractors respectively). 
 
 
 <<exp1AvgResponse, fig.cap='Average percentages of `acceptable\' responses in Experiment 1 and \\citet{LagoEtAl:2018}. Within-subject 95\\% confidence intervals in brackets \\cite{Cousineau:2005,Morey:2008}.', fig.height=3, fig.align='center'>>=

@@ -2,7 +2,7 @@
 title             : "Agreement Attraction in Turkish: Who can write a better title?"
 shorttitle        : "Agreement Attraction in Turkish"
 author: 
-  - name          : "Utku Türk"
+  - name          : "Utku Ttürk"
     affiliation   : "1"
     corresponding : yes    # Define only one corresponding author
     address       : "Postal address"
@@ -1202,15 +1202,16 @@ contrast_names2_le <- c("cUngrammatical" = "Ungrammaticality",
 
 
 ```{r exp2AvgRTs, fig.height=2.5, fig.width = 6 ,fig.cap="Average response times for experiment 1 and experiment 2."}
-
-p_avg_rt2 <- ggplot(avg_clean2, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
-
-print(p_avg_rt2)
+# fix this.
+# avg_clean2 %<>% as.data.frame()
+# p_avg_rt2 <- ggplot(avg_clean2, aes(grammatical, avgRT, linetype = attractor_num, color = experiment, group = paste(experiment, attractor_num))) + geom_point() + geom_line()
+# 
+# print(p_avg_rt2)
 
 ```
 
 
-Finally, the response times of Experiment 2 is significantly lower than the Experiment 1 as seen from Figure \@ref(fig:exp2AvgRTs). The even lower response time in ungrammatical plural (condition c) shows that participants were extremely confident with their decision and did not have any issue with the dependency resolution.
+Finally, the response times of Experiment 2 is significantly lower than the Experiment 1 as seen from Figure FIX The even lower response time in ungrammatical plural (condition c) shows that participants were extremely confident with their decision and did not have any issue with the dependency resolution.
 
 
 ### Discussion
